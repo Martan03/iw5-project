@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2FAFABB3-5418-45FF-9D22-0A4A50A1EBA4}|IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.ef\\formsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2FAFABB3-5418-45FF-9D22-0A4A50A1EBA4}|IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj|solutionrelative:iw5forms.api.dal.ef\\formsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\entities\\userentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\entities\\userentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\entities\\questionentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\entities\\questionentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FAFABB3-5418-45FF-9D22-0A4A50A1EBA4}|IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.ef\\formsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FAFABB3-5418-45FF-9D22-0A4A50A1EBA4}|IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj|solutionrelative:iw5forms.api.dal.ef\\formsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\entities\\formentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,32 +19,32 @@
       "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\entities\\answerentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\entities\\ientity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\entities\\ientity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\entities\\entitybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\entities\\entitybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2FAFABB3-5418-45FF-9D22-0A4A50A1EBA4}|IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.ef\\iw5forms.api.dal.ef.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{2FAFABB3-5418-45FF-9D22-0A4A50A1EBA4}|IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj|solutionrelative:iw5forms.api.dal.ef\\iw5forms.api.dal.ef.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98DEF090-AC58-43A8-8CBD-47F604C358C9}|IW5Forms.Common.Models\\IW5Forms.Common.Models.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.common.models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98DEF090-AC58-43A8-8CBD-47F604C358C9}|IW5Forms.Common.Models\\IW5Forms.Common.Models.csproj|solutionrelative:iw5forms.common.models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\repositories\\iquestionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\repositories\\iquestionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98DEF090-AC58-43A8-8CBD-47F604C358C9}|IW5Forms.Common.Models\\IW5Forms.Common.Models.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.common.models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98DEF090-AC58-43A8-8CBD-47F604C358C9}|IW5Forms.Common.Models\\IW5Forms.Common.Models.csproj|solutionrelative:iw5forms.common.models\\questionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\repositories\\iformrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\repositories\\iformrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98DEF090-AC58-43A8-8CBD-47F604C358C9}|IW5Forms.Common.Models\\IW5Forms.Common.Models.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.common.models\\answermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98DEF090-AC58-43A8-8CBD-47F604C358C9}|IW5Forms.Common.Models\\IW5Forms.Common.Models.csproj|solutionrelative:iw5forms.common.models\\answermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\repositories\\ianswerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\repositories\\ianswerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98DEF090-AC58-43A8-8CBD-47F604C358C9}|IW5Forms.Common.Models\\IW5Forms.Common.Models.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.common.models\\formmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98DEF090-AC58-43A8-8CBD-47F604C358C9}|IW5Forms.Common.Models\\IW5Forms.Common.Models.csproj|solutionrelative:iw5forms.common.models\\formmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\iw5forms.api.dal.common.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\iw5forms.api.dal.common.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|c:\\users\\honza\\onedrive - vut\\school\\iw5\\projekt\\iw5forms.api.dal.common\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2AC8E9F2-1D0C-4536-92CA-B2B00F020F5E}|IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj|solutionrelative:iw5forms.api.dal.common\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,71 +54,110 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IW5Forms.Api.DAL.EF",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj",
-              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj",
-              "RelativeToolTip": "IW5Forms.Api.DAL.EF\\IW5Forms.Api.DAL.EF.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-10-18T21:22:32.539Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AnswerEntity.cs",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\AnswerEntity.cs",
-              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Entities\\AnswerEntity.cs",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\AnswerEntity.cs",
-              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Entities\\AnswerEntity.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA0AAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "FormsDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.EF\\FormsDbContext.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.EF\\FormsDbContext.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.EF\\FormsDbContext.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.EF\\FormsDbContext.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAzwB4AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T21:10:18.181Z",
+              "WhenOpened": "2024-10-20T15:14:19.593Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "QuestionEntity.cs",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\QuestionEntity.cs",
-              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Entities\\QuestionEntity.cs",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\QuestionEntity.cs",
-              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Entities\\QuestionEntity.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T21:10:04.092Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "FormEntity.cs",
               "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\FormEntity.cs",
               "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Entities\\FormEntity.cs",
               "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\FormEntity.cs",
               "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Entities\\FormEntity.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABoAAABcAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAUwB4AAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T21:04:43.096Z",
+              "WhenOpened": "2024-10-20T15:09:21.587Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserEntity.cs",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\UserEntity.cs",
-              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Entities\\UserEntity.cs",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\UserEntity.cs",
-              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Entities\\UserEntity.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAiwBQAAAA3AAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "AnswerEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\AnswerEntity.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Entities\\AnswerEntity.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\AnswerEntity.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Entities\\AnswerEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T20:49:48.389Z",
+              "WhenOpened": "2024-10-20T15:08:24.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QuestionEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\QuestionEntity.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Entities\\QuestionEntity.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\QuestionEntity.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Entities\\QuestionEntity.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T15:07:25.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Repositories\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IUserRepository.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Repositories\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T14:41:05.835Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IQuestionRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IQuestionRepository.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Repositories\\IQuestionRepository.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IQuestionRepository.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Repositories\\IQuestionRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T14:39:31.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IFormRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IFormRepository.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Repositories\\IFormRepository.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IFormRepository.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Repositories\\IFormRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T14:38:27.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IAnswerRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IAnswerRepository.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Repositories\\IAnswerRepository.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IAnswerRepository.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Repositories\\IAnswerRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T14:36:59.601Z",
               "EditorCaption": ""
             },
             {
@@ -133,87 +168,35 @@
               "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Entities\\EntityBase.cs",
               "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\EntityBase.cs",
               "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Entities\\EntityBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T20:59:29.469Z",
+              "WhenOpened": "2024-10-20T14:33:23.364Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FormsDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.EF\\FormsDbContext.cs",
-              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.EF\\FormsDbContext.cs",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.EF\\FormsDbContext.cs",
-              "RelativeToolTip": "IW5Forms.Api.DAL.EF\\FormsDbContext.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAA8wBkAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "IEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\IEntity.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Entities\\IEntity.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Entities\\IEntity.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Entities\\IEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T20:46:23.582Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UserModel.cs",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Common.Models\\UserModel.cs",
-              "RelativeDocumentMoniker": "IW5Forms.Common.Models\\UserModel.cs",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Common.Models\\UserModel.cs",
-              "RelativeToolTip": "IW5Forms.Common.Models\\UserModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T21:12:26.135Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "QuestionModel.cs",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Common.Models\\QuestionModel.cs",
-              "RelativeDocumentMoniker": "IW5Forms.Common.Models\\QuestionModel.cs",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Common.Models\\QuestionModel.cs",
-              "RelativeToolTip": "IW5Forms.Common.Models\\QuestionModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T21:11:28.794Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AnswerModel.cs",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Common.Models\\AnswerModel.cs",
-              "RelativeDocumentMoniker": "IW5Forms.Common.Models\\AnswerModel.cs",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Common.Models\\AnswerModel.cs",
-              "RelativeToolTip": "IW5Forms.Common.Models\\AnswerModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T21:10:22.453Z",
+              "WhenOpened": "2024-10-20T14:32:31.991Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "FormModel.cs",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Common.Models\\FormModel.cs",
-              "RelativeDocumentMoniker": "IW5Forms.Common.Models\\FormModel.cs",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Common.Models\\FormModel.cs",
-              "RelativeToolTip": "IW5Forms.Common.Models\\FormModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IRepository.cs",
+              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\Repositories\\IRepository.cs",
+              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\Repositories\\IRepository.cs",
+              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\Repositories\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T21:04:49.155Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "IW5Forms.Api.DAL.Common",
-              "DocumentMoniker": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj",
-              "RelativeDocumentMoniker": "IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj",
-              "ToolTip": "C:\\Users\\Honza\\OneDrive - VUT\\School\\IW5\\projekt\\IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj",
-              "RelativeToolTip": "IW5Forms.Api.DAL.Common\\IW5Forms.Api.DAL.Common.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-10-18T21:02:50.873Z",
+              "WhenOpened": "2024-10-20T14:31:49.15Z",
               "EditorCaption": ""
             }
           ]

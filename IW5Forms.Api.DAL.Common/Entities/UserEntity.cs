@@ -18,7 +18,9 @@ namespace IW5Forms.Api.DAL.Common.Entities
         public required UserRoles Role { get; set; }
 
         // Forms contain all accessible forms by this user and bool whether the form was filled by the user
-        public List<FormEntity> Forms { get; set; } = [];
+        public ICollection<FormEntity> AvailableForms { get; set; } = new List<FormEntity>();
+
+        public ICollection<FormEntity> OwnedForms { get; set; } = new List<FormEntity>();
     }
 
     public class UserEntityMapperProfile : Profile
