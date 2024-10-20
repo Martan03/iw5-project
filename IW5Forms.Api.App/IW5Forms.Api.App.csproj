@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -17,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\IW5Forms.Api.DAL.Common\IW5Forms.Api.DAL.Common.csproj" />
     <ProjectReference Include="..\IW5Forms.Api.DAL.EF\IW5Forms.Api.DAL.EF.csproj" />
+    <ProjectReference Include="..\IW5Forms.Common.Models\IW5Forms.Common.Models.csproj" />
   </ItemGroup>
 
 </Project>

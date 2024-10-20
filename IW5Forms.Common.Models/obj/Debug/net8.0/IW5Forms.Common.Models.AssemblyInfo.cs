@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IW5Forms.Common.Models")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e799f8aaef34ded3808d8a942ababe7bdd335df")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18fe1730fabfa3a4d6256dd4df0d2e02b83dce2f")]
 [assembly: System.Reflection.AssemblyProductAttribute("IW5Forms.Common.Models")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IW5Forms.Common.Models")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

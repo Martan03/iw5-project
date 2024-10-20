@@ -10,7 +10,7 @@ namespace IW5Forms.Api.App
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddTransient<SeedScript>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -27,6 +27,7 @@ namespace IW5Forms.Api.App
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                SeedData(app);
             }
 
             app.UseHttpsRedirection();
@@ -37,6 +38,17 @@ namespace IW5Forms.Api.App
             app.MapControllers();
 
             app.Run();
+        }
+
+        static void SeedData(IHost app)
+        {
+            var facorry = app.Services.GetService<IServiceScopeFactory>();
+
+            using (var scope = facorry.CreateScope())
+            {
+                var service = scope.ServiceProvider.GetService<SeedScript>();
+                service.SeedData();
+            }
         }
     }
 }

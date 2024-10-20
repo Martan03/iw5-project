@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IW5Forms.Api.DAL.Common", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IW5Forms.Common.Models", "IW5Forms.Common.Models\IW5Forms.Common.Models.csproj", "{98DEF090-AC58-43A8-8CBD-47F604C358C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IW5Forms.Api.App", "IW5Forms.Api.App\IW5Forms.Api.App.csproj", "{D325CDBB-7B27-4421-93AD-D5997831B35A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IW5Forms.Api.App", "IW5Forms.Api.App\IW5Forms.Api.App.csproj", "{D325CDBB-7B27-4421-93AD-D5997831B35A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
