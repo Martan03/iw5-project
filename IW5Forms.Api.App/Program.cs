@@ -27,7 +27,7 @@ namespace IW5Forms.Api.App
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                SeedData(app);
+                //SeedData(app);
             }
 
             app.UseHttpsRedirection();

@@ -63,13 +63,13 @@ namespace IW5Forms.Api.DAL.EF.Migrations
                         column: x => x.AvailableFormsId,
                         principalTable: "Forms",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_FormEntityUserEntity_Users_UsersWithAccessId",
                         column: x => x.UsersWithAccessId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

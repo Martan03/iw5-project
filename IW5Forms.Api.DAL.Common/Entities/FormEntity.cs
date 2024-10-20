@@ -28,7 +28,7 @@ namespace IW5Forms.Api.DAL.Common.Entities
         public Guid OwnerId { get; set; }
         public UserEntity? Owner { get; set; }
 
-        public ICollection<QuestionEntity> Questions { get; } = new List<QuestionEntity>();
+        public ICollection<QuestionEntity> Questions { get; set; } = new List<QuestionEntity>();
     }
 
     public class FormEntityMapperProfile : Profile

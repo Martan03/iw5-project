@@ -12,8 +12,8 @@ namespace IW5Forms.Api.DAL.Common.Repositories
         IList<TEntity> GetAll();
         TEntity? GetById(Guid id);
         Guid Insert(TEntity entity);
-        Guid Update(TEntity entity);
-        void Delete(TEntity entity);
+        Guid? Update(TEntity entity);
+        void Remove(Guid id);
         bool Exists(Guid id);
     }
 }
