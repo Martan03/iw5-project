@@ -25,6 +25,7 @@ namespace IW5Forms.Api.App
                     new FormEntity()
                     {
                         BeginTime = DateTime.Today, EndTime = DateTime.Now, Id = Guid.NewGuid(), Incognito = false,
+                        Name = "Lets goo", Public = true, OwnerId = Guid.NewGuid(),
                         SingleTry = false, Questions = new List<QuestionEntity>()
                         {
                             new QuestionEntity()

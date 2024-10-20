@@ -9,41 +9,36 @@ using IW5Forms.Api.DAL.Common.Repositories;
 
 namespace IW5Forms.Api.DAL.EF.Repositories
 {
-    public class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposable
+    public class RepositoryBase<TEntity>(FormsDbContext dbContext) : IRepository<TEntity>, IDisposable
         where TEntity : class, IEntity
     {
-        protected readonly FormsDbContext dbContext;
-
-        public RepositoryBase(FormsDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        protected readonly FormsDbContext DbContext = dbContext;
 
         public virtual IList<TEntity> GetAll()
         {
-            return dbContext.Set<TEntity>().ToList();
+            return DbContext.Set<TEntity>().ToList();
         }
 
         public virtual TEntity? GetById(Guid id)
         {
-            return dbContext.Set<TEntity>().SingleOrDefault(entity => entity.Id == id);
+            return DbContext.Set<TEntity>().SingleOrDefault(entity => entity.Id == id);
         }
 
         public virtual Guid Insert(TEntity entity)
         {
-            var createdEntity = dbContext.Set<TEntity>().Add(entity);
-            dbContext.SaveChanges();
+            var createdEntity = DbContext.Set<TEntity>().Add(entity);
+            DbContext.SaveChanges();
 
             return createdEntity.Entity.Id;
         }
 
-        public virtual Guid? Update(TEntity entity)
+        public virtual Guid? Update(TEntity questionEntity)
         {
-            if (Exists(entity.Id))
+            if (Exists(questionEntity.Id))
             {
-                dbContext.Set<TEntity>().Attach(entity);
-                var updatedEntity = dbContext.Set<TEntity>().Update(entity);
-                dbContext.SaveChanges();
+                DbContext.Set<TEntity>().Attach(questionEntity);
+                var updatedEntity = DbContext.Set<TEntity>().Update(questionEntity);
+                DbContext.SaveChanges();
 
                 return updatedEntity.Entity.Id;
             }
@@ -52,7 +47,7 @@ namespace IW5Forms.Api.DAL.EF.Repositories
 
         public virtual bool Exists(Guid id)
         {
-            return dbContext.Set<TEntity>().Any(entity => entity.Id == id);
+            return DbContext.Set<TEntity>().Any(entity => entity.Id == id);
         }
 
         public virtual void Remove(Guid id)
@@ -60,14 +55,14 @@ namespace IW5Forms.Api.DAL.EF.Repositories
             var entity = GetById(id);
             if (entity != null)
             {
-                dbContext.Set<TEntity>().Remove(entity);
-                dbContext.SaveChanges();
+                DbContext.Set<TEntity>().Remove(entity);
+                DbContext.SaveChanges();
             }
         }
 
         public void Dispose()
         {
-            dbContext.Dispose();
+            DbContext.Dispose();
         }
     }
 }

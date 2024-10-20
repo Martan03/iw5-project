@@ -10,6 +10,7 @@ namespace IW5Forms.Api.DAL.Common.Entities
 {
     public record FormEntity : EntityBase
     {
+        public required string Name { get; set; }
         public required DateTime BeginTime { get; set; }
         public required DateTime EndTime { get; set; }
 
@@ -22,10 +23,12 @@ namespace IW5Forms.Api.DAL.Common.Entities
         // if SingleTry is true, UsersCompleted will store users which already completed the form
         public ICollection<Guid>? CompletedUsersId { get; set; } = new List<Guid>();
 
-        // stores Users which have access to this form
-        public List<UserEntity> UsersWithAccess { get; set; } = [];
+        // public form doesnt require logged user
+        public required bool Public { get; set; }
+        // stores Users which have access to this form, if Public is true
+        public ICollection<UserEntity>? UsersWithAccess { get; set; } = new List<UserEntity>();
 
-        public Guid OwnerId { get; set; }
+        public required Guid OwnerId { get; set; }
         public UserEntity? Owner { get; set; }
 
         public ICollection<QuestionEntity> Questions { get; set; } = new List<QuestionEntity>();
