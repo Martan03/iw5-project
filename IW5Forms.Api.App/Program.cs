@@ -1,9 +1,12 @@
 using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
-using IW5Forms.Common.Extentions;
-using ServiceCollectionExtensions = IW5Forms.Common.Extentions.ServiceCollectionExtensions;
+using IW5Forms.Api.BL.Facades;
+using IW5Forms.Common.Models.Answer;
+using IW5Forms.Common.Models.Form;
+using IW5Forms.Common.Models.Question;
+using IW5Forms.Common.Models.User;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Localization;
+using ServiceCollectionExtensions = IW5Forms.Common.Extentions.ServiceCollectionExtensions;
 
 namespace IW5Forms.Api.App
 {
@@ -80,26 +83,86 @@ namespace IW5Forms.Api.App
 
         private static void UseSearchEndpoints(RouteGroupBuilder routeGroupBuilder)
         {
-         
+            
+            var searchEndpoints = routeGroupBuilder.MapGroup("search")
+                .WithTags("search");
+
+            searchEndpoints.MapGet("/user", (IUserFacade userFacade, string name) => userFacade.SearchByName(name));
+            searchEndpoints.MapGet("/question/text", (IQuestionFacade questionFacade, string text) => questionFacade.SearchByText(text));
+            searchEndpoints.MapGet("/question/description", (IQuestionFacade questionFacade, string description) => questionFacade.SearchByDescription(description));
         }
 
         private static void UseUserEndpoints(RouteGroupBuilder routeGroupBuilder)
         {
+            var userEndpoints = routeGroupBuilder.MapGroup("user")
+                .WithTags("user");
 
+            userEndpoints.MapGet("", (IUserFacade userFacade) => userFacade.GetAll());
+
+            userEndpoints.MapGet("{id:guid}", Results<Ok<UserDetailModel>, NotFound<string>> (Guid id, IUserFacade userFacade)
+                => userFacade.GetById(id) is { } user
+                    ? TypedResults.Ok(user)
+                    : TypedResults.NotFound("User with id:" + id + " was not found."));
+
+            userEndpoints.MapPost("", (UserDetailModel user, IUserFacade userFacade) => userFacade.Create(user));
+            userEndpoints.MapPut("", (UserDetailModel user, IUserFacade userFacade) => userFacade.Update(user));
+            userEndpoints.MapPost("upsert", (UserDetailModel user, IUserFacade userFacade) => userFacade.CreateOrUpdate(user));
+            userEndpoints.MapDelete("{id:guid}", (Guid id, IUserFacade userFacade) => userFacade.Delete(id));
+        
         }
 
         private static void UseFormEndpoints(RouteGroupBuilder routeGroupBuilder)
         {
+            var formEndpoints = routeGroupBuilder.MapGroup("form")
+                .WithTags("form");
+            
+            formEndpoints.MapGet("", (IFormFacade formFacade) => formFacade.GetAll());
 
+            formEndpoints.MapGet("{id:guid}", Results<Ok<FormDetailModel>, NotFound<string>> (Guid id, IFormFacade formFacade)
+                => formFacade.GetById(id) is { } form
+                    ? TypedResults.Ok(form)
+                    : TypedResults.NotFound("Form with id:" + id + " was not found."));
+
+            formEndpoints.MapPost("", (FormDetailModel form, IFormFacade formFacade) => formFacade.Create(form));
+            formEndpoints.MapPut("", (FormDetailModel form, IFormFacade formFacade) => formFacade.Update(form));
+            formEndpoints.MapPost("upsert", (FormDetailModel form, IFormFacade formFacade) => formFacade.CreateOrUpdate(form));
+            formEndpoints.MapDelete("{id:guid}", (Guid id, IFormFacade formFacade) => formFacade.Delete(id));
         }
 
         private static void UseAnswerEndpoints(RouteGroupBuilder routeGroupBuilder)
         {
+            var answerEndpoints = routeGroupBuilder.MapGroup("answer")
+                .WithTags("answer");
 
+            answerEndpoints.MapGet("", (IAnswerFacade answerFacade) => answerFacade.GetAll());
+
+            answerEndpoints.MapGet("{id:guid}", Results<Ok<AnswerListAndDetailModel>, NotFound<string>> (Guid id, IAnswerFacade answerFacade)
+                => answerFacade.GetById(id) is { } answer
+                    ? TypedResults.Ok(answer)
+                    : TypedResults.NotFound("Answer with id:" + id + " was not found."));
+
+            answerEndpoints.MapPost("", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.Create(answer));
+            answerEndpoints.MapPut("", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.Update(answer));
+            answerEndpoints.MapPost("upsert", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.CreateOrUpdate(answer));
+            answerEndpoints.MapDelete("{id:guid}", (Guid id, IAnswerFacade answerFacade) => answerFacade.Delete(id));
         }
 
         private static void UseQuestionEndpoints(RouteGroupBuilder routeGroupBuilder)
         {
+            var questionEndpoints = routeGroupBuilder.MapGroup("question")
+                .WithTags("question");
+
+            questionEndpoints.MapGet("", (IQuestionFacade questionFacade) => questionFacade.GetAll());
+
+            questionEndpoints.MapGet("{id:guid}", Results<Ok<QuestionDetailModel>, NotFound<string>> (Guid id, IQuestionFacade questionFacade)
+                => questionFacade.GetById(id) is { } question
+                    ? TypedResults.Ok(question)
+                    : TypedResults.NotFound("Question with id:" + id + " was not found."));
+
+            questionEndpoints.MapPost("", (QuestionDetailModel question, IQuestionFacade questionFacade) => questionFacade.Create(question));
+            questionEndpoints.MapPut("", (QuestionDetailModel question, IQuestionFacade questionFacade) => questionFacade.Update(question));
+            questionEndpoints.MapPost("upsert", (QuestionDetailModel question, IQuestionFacade questionFacade) => questionFacade.CreateOrUpdate(question));
+            questionEndpoints.MapDelete("{id:guid}", (Guid id, IQuestionFacade questionFacade) => questionFacade.Delete(id));
 
         }
 
