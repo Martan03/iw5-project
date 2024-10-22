@@ -78,7 +78,7 @@ namespace IW5Forms.Api.App
             serviceCollection.AddTransient<SeedScript>();
             serviceCollection.AddDbContext<FormsDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("TestConnection"));
+                options.UseSqlServer(configuration.GetConnectionString("TestConnection"));
             });
 
             ServiceCollectionExtensions.AddInstaller<ApiBLInstaller>(serviceCollection);
