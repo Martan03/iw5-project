@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IW5Forms.Api.DAL.Common.Repositories;
 
 namespace IW5Forms.Api.BL.Facades
 {    // přidat při merge s DAL
-    public class QuestionFacade(/*IQuestionRepository*/ questionRepository, IMapper mapper) : IQuestionFacade
+    public class QuestionFacade(IQuestionRepository questionRepository, IMapper mapper) : IQuestionFacade
     {
         public List<QuestionListModel> GetAll() 
         {

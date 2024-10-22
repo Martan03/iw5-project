@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IW5Forms.Api.DAL.Common\IW5Forms.Api.DAL.Common.csproj" />
     <ProjectReference Include="..\IW5Forms.Common.BL\IW5Forms.Common.BL.csproj" />
     <ProjectReference Include="..\IW5Forms.Common.Models\IW5Forms.Common.Models.csproj" />
     <ProjectReference Include="..\IW5Forms.Common\IW5Forms.Common.csproj" />

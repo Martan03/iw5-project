@@ -22,17 +22,9 @@ namespace IW5Forms.Api.DAL.EF.Repositories
         public override UserEntity? GetById(Guid id)
         {
             return DbContext.Users
-                .Include(user => user.OwnedForms)
-                .ThenInclude(form => form.Name)
-                .Include(user => user.AvailableForms)
-                .ThenInclude(form => form.Name)
+                .Include(user => user.Forms)
+                .ThenInclude(form => form.FormRelationTypes)
                 .SingleOrDefault(user => user.Id == id);
-        }
-
-        public void RemoveWIthOwnedForms(Guid id)
-        {
-            DbContext.Forms.Where(entity => entity.OwnerId == id).ExecuteDelete();
-            base.Remove(id);
         }
 
         public override Guid? Update(UserEntity questionEntity)
@@ -40,8 +32,7 @@ namespace IW5Forms.Api.DAL.EF.Repositories
             if (Exists(questionEntity.Id))
             {
                 var existingUser = DbContext.Users
-                    .Include(entity => entity.AvailableForms)
-                    .Include(entity => entity.OwnedForms)
+                    .Include(entity => entity.Forms)
                     .SingleOrDefault(user => user.Id == questionEntity.Id);
 
                 mapper.Map(questionEntity, existingUser);

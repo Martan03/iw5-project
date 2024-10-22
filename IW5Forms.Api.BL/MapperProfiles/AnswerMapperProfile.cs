@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IW5Forms.Api.DAL.Common.Entities;
 
 namespace IW5Forms.Api.BL.MapperProfiles
 {
@@ -13,8 +14,8 @@ namespace IW5Forms.Api.BL.MapperProfiles
         public AnswerMapperProfile()
         {
             // přidat při merge s DAL
-            CreateMap </*AnswerEntity*/, AnswerListAndDetailModel>();
-            CreateMap<AnswerListAndDetailModel, /*AnswerEntity*/>();
+            CreateMap<AnswerEntity, AnswerListAndDetailModel>();
+            CreateMap<AnswerListAndDetailModel, AnswerEntity>();
         }
     }
 }

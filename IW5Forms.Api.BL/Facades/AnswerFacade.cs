@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IW5Forms.Api.DAL.Common.Repositories;
 
 namespace IW5Forms.Api.BL.Facades
 {   // přidat při merge s DAL
-    public class AnswerFacade(/*IAnswerRepository*/ answerRepository, IMapper mapper) : IAnswerFacade
+    public class AnswerFacade(IAnswerRepository answerRepository, IMapper mapper) : IAnswerFacade
     {
         public List<AnswerListAndDetailModel> GetAll()
         {
-
+            
         }
 
         public AnswerListAndDetailModel? GetById(Guid id)

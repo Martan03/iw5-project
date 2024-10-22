@@ -9,6 +9,7 @@ namespace IW5Forms.API.DAL
         public DbSet<AnswerEntity> Answers { get; set; }
         public DbSet<FormEntity> Forms { get; set; }
         public DbSet<QuestionEntity> Questions { get; set; }
+        public DbSet<UserFormEntity> UserForms { get; set; }
 
 
         public FormsDbContext(DbContextOptions<FormsDbContext> options) : base(options)
@@ -32,17 +33,11 @@ namespace IW5Forms.API.DAL
                 .WithOne(answerEntity => answerEntity.Question)
                 .HasForeignKey(answerEntity => answerEntity.QuestionId);
 
-            // 1-N User -> Form
+            // 1-N User -> UserFormEntity
             modelBuilder.Entity<UserEntity>()
-                .HasMany(userEntity => userEntity.OwnedForms)
-                .WithOne(formEntity => formEntity.Owner)
-                .HasForeignKey(formEntity => formEntity.OwnerId);
-
-            // N-N User <-> Form
-            modelBuilder.Entity<UserEntity>()
-                .HasMany(userEntity => userEntity.AvailableForms)
-                .WithMany(formEntity => formEntity.UsersWithAccess);
-
+                .HasMany(userEntity => userEntity.Forms)
+                .WithOne(formEntity => formEntity.User)
+                .HasForeignKey(formEntity => formEntity.UserId);
 
         }
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IW5Forms.Api.DAL.Common.Entities;
 
 namespace IW5Forms.Api.BL.MapperProfiles
 {
@@ -13,13 +14,12 @@ namespace IW5Forms.Api.BL.MapperProfiles
     {
         public UserMapperProfile()
         {
-            // přidat při merge s DAL
-            CreateMap </*UserEntity*/, UserDetailModel > ();
-            CreateMap </*UserEntity*/, UserListModel > ();
+            CreateMap <UserEntity, UserDetailModel > ();
+            CreateMap <UserEntity, UserListModel > ();
 
-            CreateMap<UserDetailModel, /*UserEntity*/>();
+            CreateMap<UserDetailModel, UserEntity>();
 
-            CreateMap </*UserFormEntity*/, UserDetailFormModel>();
+            CreateMap <UserFormEntity, UserDetailFormModel>();
         }
     }
 }

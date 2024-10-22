@@ -24,12 +24,12 @@ namespace IW5Forms.Api.DAL.Common.Entities
         public ICollection<Guid>? CompletedUsersId { get; set; } = new List<Guid>();
 
         // public form doesnt require logged user
-        public required bool Public { get; set; }
+        //public required bool Public { get; set; }
         // stores Users which have access to this form, if Public is true
-        public ICollection<UserEntity>? UsersWithAccess { get; set; } = new List<UserEntity>();
+        //public ICollection<UserEntity>? UsersWithAccess { get; set; } = new List<UserEntity>();
 
-        public required Guid OwnerId { get; set; }
-        public UserEntity? Owner { get; set; }
+        //public required Guid OwnerId { get; set; }
+        //public UserEntity? Owner { get; set; }
 
         public ICollection<QuestionEntity> Questions { get; set; } = new List<QuestionEntity>();
     }
