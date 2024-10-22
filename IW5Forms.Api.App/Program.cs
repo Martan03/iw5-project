@@ -1,4 +1,12 @@
 using AutoMapper;
+using IW5Forms.API.DAL;
+using IW5Forms.Api.DAL.Common.Entities;
+using IW5Forms.Api.DAL.Common.Repositories;
+using IW5Forms.Api.DAL.EF.Repositories;
+using IW5Forms.Common.Models;
+using Microsoft.EntityFrameworkCore;
+using IW5Forms.Api.DAL.EF.Installers;
+using Microsoft.Extensions.DependencyInjection;
 using IW5Forms.Api.BL.Facades;
 using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Form;
@@ -14,15 +22,37 @@ namespace IW5Forms.Api.App
     {
         public static void Main(string[] args)
         {
+
             var builder = WebApplication.CreateBuilder();
 
+      // after merge
+            builder.Services.AddTransient<SeedScript>();
+      builder.Services.AddDbContext<FormsDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("TestConnection"));
+            });
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddAutoMapper(typeof(EntityBase));
+      
+      
+      
+      // before merge
             ConfigureCors(builder.Services);
             ConfigureOpenApiDocuments(builder.Services);
             ConfigureDependencies(builder.Services, builder.Configuration);
             ConfigureAutoMapper(builder.Services);
 
             var app = builder.Build();
-
+      
+      // after merge
+      if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+                //SeedData(app);
+            }
+      
+      //before merge
             ValidateAutoMapperConfiguration(app.Services);
 
             UseDevelopmentSettings(app);
@@ -32,6 +62,17 @@ namespace IW5Forms.Api.App
             UseOpenApi(app);
 
             app.Run();
+        }
+  
+          static void SeedData(IHost app)
+        {
+            var facorry = app.Services.GetService<IServiceScopeFactory>();
+
+            using (var scope = facorry.CreateScope())
+            {
+                var service = scope.ServiceProvider.GetService<SeedScript>();
+                service.SeedData();
+            }
         }
 
         private static void ConfigureCors(IServiceCollection serviceCollection)

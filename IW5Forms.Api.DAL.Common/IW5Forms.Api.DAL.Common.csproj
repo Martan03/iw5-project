@@ -1,15 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-
+    <OutputType>library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IW5Forms.Common\IW5Forms.Common.csproj" />
+    <ProjectReference Include="..\IW5Forms.Common.Models\IW5Forms.Common.Models.csproj" />
   </ItemGroup>
 
 </Project>
