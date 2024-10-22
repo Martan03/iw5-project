@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Scrutor" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IW5Forms.Common.BL\IW5Forms.Common.BL.csproj" />
+    <ProjectReference Include="..\IW5Forms.Common.Models\IW5Forms.Common.Models.csproj" />
+    <ProjectReference Include="..\IW5Forms.Common\IW5Forms.Common.csproj" />
+  </ItemGroup>
+
+</Project>
