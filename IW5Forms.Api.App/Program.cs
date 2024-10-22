@@ -25,34 +25,13 @@ namespace IW5Forms.Api.App
 
             var builder = WebApplication.CreateBuilder();
 
-      // after merge
-            builder.Services.AddTransient<SeedScript>();
-      builder.Services.AddDbContext<FormsDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("TestConnection"));
-            });
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddAutoMapper(typeof(EntityBase));
-      
-      
-      
-      // before merge
             ConfigureCors(builder.Services);
             ConfigureOpenApiDocuments(builder.Services);
             ConfigureDependencies(builder.Services, builder.Configuration);
             ConfigureAutoMapper(builder.Services);
 
             var app = builder.Build();
-      
-      // after merge
-      if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-                //SeedData(app);
-            }
-      
-      //before merge
+
             ValidateAutoMapperConfiguration(app.Services);
 
             UseDevelopmentSettings(app);
@@ -64,7 +43,7 @@ namespace IW5Forms.Api.App
             app.Run();
         }
   
-          static void SeedData(IHost app)
+        static void SeedData(IHost app)
         {
             var facorry = app.Services.GetService<IServiceScopeFactory>();
 
@@ -96,12 +75,18 @@ namespace IW5Forms.Api.App
         {
             //EF stuff
 
+            serviceCollection.AddTransient<SeedScript>();
+            serviceCollection.AddDbContext<FormsDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("TestConnection"));
+            });
+
             ServiceCollectionExtensions.AddInstaller<ApiBLInstaller>(serviceCollection);
         }
 
         private static void ConfigureAutoMapper(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddAutoMapper(typeof(ApiBLInstaller));
+            serviceCollection.AddAutoMapper(typeof(EntityBase), typeof(ApiBLInstaller));
         }
 
         private static void ValidateAutoMapperConfiguration(IServiceProvider serviceProvider)
