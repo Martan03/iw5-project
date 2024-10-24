@@ -10,18 +10,20 @@ public class QuestionRepository : IQuestionRepository
 
     public QuestionRepository(Storage storage)
     {
-        this.questions = storage.Questions;
-        this.answers = storage.Answers;
+        questions = storage.Questions;
+        answers = storage.Answers;
     }
 
     public IList<QuestionEntity> GetAll()
     {
-        return this.questions;
+        return questions;
     }
 
     public QuestionEntity? GetById(Guid id)
     {
-        var questionEntity = questions.SingleOrDefault(recipe => recipe.Id == id);
+        var questionEntity = questions.SingleOrDefault(
+            recipe => recipe.Id == id
+        );
 
         if (questionEntity is not null)
         {
@@ -42,7 +44,7 @@ public class QuestionRepository : IQuestionRepository
                 Id = answer.Id,
                 Text = answer.Text,
                 ResponderId = answer.ResponderId,
-                QuestionId = answer.QuestionId,
+                QuestionId = entity.Id,
             });
         }
 
@@ -57,7 +59,8 @@ public class QuestionRepository : IQuestionRepository
 
         if (existingQuestion is not null)
         {
-            existingQuestion.Answers = GetAnswersByQuestionId(questionEntity.Id);
+            existingQuestion.Answers =
+                GetAnswersByQuestionId(questionEntity.Id);
             UpdateAnswers(questionEntity, existingQuestion);
         }
 
@@ -89,7 +92,7 @@ public class QuestionRepository : IQuestionRepository
     }
 
     private void InsertAnswers(
-        QuestionEntity existing, 
+        QuestionEntity existing,
         IEnumerable<AnswerEntity> answersToInsert
     )
     {
@@ -117,13 +120,10 @@ public class QuestionRepository : IQuestionRepository
 
         var answersToUpdate = updated.Answers.Where(t =>
             existing.Answers.Select(a => a.Id).Contains(t.Id));
-        UpdateAnswers(existing, answersToUpdate);
+        UpdateAnswers(answersToUpdate);
     }
 
-    private void UpdateAnswers(
-        QuestionEntity questionEntity,
-        IEnumerable<AnswerEntity> answersToUpdate
-    )
+    private void UpdateAnswers(IEnumerable<AnswerEntity> answersToUpdate)
     {
         foreach (var answer in answersToUpdate)
         {

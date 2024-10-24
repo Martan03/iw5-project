@@ -95,21 +95,21 @@ public class Storage
         {
             Id = answerGuids[5],
             Text = "WiNDowS",
-            QuestionId = questionGuids[1],
+            QuestionId = questionGuids[2],
         });
 
         Answers.Add(new AnswerEntity
         {
             Id = answerGuids[6],
             Text = "Yes",
-            QuestionId = questionGuids[1],
+            QuestionId = questionGuids[3],
         });
 
         Answers.Add(new AnswerEntity
         {
             Id = answerGuids[7],
             Text = "Definitely yes",
-            QuestionId = questionGuids[1],
+            QuestionId = questionGuids[3],
         });
     }
 
@@ -156,7 +156,7 @@ public class Storage
         Forms.Add(new FormEntity
         {
             Id = formGuids[0],
-            Name = "Fruit and vegetable",
+            Name = "Fruit and vegetables",
             BeginTime = DateTime.UtcNow,
             EndTime = DateTime.UtcNow.AddDays(7),
             Incognito = false,

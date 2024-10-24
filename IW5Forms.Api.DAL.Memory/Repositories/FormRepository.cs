@@ -112,13 +112,10 @@ public class FormRepository : IFormRepository
 
         var questionsToUpdate = updated.Questions.Where(t =>
             existing.Questions.Select(a => a.Id).Contains(t.Id));
-        UpdateQuestions(existing, questionsToUpdate);
+        UpdateQuestions(questionsToUpdate);
     }
 
-    private void UpdateQuestions(
-        FormEntity formEntity,
-        IEnumerable<QuestionEntity> questionsToUpdate
-    )
+    private void UpdateQuestions(IEnumerable<QuestionEntity> questionsToUpdate)
     {
         foreach (var question in questionsToUpdate)
         {

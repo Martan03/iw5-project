@@ -10,8 +10,10 @@ namespace IW5Forms.Api.DAL.IntegrationTests;
 
 public interface IDatabaseFixture
 {
+    AnswerEntity? GetAnswerDirectly(Guid answerId);
     QuestionEntity? GetQuestionDirectly(Guid questionId);
     FormEntity? GetFormDirectly(Guid formId);
+    IQuestionRepository GetQuestionRepository();
     IFormRepository GetFormRepository();
     IList<Guid> AnswerGuids { get; }
     IList<Guid> QuestionGuids { get; }
