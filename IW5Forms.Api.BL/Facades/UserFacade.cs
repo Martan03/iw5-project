@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using IW5Forms.Common.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IW5Forms.Api.DAL.Common.Repositories;
-using IW5Forms.Common.Models.Form;
 using IW5Forms.Api.DAL.Common.Entities;
+using IW5Forms.Api.DAL.Common.Repositories;
+using IW5Forms.Common.Models.User;
 
 namespace IW5Forms.Api.BL.Facades
-{    
+{
     public class UserFacade(IUserRepository userRepository, IMapper mapper) : IUserFacade
     {
         public List<UserListModel> GetAll()
@@ -21,7 +15,9 @@ namespace IW5Forms.Api.BL.Facades
 
         public List<UserListModel> SearchByName(string name)
         {
-            return new List<UserListModel>();
+            var users = mapper.Map<List<UserListModel>>(userRepository.GetAll());
+            users.RemoveAll(u => !u.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+            return users;
         }
 
         public UserDetailModel? GetById(Guid id)

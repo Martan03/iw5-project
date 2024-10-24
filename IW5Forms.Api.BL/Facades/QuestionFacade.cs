@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using IW5Forms.Common.Models.Question;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IW5Forms.Api.DAL.Common.Repositories;
-using IW5Forms.Common.Models.Form;
 using IW5Forms.Api.DAL.Common.Entities;
+using IW5Forms.Api.DAL.Common.Repositories;
+using IW5Forms.Common.Models.Question;
 
 namespace IW5Forms.Api.BL.Facades
-{    // přidat při merge s DAL
+{
     public class QuestionFacade(IQuestionRepository questionRepository, IMapper mapper) : IQuestionFacade
     {
         public List<QuestionListModel> GetAll() 
@@ -21,14 +15,30 @@ namespace IW5Forms.Api.BL.Facades
 
         public List<QuestionListModel> SearchByText(string text)
         {
-            //dodelat
-            return new List<QuestionListModel>();
+            var questions = mapper.Map<List<QuestionListModel>>(questionRepository.GetAll());
+            questions.RemoveAll(q => !q.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
+            return questions;
         }
+
 
         public List<QuestionListModel> SearchByDescription(string description)
         {
-            //dodelat
-            return new List<QuestionListModel>();
+            var questions = mapper.Map<List<QuestionListModel>>(questionRepository.GetAll());
+            RemoveQuestionsNotContainingDescription(questions, description);
+            return questions;
+        }
+
+        private void RemoveQuestionsNotContainingDescription(List<QuestionListModel> questions, string description)
+        {
+            foreach (var question in questions)
+            {
+                var questionDetail = questionRepository.GetById(question.Id);
+
+                if (questionDetail is null || questionDetail.Description is null || !questionDetail.Description.Contains(description, StringComparison.OrdinalIgnoreCase))
+                {
+                    questions.Remove(question);
+                }
+            }
         }
 
         public QuestionDetailModel? GetById(Guid id) 
