@@ -4,6 +4,7 @@ using IW5Forms.API.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IW5Forms.Api.DAL.EF.Migrations
 {
     [DbContext(typeof(FormsDbContext))]
-    partial class FormsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241022220247_entity_overhaul")]
+    partial class entity_overhaul
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

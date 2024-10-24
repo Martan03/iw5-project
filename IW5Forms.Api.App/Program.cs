@@ -45,13 +45,13 @@ namespace IW5Forms.Api.App
   
         static void SeedData(IHost app)
         {
-            var facorry = app.Services.GetService<IServiceScopeFactory>();
+            //var facorry = app.Services.GetService<IServiceScopeFactory>();
 
-            using (var scope = facorry.CreateScope())
-            {
-                var service = scope.ServiceProvider.GetService<SeedScript>();
-                service.SeedData();
-            }
+            //using (var scope = facorry.CreateScope())
+            //{
+            //    var service = scope.ServiceProvider.GetService<SeedScript>();
+            //    service.SeedData();
+            //}
         }
 
         private static void ConfigureCors(IServiceCollection serviceCollection)
@@ -75,13 +75,15 @@ namespace IW5Forms.Api.App
         {
             //EF stuff
 
-            serviceCollection.AddTransient<SeedScript>();
+            //serviceCollection.AddTransient<SeedScript>();
             serviceCollection.AddDbContext<FormsDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("TestConnection"));
             });
 
             ServiceCollectionExtensions.AddInstaller<ApiBLInstaller>(serviceCollection);
+            ServiceCollectionExtensions.AddInstaller<RepositoriesInstaller>(serviceCollection);
+
         }
 
         private static void ConfigureAutoMapper(IServiceCollection serviceCollection)
@@ -92,7 +94,7 @@ namespace IW5Forms.Api.App
         private static void ValidateAutoMapperConfiguration(IServiceProvider serviceProvider)
         {
             var mapper = serviceProvider.GetRequiredService<IMapper>();
-            mapper.ConfigurationProvider.AssertConfigurationIsValid();
+            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
         private static void UseEndpoints(WebApplication application)
