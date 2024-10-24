@@ -36,7 +36,7 @@ namespace IW5Forms.Api.App
                             new QuestionEntity()
                             {
                                 Description = "random desc 2", Id = Guid.NewGuid(), QuestionType = QuestionType.Text,
-                                Text = "Kolik je šasu?"
+                                Text = "Kolik je času?"
                             },
                             new QuestionEntity()
                             {
