@@ -14,8 +14,8 @@ namespace IW5Forms.Api.BL.Facades
         List<QuestionListModel> SearchByText(string text);
         List<QuestionListModel> SearchByDescription(string description);
         QuestionDetailModel? GetById(Guid id);
-        Guid CreateOrUpdate(QuestionDetailModel questionModel);
-        Guid Create(QuestionDetailModel questionModel);
+        //Guid CreateOrUpdate(QuestionDetailModel questionModel);
+        //Guid Create(QuestionDetailModel questionModel);
         Guid? Update(QuestionDetailModel questionModel);
         void Delete(Guid id);
     }

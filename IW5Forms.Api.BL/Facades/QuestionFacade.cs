@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IW5Forms.Api.DAL.Common.Entities;
 using IW5Forms.Api.DAL.Common.Repositories;
+using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Question;
 
 namespace IW5Forms.Api.BL.Facades
@@ -47,22 +48,34 @@ namespace IW5Forms.Api.BL.Facades
             return mapper.Map<QuestionDetailModel>(questionEntity);
         }
 
-        public Guid CreateOrUpdate(QuestionDetailModel questionModel) 
-        {
-            return questionRepository.Exists(questionModel.Id)
-                ? Update(questionModel)!.Value
-                : Create(questionModel);
-        }
+        //public Guid CreateOrUpdate(QuestionDetailModel questionModel) 
+        //{
+        //    return questionRepository.Exists(questionModel.Id)
+        //        ? Update(questionModel)!.Value
+        //        : Create(questionModel);
+        //}
 
-        public Guid Create(QuestionDetailModel questionModel) 
-        {
-            var questionEntity = mapper.Map<QuestionEntity>(questionModel);
-            return questionRepository.Insert(questionEntity);
-        }
+        //public Guid Create(QuestionDetailModel questionModel)
+        //{
+            
+        //    var questionEntity = mapper.Map<QuestionEntity>(questionModel);
+        //    List<AnswerEntity> list = questionEntity.Answers.ToList();
+
+        //    foreach (var item in list)
+        //    {
+        //        item.QuestionId = questionModel.Id;
+        //        item.Question = questionEntity;
+        //    }
+        //    return questionRepository.Insert(questionEntity);
+        //}
 
         public Guid? Update(QuestionDetailModel questionModel) 
         {
-            var questionEntity = mapper.Map<QuestionEntity>(questionModel);
+            var questionEntity = questionRepository.GetById(questionModel.Id);
+            questionEntity.Description = questionModel.Description;
+            questionEntity.Options = questionModel.Options;
+            questionEntity.QuestionType = questionModel.QuestionType;
+            questionEntity.Text = questionModel.Text;
             questionEntity.Answers = questionEntity.Answers.Select(t =>
                 new AnswerEntity
                 {
@@ -79,5 +92,7 @@ namespace IW5Forms.Api.BL.Facades
         {
             questionRepository.Remove(id);
         }
+
+
     }
 }

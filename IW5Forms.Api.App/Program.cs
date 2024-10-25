@@ -172,9 +172,9 @@ namespace IW5Forms.Api.App
                     ? TypedResults.Ok(answer)
                     : TypedResults.NotFound("Answer with id:" + id + " was not found."));
 
-            answerEndpoints.MapPost("", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.Create(answer));
-            answerEndpoints.MapPut("", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.Update(answer));
-            answerEndpoints.MapPost("upsert", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.CreateOrUpdate(answer));
+            //answerEndpoints.MapPost("", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.Create(answer));
+            //answerEndpoints.MapPut("", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.Update(answer));
+            //answerEndpoints.MapPost("upsert", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade) => answerFacade.CreateOrUpdate(answer));
             answerEndpoints.MapDelete("{id:guid}", (Guid id, IAnswerFacade answerFacade) => answerFacade.Delete(id));
         }
 
@@ -190,9 +190,9 @@ namespace IW5Forms.Api.App
                     ? TypedResults.Ok(question)
                     : TypedResults.NotFound("Question with id:" + id + " was not found."));
 
-            questionEndpoints.MapPost("", (QuestionDetailModel question, IQuestionFacade questionFacade) => questionFacade.Create(question));
+            //questionEndpoints.MapPost("", (QuestionDetailModel question, IQuestionFacade questionFacade) => questionFacade.Create(question));
             questionEndpoints.MapPut("", (QuestionDetailModel question, IQuestionFacade questionFacade) => questionFacade.Update(question));
-            questionEndpoints.MapPost("upsert", (QuestionDetailModel question, IQuestionFacade questionFacade) => questionFacade.CreateOrUpdate(question));
+            //questionEndpoints.MapPost("upsert", (QuestionDetailModel question, IQuestionFacade questionFacade) => questionFacade.CreateOrUpdate(question));
             questionEndpoints.MapDelete("{id:guid}", (Guid id, IQuestionFacade questionFacade) => questionFacade.Delete(id));
 
         }

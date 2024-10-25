@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IW5Forms.Api.DAL.Common.Entities;
 using IW5Forms.Api.DAL.Common.Repositories;
+using IW5Forms.Common.Models.Question;
 
 namespace IW5Forms.Api.BL.Facades
 {  
@@ -23,25 +24,25 @@ namespace IW5Forms.Api.BL.Facades
             return mapper.Map<AnswerListAndDetailModel>(answerEntity);
         }
 
-        public Guid CreateOrUpdate(AnswerListAndDetailModel answerModel)
-        {
-            return answerRepository.Exists(answerModel.Id)
-                ? Update(answerModel)!.Value
-                : Create(answerModel);
+        //public Guid CreateOrUpdate(AnswerListAndDetailModel answerModel)
+        //{
+        //    return answerRepository.Exists(answerModel.Id)
+        //        ? Update(answerModel)!.Value
+        //        : Create(answerModel);
 
-        }
+        //}
 
-        public Guid Create(AnswerListAndDetailModel answerModel)
-        {
-            var answerEntity = mapper.Map<AnswerEntity>(answerModel);
-            return answerRepository.Insert(answerEntity);
-        }
+        //public Guid Create(AnswerListAndDetailModel answerModel)
+        //{
+        //    var answerEntity = mapper.Map<AnswerEntity>(answerModel);
+        //    return answerRepository.Insert(answerEntity);
+        //}
 
-        public Guid? Update(AnswerListAndDetailModel answerModel)
-        {
-            var answerEntity = mapper.Map<AnswerEntity>(answerModel);
-            return answerRepository.Update(answerEntity);
-        }
+        //public Guid? Update(AnswerListAndDetailModel answerModel)
+        //{
+        //    var answerEntity = mapper.Map<AnswerEntity>(answerModel);
+        //    return answerRepository.Update(answerEntity);
+        //}
 
         public void Delete(Guid id)
         {
