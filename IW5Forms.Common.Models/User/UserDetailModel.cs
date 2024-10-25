@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IW5Forms.Common.Models.User
 {
-    public record UserDetailModel
+    public record UserDetailModel : IWithId
     {
         public required Guid Id { get; init; }
 
@@ -17,7 +17,8 @@ namespace IW5Forms.Common.Models.User
         public string? PhotoUrl { get; set; }
 
         public string? Description { get; set; }
+        public required RoleTypes Role { get; set; }
 
-        public List<UserDetailFormModel> Forms { get; set; } = [];
+        public List<UserDetailFormModel>? Forms { get; set; } = [];
     }
 }

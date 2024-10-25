@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IW5Forms.Common.Models.User
 {
-    public record UserDetailFormModel
+    public record UserDetailFormModel : IWithId
     {
         public required Guid Id { get; init; }
 

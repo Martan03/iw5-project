@@ -14,8 +14,8 @@ namespace IW5Forms.Api.BL.MapperProfiles
     {
         public UserMapperProfile()
         {
-            CreateMap <UserEntity, UserDetailModel > ();
-            CreateMap <UserEntity, UserListModel > ();
+            CreateMap <UserEntity, UserDetailModel> ();
+            CreateMap <UserEntity, UserListModel> ();
 
             CreateMap<UserDetailModel, UserEntity>();
 

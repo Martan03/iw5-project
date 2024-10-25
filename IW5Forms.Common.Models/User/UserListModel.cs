@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IW5Forms.Common.Models.User
 {
-    public record UserListModel
+    public record UserListModel : IWithId
     {
         public required Guid Id { get; init; }
 

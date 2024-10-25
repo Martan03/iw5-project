@@ -63,6 +63,15 @@ namespace IW5Forms.Api.BL.Facades
         public Guid? Update(QuestionDetailModel questionModel) 
         {
             var questionEntity = mapper.Map<QuestionEntity>(questionModel);
+            questionEntity.Answers = questionEntity.Answers.Select(t =>
+                new AnswerEntity
+                {
+                    Id = t.Id,
+                    Question = questionEntity,
+                    QuestionId = questionEntity.Id,
+                    ResponderId = t.ResponderId,
+                    Text = t.Text
+                }).ToList();
             return questionRepository.Update(questionEntity);
         }
 

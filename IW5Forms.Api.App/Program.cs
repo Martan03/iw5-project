@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using IW5Forms.Api.DAL.EF.Installers;
 using Microsoft.Extensions.DependencyInjection;
 using IW5Forms.Api.BL.Facades;
+using IW5Forms.Common.Extentions;
 using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Common.Models.Question;
@@ -81,8 +82,10 @@ namespace IW5Forms.Api.App
                 options.UseSqlServer(configuration.GetConnectionString("TestConnection"));
             });
 
-            ServiceCollectionExtensions.AddInstaller<ApiBLInstaller>(serviceCollection);
-            ServiceCollectionExtensions.AddInstaller<RepositoriesInstaller>(serviceCollection);
+            serviceCollection.AddInstaller<RepositoriesInstaller>();
+
+            serviceCollection.AddInstaller<ApiBLInstaller>();
+            //ServiceCollectionExtensions.AddInstaller<RepositoriesInstaller>(serviceCollection);
 
         }
 
@@ -94,7 +97,7 @@ namespace IW5Forms.Api.App
         private static void ValidateAutoMapperConfiguration(IServiceProvider serviceProvider)
         {
             var mapper = serviceProvider.GetRequiredService<IMapper>();
-            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
         private static void UseEndpoints(WebApplication application)

@@ -7,14 +7,15 @@ using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using IW5Forms.Common.Models.Form;
 
 namespace IW5Forms.Common.Models.Question
 {
-    public record QuestionDetailModel
+    public record QuestionDetailModel : IWithId
     {
         public required Guid Id { get; init; }
 
-        public required QuestionTypes Type { get; set; }
+        public required QuestionTypes QuestionType { get; set; }
 
         public required string Text { get; set; }
 
@@ -24,5 +25,6 @@ namespace IW5Forms.Common.Models.Question
         public List<string> Options { get; set; } = [];
 
         public List<AnswerListAndDetailModel> Answers { get; set; } = [];
+
     }
 }
