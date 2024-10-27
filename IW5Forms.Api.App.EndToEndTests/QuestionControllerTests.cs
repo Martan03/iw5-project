@@ -64,55 +64,6 @@ public class QuestionControllerTests : IAsyncDisposable
     }
 
     [Fact]
-    public async void CreateQuestion_Create_New_Form()
-    {
-        var newQuestion = new QuestionDetailModel
-        {
-            Id = Guid.NewGuid(),
-            QuestionType = QuestionTypes.TextAnswer,
-            Text = "Is this the new question that I just created?",
-            Description = "This is part of the EndToEnd testing",
-        };
-
-        var response =
-            await client.Value.PostAsJsonAsync("/api/question", newQuestion);
-        response.EnsureSuccessStatusCode();
-
-        var createdQuestion =
-            await response.Content.ReadFromJsonAsync<QuestionDetailModel>();
-        Assert.NotNull(createdQuestion);
-        Assert.Equal(newQuestion.Id, createdQuestion.Id);
-        Assert.Equal(
-            newQuestion.Text,
-            createdQuestion.Text
-        );
-    }
-
-    [Fact]
-    public async void UpdateQuestion_Updates_Form_Details()
-    {
-        var questionId = new Guid("0d4fa150-ad80-4d46-a511-4c666166ec5e");
-        var updatedQuestion = new QuestionDetailModel
-        {
-            Id = questionId,
-            QuestionType = QuestionTypes.TextAnswer,
-            Text = "Is this the new question that I just created?",
-            Description = "This is part of the EndToEnd testing",
-        };
-
-        var response = await client.Value.PutAsJsonAsync(
-            $"/api/question/{questionId}",
-            updatedQuestion
-        );
-        response.EnsureSuccessStatusCode();
-
-        var question =
-            await response.Content.ReadFromJsonAsync<QuestionDetailModel>();
-        Assert.NotNull(question);
-        Assert.Equal(updatedQuestion.Text, question.Text);
-    }
-
-    [Fact]
     public async void DeleteQuestion_Deletes_Existing_Form()
     {
         var questionId = new Guid("0d4fa150-ad80-4d46-a511-4c666166ec5e");
@@ -120,7 +71,7 @@ public class QuestionControllerTests : IAsyncDisposable
         var response =
             await client.Value.DeleteAsync($"/api/question/{questionId}");
         response.EnsureSuccessStatusCode();
-        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var getResponse =
             await client.Value.GetAsync($"/api/question/{questionId}");

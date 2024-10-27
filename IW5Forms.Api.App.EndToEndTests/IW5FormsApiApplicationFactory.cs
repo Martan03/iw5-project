@@ -29,11 +29,18 @@ public class IW5FormsApiApplicationFactory : WebApplicationFactory<Program>
                 var db =
                     scope.ServiceProvider.GetRequiredService<FormsDbContext>();
                 db.Database.Migrate();
+                ClearDatabase(db);
                 SeedDatabase(db);
             }
         });
 
         return base.CreateHost(builder);
+    }
+
+    private void ClearDatabase(FormsDbContext db)
+    {
+        db.Forms.RemoveRange(db.Forms);
+        db.SaveChanges();
     }
 
     private void SeedDatabase(FormsDbContext context)
@@ -55,5 +62,7 @@ public class IW5FormsApiApplicationFactory : WebApplicationFactory<Program>
                 }
             }
         });
+
+        context.SaveChanges();
     }
 }

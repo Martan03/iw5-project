@@ -1,19 +1,20 @@
-name: Publish 🚀
+name: Publish
 
 on:
   workflow_dispatch:
   push:
     branches:
-    - main
+      - main
 
 env:
+  AZURE_SQL_CONNECTION_STRING: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
   AZURE_WEBAPP_NAME: app-iw5-2024-team-xzatloa00-api
   AZURE_WEBAPP_PACKAGE_PATH: "./publish"
 
 jobs:
   publish:
     runs-on: windows-latest
-    
+
     steps:
       - uses: actions/checkout@v3
       
@@ -21,22 +22,33 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-
-      - name: Test
-        run: dotnet test
           
       - name: Restore
         run: dotnet restore ./IW5Forms.sln
         
       - name: Build
         run: dotnet build ./IW5Forms.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --no-restore
+
+      - name: Install EF Core Tools
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Add .NET Tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
         
       - name: Publish
-        run: dotnet publish ./IW5Forms.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+        run: dotnet publish ./IW5Forms.sln --configuration Release --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+
+     # - name: Run EF Core Migrations
+      #  run: |
+       #   dotnet ef database update --project ./IW5Forms.Api.DAL.EF/IW5Forms.Api.DAL.EF.csproj --context FormsDbContext --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}"
+
         
       - name: Deployment
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
