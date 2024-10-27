@@ -42,7 +42,7 @@ namespace IW5Forms.Api.App
 
             app.Run();
         }
-  
+
         static void SeedData(IHost app)
         {
             var facorry = app.Services.GetService<IServiceScopeFactory>();
@@ -109,7 +109,7 @@ namespace IW5Forms.Api.App
 
         private static void UseSearchEndpoints(RouteGroupBuilder routeGroupBuilder)
         {
-            
+
             var searchEndpoints = routeGroupBuilder.MapGroup("search")
                 .WithTags("search");
 
@@ -134,14 +134,14 @@ namespace IW5Forms.Api.App
             userEndpoints.MapPut("", (UserDetailModel user, IUserFacade userFacade) => userFacade.Update(user));
             userEndpoints.MapPost("upsert", (UserDetailModel user, IUserFacade userFacade) => userFacade.CreateOrUpdate(user));
             userEndpoints.MapDelete("{id:guid}", (Guid id, IUserFacade userFacade) => userFacade.Delete(id));
-        
+
         }
 
         private static void UseFormEndpoints(RouteGroupBuilder routeGroupBuilder)
         {
             var formEndpoints = routeGroupBuilder.MapGroup("form")
                 .WithTags("form");
-            
+
             formEndpoints.MapGet("", (IFormFacade formFacade) => formFacade.GetAll());
 
             formEndpoints.MapGet("{id:guid}", Results<Ok<FormDetailModel>, NotFound<string>> (Guid id, IFormFacade formFacade)
