@@ -23,7 +23,7 @@ namespace IW5Forms.Api.DAL.EF.Repositories
         {
             return DbContext.Users
                 .Include(user => user.Forms)
-                .ThenInclude(form => form.FormRelationTypes)
+                .ThenInclude(form => form.Form)
                 .SingleOrDefault(user => user.Id == id);
         }
 

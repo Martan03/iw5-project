@@ -43,18 +43,5 @@ namespace IW5Forms.Api.DAL.EF.Repositories
             }
             else return null;
         }
-
-        public override void Remove(Guid id)
-        {
-            var entity = GetById(id);
-            if (entity != null)
-            {
-                DbContext.Answers
-                    .Where(answer => answer.QuestionId == id)
-                    .ExecuteDelete();
-                DbContext.Questions.Remove(entity);
-                DbContext.SaveChanges();
-            }
-        }
     }
 }

@@ -14,10 +14,10 @@ namespace IW5Forms.Api.DAL.Common.Entities
 
         // UserId is nullable, in case incognito mode is enabled
         public required Guid ResponderId { get; set; }
+        public UserEntity? Responder { get; set; }
 
         public Guid QuestionId { get; set; }
         public QuestionEntity? Question { get; set; }
-
     }
 
     public class AnswerEntityMapperProfile : Profile
