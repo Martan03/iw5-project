@@ -18,7 +18,6 @@ namespace IW5Forms.Api.BL.Facades
             return mapper.Map<List<FormListModel>>(formRepository.GetAll());
 
         }
-
         public FormDetailModel? GetById(Guid id)
         {
             var formEntity = formRepository.GetById(id);
@@ -56,22 +55,22 @@ namespace IW5Forms.Api.BL.Facades
 
         public Guid? Update(FormDetailModel formModel)
         {
-            var newFormEntity = new FormEntity()
-            {
-                BeginTime = formModel.BeginTime,
-                CompletedUsersId = formModel.CompletedUsersId,
-                EndTime = formModel.EndTime,
-                Id = formModel.Id,
-                Incognito = formModel.Incognito,
-                Name = formModel.Name,
-                Questions = new List<QuestionEntity>(),
-                SingleTry = formModel.SingleTry
+            var newFormEntity = formRepository.GetById(formModel.Id);
+            if (newFormEntity == null) return null;
+            newFormEntity.BeginTime = formModel.BeginTime;
+            newFormEntity.CompletedUsersId = formModel.CompletedUsersId;
+            newFormEntity.EndTime = formModel.EndTime;
+            newFormEntity.Incognito = formModel.Incognito;
+            newFormEntity.Name = formModel.Name;
+            newFormEntity.Questions = new List<QuestionEntity>();
+            newFormEntity.SingleTry = formModel.SingleTry;
 
-            };
+
+
             foreach (var question in formModel.Questions)
             {
                 newFormEntity.Questions.Add(new QuestionEntity()
-                    { Answers = new List<AnswerEntity>(), Form = newFormEntity, FormId = newFormEntity.Id, Id = question.Id, Text = question.Text, QuestionType = question.QuestionType, Options = new List<string>() });
+                { Answers = new List<AnswerEntity>(), Form = newFormEntity, FormId = newFormEntity.Id, Id = question.Id, Text = question.Text, QuestionType = question.QuestionType, Options = new List<string>() });
             }
             return formRepository.Update(newFormEntity);
         }
