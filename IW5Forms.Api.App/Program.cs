@@ -44,17 +44,6 @@ namespace IW5Forms.Api.App
             app.Run();
         }
 
-        static void SeedData(IHost app)
-        {
-            var facorry = app.Services.GetService<IServiceScopeFactory>();
-
-            using (var scope = facorry.CreateScope())
-            {
-                var service = scope.ServiceProvider.GetService<SeedScript>();
-                service.SeedData();
-            }
-        }
-
         private static void ConfigureCors(IServiceCollection serviceCollection)
         {
             serviceCollection.AddCors(options =>
