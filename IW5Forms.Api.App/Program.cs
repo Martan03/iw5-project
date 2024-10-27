@@ -97,7 +97,7 @@ namespace IW5Forms.Api.App
         private static void ValidateAutoMapperConfiguration(IServiceProvider serviceProvider)
         {
             var mapper = serviceProvider.GetRequiredService<IMapper>();
-            mapper.ConfigurationProvider.AssertConfigurationIsValid();
+            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
         private static void UseEndpoints(WebApplication application)

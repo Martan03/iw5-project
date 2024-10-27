@@ -20,11 +20,18 @@ namespace IW5Forms.Api.DAL.EF.Repositories
             this.mapper = mapper;
         }
 
+        public override IList<FormEntity> GetAll()
+        {
+            return DbContext.Forms
+                .Include(entity => entity.Questions)
+                .ToList();
+
+        }
+
         public override FormEntity? GetById(Guid id)
         {
             return DbContext.Forms
                 .Include(entity => entity.Questions)
-                .Include(entity => entity.CompletedUsersId)
                 .SingleOrDefault();
         }
 
@@ -34,7 +41,6 @@ namespace IW5Forms.Api.DAL.EF.Repositories
             {
                 var existingForm = DbContext.Forms
                     .Include(entity => entity.Questions)
-                    .Include(entity => entity.CompletedUsersId)
                     .SingleOrDefault(form => form.Id == questionEntity.Id);
 
                 mapper.Map(questionEntity, existingForm);

@@ -14,8 +14,8 @@ namespace IW5Forms.Api.DAL.Common.Entities
         public required QuestionTypes QuestionType { get; set; }
         public required string Text { get; set; }
         public string? Description { get; set; }
-        public ICollection<string> Options { get; set; } = new List<string>();
-        public ICollection<AnswerEntity> Answers { get; set; } = new List<AnswerEntity>();
+        public IList<string> Options { get; set; } = new List<string>();
+        public IList<AnswerEntity> Answers { get; set; } = new List<AnswerEntity>();
         public Guid FormId { get; set; }
         public FormEntity? Form { get; set; }
     }
