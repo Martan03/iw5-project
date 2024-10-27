@@ -70,7 +70,7 @@ public class QuestionControllerTests : IAsyncDisposable
         var newQuestion = new QuestionDetailModel
         {
             Id = Guid.NewGuid(),
-            Type = QuestionTypes.TextAnswer,
+            QuestionType = QuestionTypes.TextAnswer,
             Text = "Is this the new question that I just created?",
             Description = "This is part of the EndToEnd testing",
         };
@@ -127,7 +127,7 @@ public class QuestionControllerTests : IAsyncDisposable
         var updatedQuestion = new QuestionDetailModel
         {
             Id = questionId,
-            Type = QuestionTypes.TextAnswer,
+            QuestionType = QuestionTypes.TextAnswer,
             Text = "Is this the new question that I just created?",
             Description = "This is part of the EndToEnd testing",
         };

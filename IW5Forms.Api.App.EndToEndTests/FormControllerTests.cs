@@ -65,8 +65,11 @@ public class FormControllerTests : IAsyncDisposable
         var newForm = new FormDetailModel
         {
             Id = Guid.NewGuid(),
-            AnswerAcceptanceStartTime = DateTime.UtcNow,
-            AnswerAcceptanceEndTime = DateTime.UtcNow.AddDays(1),
+            Name = "This is form testing",
+            BeginTime = DateTime.UtcNow,
+            EndTime = DateTime.UtcNow.AddDays(1),
+            Incognito = false,
+            SingleTry = true,
         };
 
         var response =
@@ -78,8 +81,8 @@ public class FormControllerTests : IAsyncDisposable
         Assert.NotNull(createdForm);
         Assert.Equal(newForm.Id, createdForm.Id);
         Assert.Equal(
-            newForm.AnswerAcceptanceEndTime,
-            createdForm.AnswerAcceptanceEndTime
+            newForm.EndTime,
+            createdForm.EndTime
         );
     }
 
@@ -117,12 +120,14 @@ public class FormControllerTests : IAsyncDisposable
     {
         // TODO: add seeded form ID
         var formId = Guid.NewGuid();
-        var endTime = DateTime.UtcNow.AddDays(3);
         var updatedForm = new FormDetailModel
         {
-            Id = formId,
-            AnswerAcceptanceStartTime = DateTime.UtcNow,
-            AnswerAcceptanceEndTime = DateTime.UtcNow.AddDays(3),
+            Id = Guid.NewGuid(),
+            Name = "This is form testing",
+            BeginTime = DateTime.UtcNow,
+            EndTime = DateTime.UtcNow.AddDays(3),
+            Incognito = false,
+            SingleTry = true,
         };
 
         var response = await client.Value.PutAsJsonAsync(
@@ -134,7 +139,7 @@ public class FormControllerTests : IAsyncDisposable
         var form =
             await response.Content.ReadFromJsonAsync<FormDetailModel>();
         Assert.NotNull(form);
-        Assert.Equal(endTime, form.AnswerAcceptanceEndTime);
+        Assert.Equal(updatedForm.EndTime, form.EndTime);
     }
 
     [Fact]

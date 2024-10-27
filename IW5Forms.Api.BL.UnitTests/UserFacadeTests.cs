@@ -6,6 +6,7 @@ using IW5Forms.Api.DAL.Common.Entities;
 using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Question;
 using IW5Forms.Common.Models.User;
+using IW5Forms.Common.Enums;
 
 namespace IW5Forms.Api.BL.UnitTests;
 public class UserFacadeTests
@@ -63,6 +64,7 @@ public class UserFacadeTests
         {
             Id = Guid.NewGuid(),
             Name = "User Name",
+            Role = RoleTypes.User,
         };
 
         // Act
@@ -80,6 +82,7 @@ public class UserFacadeTests
         {
             Id = Guid.NewGuid(),
             Name = "User Name",
+            Role = RoleTypes.User,
         };
         var userEntity = new UserEntity
         {
@@ -94,11 +97,6 @@ public class UserFacadeTests
         repoMock
             .Setup(userRepo => userRepo.Exists(It.IsAny<Guid>()))
             .Returns(false);
-        mapperMock
-            .Setup(mapper => mapper.Map<UserEntity>(
-                It.IsAny<UserDetailModel>()
-            ))
-            .Returns(userEntity);
 
         var facade = new UserFacade(repoMock.Object, mapperMock.Object);
 
@@ -106,11 +104,7 @@ public class UserFacadeTests
         facade.CreateOrUpdate(userModel);
 
         // Assert
-        mapperMock.Verify(
-            mapper => mapper.Map<UserEntity>(userModel),
-            Times.Once
-        );
-        repoMock.Verify(userRepo => userRepo.Insert(userEntity), Times.Once);
+        repoMock.Verify(userRepo => userRepo.Insert(It.IsAny<UserEntity>()), Times.Once);
     }
 
     [Fact]
@@ -121,6 +115,7 @@ public class UserFacadeTests
         {
             Id = Guid.NewGuid(),
             Name = "User Name",
+            Role = RoleTypes.User,
         };
         var userEntity = new UserEntity
         {
@@ -135,11 +130,6 @@ public class UserFacadeTests
         repoMock
             .Setup(userRepo => userRepo.Exists(It.IsAny<Guid>()))
             .Returns(true);
-        mapperMock
-            .Setup(mapper => mapper.Map<UserEntity>(
-                It.IsAny<UserDetailModel>()
-            ))
-            .Returns(userEntity);
         repoMock
             .Setup(userRepo => userRepo.Update(It.IsAny<UserEntity>()))
             .Returns(Guid.NewGuid());
@@ -150,12 +140,8 @@ public class UserFacadeTests
         facade.CreateOrUpdate(userModel);
 
         // Assert
-        mapperMock.Verify(
-            mapper => mapper.Map<UserEntity>(userModel),
-            Times.Once
-        );
         repoMock.Verify(
-            userRepo => userRepo.Update(userEntity),
+            userRepo => userRepo.Update(It.IsAny<UserEntity>()),
             Times.Once
         );
     }

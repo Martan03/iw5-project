@@ -4,6 +4,7 @@ using AutoMapper;
 using IW5Forms.Api.BL.Facades;
 using IW5Forms.Api.DAL.Common.Entities;
 using IW5Forms.Common.Models.Question;
+using IW5Forms.Common.Enums;
 
 namespace IW5Forms.Api.BL.UnitTests;
 public class QuestionFacadeTests
@@ -63,7 +64,7 @@ public class QuestionFacadeTests
         var questionModel = new QuestionDetailModel
         {
             Id = Guid.NewGuid(),
-            Type = Common.Enums.QuestionTypes.TextAnswer,
+            QuestionType = QuestionTypes.TextAnswer,
             Text = "Question text",
         };
 
@@ -84,13 +85,13 @@ public class QuestionFacadeTests
         var questionModel = new QuestionDetailModel
         {
             Id = Guid.NewGuid(),
-            Type = Common.Enums.QuestionTypes.TextAnswer,
+            QuestionType = QuestionTypes.TextAnswer,
             Text = "Question text",
         };
         var questionEntity = new QuestionEntity
         {
             Id = questionModel.Id,
-            QuestionType = questionModel.Type,
+            QuestionType = questionModel.QuestionType,
             Text = questionModel.Text,
             FormId = Guid.NewGuid(),
         };
@@ -101,59 +102,8 @@ public class QuestionFacadeTests
         repoMock
             .Setup(questionRepo => questionRepo.Exists(It.IsAny<Guid>()))
             .Returns(false);
-        mapperMock
-            .Setup(mapper => mapper.Map<QuestionEntity>(
-                It.IsAny<QuestionDetailModel>()
-            ))
-            .Returns(questionEntity);
-
-        var facade = new QuestionFacade(repoMock.Object, mapperMock.Object);
-
-        // Act
-        facade.CreateOrUpdate(questionModel);
-
-        // Assert
-        mapperMock.Verify(
-            mapper => mapper.Map<QuestionEntity>(questionModel),
-            Times.Once
-        );
-        repoMock.Verify(
-            questionRepo => questionRepo.Insert(questionEntity),
-            Times.Once
-        );
-    }
-
-    [Fact]
-    public void CreateOrUpdate_Calls_Update_When_Entity_Exists()
-    {
-        // Arrange
-        var questionModel = new QuestionDetailModel
-        {
-            Id = Guid.NewGuid(),
-            Type = Common.Enums.QuestionTypes.TextAnswer,
-            Text = "Question text",
-        };
-        var questionEntity = new QuestionEntity
-        {
-            Id = questionModel.Id,
-            QuestionType = questionModel.Type,
-            Text = questionModel.Text,
-            FormId = Guid.NewGuid(),
-        };
-
-        var repoMock = new Mock<IQuestionRepository>();
-        var mapperMock = new Mock<IMapper>();
-
         repoMock
-            .Setup(questionRepo => questionRepo.Exists(It.IsAny<Guid>()))
-            .Returns(true);
-        mapperMock
-            .Setup(mapper => mapper.Map<QuestionEntity>(
-                It.IsAny<QuestionDetailModel>()
-            ))
-            .Returns(questionEntity);
-        repoMock
-            .Setup(questionRepo => questionRepo.Update(
+            .Setup(questionRepo => questionRepo.Insert(
                 It.IsAny<QuestionEntity>()
             ))
             .Returns(Guid.NewGuid());
@@ -164,10 +114,52 @@ public class QuestionFacadeTests
         facade.CreateOrUpdate(questionModel);
 
         // Assert
-        mapperMock.Verify(
-            mapper => mapper.Map<QuestionEntity>(questionModel),
+        repoMock.Verify(
+            questionRepo => questionRepo.Insert(It.IsAny<QuestionEntity>()),
             Times.Once
         );
+    }
+
+    [Fact]
+    public void CreateOrUpdate_Calls_Update_When_Entity_Exists()
+    {
+        // Arrange
+        var questionId = Guid.NewGuid();
+        var questionModel = new QuestionDetailModel
+        {
+            Id = questionId,
+            QuestionType = QuestionTypes.TextAnswer,
+            Text = "Question text",
+        };
+        var questionEntity = new QuestionEntity
+        {
+            Id = questionModel.Id,
+            QuestionType = questionModel.QuestionType,
+            Text = questionModel.Text,
+            FormId = Guid.NewGuid(),
+        };
+
+        var repoMock = new Mock<IQuestionRepository>();
+        var mapperMock = new Mock<IMapper>();
+
+        repoMock
+            .Setup(questionRepo => questionRepo.Exists(It.IsAny<Guid>()))
+            .Returns(true);
+        repoMock
+            .Setup(questionRepo => questionRepo.Update(
+                It.IsAny<QuestionEntity>()
+            ))
+            .Returns(questionId);
+        repoMock
+            .Setup(questionRepo => questionRepo.GetById(It.IsAny<Guid>()))
+            .Returns(questionEntity);
+
+        var facade = new QuestionFacade(repoMock.Object, mapperMock.Object);
+
+        // Act
+        facade.CreateOrUpdate(questionModel);
+
+        // Assert
         repoMock.Verify(
             questionRepo => questionRepo.Update(questionEntity),
             Times.Once

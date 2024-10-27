@@ -61,7 +61,7 @@ public class AnswerFacadeTests
         {
             Id = Guid.NewGuid(),
             Text = "Answer text",
-            FormResponder = Guid.NewGuid(),
+            ResponderId = Guid.NewGuid(),
         };
 
         // Act
@@ -82,13 +82,13 @@ public class AnswerFacadeTests
         {
             Id = Guid.NewGuid(),
             Text = "Answer text",
-            FormResponder = Guid.NewGuid(),
+            ResponderId = Guid.NewGuid(),
         };
         var answerEntity = new AnswerEntity
         {
             Id = answerModel.Id,
             Text = answerModel.Text,
-            ResponderId = answerModel.FormResponder,
+            ResponderId = answerModel.ResponderId,
             QuestionId = Guid.NewGuid(),
         };
 
@@ -110,12 +110,8 @@ public class AnswerFacadeTests
         facade.CreateOrUpdate(answerModel);
 
         // Assert
-        mapperMock.Verify(
-            mapper => mapper.Map<AnswerEntity>(answerModel),
-            Times.Once
-        );
         repoMock.Verify(
-            answerRepo => answerRepo.Insert(answerEntity),
+            answerRepo => answerRepo.Insert(It.IsAny<AnswerEntity>()),
             Times.Once
         );
     }
@@ -128,13 +124,13 @@ public class AnswerFacadeTests
         {
             Id = Guid.NewGuid(),
             Text = "Answer text",
-            FormResponder = Guid.NewGuid(),
+            ResponderId = Guid.NewGuid(),
         };
         var answerEntity = new AnswerEntity
         {
             Id = answerModel.Id,
             Text = answerModel.Text,
-            ResponderId = answerModel.FormResponder,
+            ResponderId = answerModel.ResponderId,
             QuestionId = Guid.NewGuid(),
         };
 
@@ -144,14 +140,12 @@ public class AnswerFacadeTests
         repoMock
             .Setup(answerRepo => answerRepo.Exists(It.IsAny<Guid>()))
             .Returns(true);
-        mapperMock
-            .Setup(mapper => mapper.Map<AnswerEntity>(
-                It.IsAny<AnswerListAndDetailModel>()
-            ))
-            .Returns(answerEntity);
         repoMock
             .Setup(answerRepo => answerRepo.Update(It.IsAny<AnswerEntity>()))
             .Returns(Guid.NewGuid());
+        repoMock
+            .Setup(answerRepo => answerRepo.GetById(It.IsAny<Guid>()))
+            .Returns(answerEntity);
 
         var facade = new AnswerFacade(repoMock.Object, mapperMock.Object);
 
@@ -159,10 +153,6 @@ public class AnswerFacadeTests
         facade.CreateOrUpdate(answerModel);
 
         // Assert
-        mapperMock.Verify(
-            mapper => mapper.Map<AnswerEntity>(answerModel),
-            Times.Once
-        );
         repoMock.Verify(
             answerRepo => answerRepo.Update(answerEntity),
             Times.Once

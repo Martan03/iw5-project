@@ -60,8 +60,11 @@ public class FormFacadeTests
         var formModel = new FormDetailModel
         {
             Id = Guid.NewGuid(),
-            AnswerAcceptanceStartTime = DateTime.UtcNow,
-            AnswerAcceptanceEndTime = DateTime.UtcNow.AddDays(1),
+            Name = "Test form",
+            BeginTime = DateTime.UtcNow,
+            EndTime = DateTime.UtcNow.AddDays(1),
+            Incognito = false,
+            SingleTry = true,
         };
 
         // Act
@@ -78,17 +81,23 @@ public class FormFacadeTests
         var formModel = new FormDetailModel
         {
             Id = Guid.NewGuid(),
-            AnswerAcceptanceStartTime = DateTime.UtcNow,
-            AnswerAcceptanceEndTime = DateTime.UtcNow.AddDays(1),
-        };
-        var formEntity = new FormEntity
-        {
-            Id = formModel.Id,
-            Name = "Test Form",
-            BeginTime = formModel.AnswerAcceptanceStartTime,
-            EndTime = formModel.AnswerAcceptanceEndTime,
+            Name = "This is form testing",
+            BeginTime = DateTime.UtcNow,
+            EndTime = DateTime.UtcNow.AddDays(1),
             Incognito = false,
             SingleTry = true,
+        };
+        var formEntity = new FormEntity()
+        {
+            BeginTime = formModel.BeginTime,
+            CompletedUsersId = formModel.CompletedUsersId,
+            EndTime = formModel.EndTime,
+            Id = formModel.Id,
+            Incognito = formModel.Incognito,
+            Name = formModel.Name,
+            Questions = new List<QuestionEntity>(),
+            SingleTry = formModel.SingleTry
+
         };
 
         var repoMock = new Mock<IFormRepository>();
@@ -97,11 +106,9 @@ public class FormFacadeTests
         repoMock
             .Setup(formRepo => formRepo.Exists(It.IsAny<Guid>()))
             .Returns(false);
-        mapperMock
-            .Setup(mapper => mapper.Map<FormEntity>(
-                It.IsAny<FormDetailModel>()
-            ))
-            .Returns(formEntity);
+        repoMock
+            .Setup(formRepo => formRepo.Insert(formEntity))
+            .Returns(Guid.NewGuid());
 
         var facade = new FormFacade(repoMock.Object, mapperMock.Object);
 
@@ -109,12 +116,8 @@ public class FormFacadeTests
         facade.CreateOrUpdate(formModel);
 
         // Assert
-        mapperMock.Verify(
-            mapper => mapper.Map<FormEntity>(formModel),
-            Times.Once
-        );
         repoMock.Verify(
-            formRepo => formRepo.Insert(formEntity),
+            formRepo => formRepo.Insert(It.IsAny<FormEntity>()),
             Times.Once
         );
     }
@@ -126,15 +129,9 @@ public class FormFacadeTests
         var formModel = new FormDetailModel
         {
             Id = Guid.NewGuid(),
-            AnswerAcceptanceStartTime = DateTime.UtcNow,
-            AnswerAcceptanceEndTime = DateTime.UtcNow.AddDays(1),
-        };
-        var formEntity = new FormEntity
-        {
-            Id = formModel.Id,
             Name = "Test Form",
-            BeginTime = formModel.AnswerAcceptanceStartTime,
-            EndTime = formModel.AnswerAcceptanceEndTime,
+            BeginTime = DateTime.UtcNow,
+            EndTime = DateTime.UtcNow.AddDays(1),
             Incognito = false,
             SingleTry = true,
         };
@@ -145,11 +142,6 @@ public class FormFacadeTests
         repoMock
             .Setup(formRepo => formRepo.Exists(It.IsAny<Guid>()))
             .Returns(true);
-        mapperMock
-            .Setup(mapper => mapper.Map<FormEntity>(
-                It.IsAny<FormDetailModel>()
-            ))
-            .Returns(formEntity);
         repoMock
             .Setup(formRepo => formRepo.Update(It.IsAny<FormEntity>()))
             .Returns(Guid.NewGuid());
@@ -160,11 +152,10 @@ public class FormFacadeTests
         facade.CreateOrUpdate(formModel);
 
         // Assert
-        mapperMock.Verify(
-            mapper => mapper.Map<FormEntity>(formModel),
+        repoMock.Verify(
+            formRepo => formRepo.Update(It.IsAny<FormEntity>()),
             Times.Once
         );
-        repoMock.Verify(formRepo => formRepo.Update(formEntity), Times.Once);
     }
 
     [Fact]

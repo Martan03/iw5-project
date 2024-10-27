@@ -8,7 +8,7 @@ namespace IW5Forms.Api.BL.Facades
 {
     public class QuestionFacade(IQuestionRepository questionRepository, IMapper mapper) : IQuestionFacade
     {
-        public List<QuestionListModel> GetAll() 
+        public List<QuestionListModel> GetAll()
         {
             return mapper.Map<List<QuestionListModel>>(questionRepository.GetAll());
 
@@ -42,7 +42,7 @@ namespace IW5Forms.Api.BL.Facades
             }
         }
 
-        public QuestionDetailModel? GetById(Guid id) 
+        public QuestionDetailModel? GetById(Guid id)
         {
             var questionEntity = questionRepository.GetById(id);
             return mapper.Map<QuestionDetailModel>(questionEntity);
@@ -82,7 +82,7 @@ namespace IW5Forms.Api.BL.Facades
             return questionRepository.Insert(newQuestionEntity);
         }
 
-        public Guid? Update(QuestionDetailModel questionModel) 
+        public Guid? Update(QuestionDetailModel questionModel)
         {
             var questionEntity = questionRepository.GetById(questionModel.Id);
             if (questionEntity == null) return null;
