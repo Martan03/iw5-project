@@ -35,8 +35,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IW5Forms.Api.DAL.Integratio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IW5Forms.Api.DAL.Memory", "IW5Forms.Api.DAL.Memory\IW5Forms.Api.DAL.Memory.csproj", "{A772BDD9-9DF5-4C05-B1A1-0A76B3A2FE9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IW5Forms.Api.App.EndToEndTests", "IW5Forms.Api.App.EndToEndTests\IW5Forms.Api.App.EndToEndTests.csproj", "{7ADCA4F9-A9E6-485A-B3DB-141989E24826}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,10 +85,6 @@ Global
 		{A772BDD9-9DF5-4C05-B1A1-0A76B3A2FE9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A772BDD9-9DF5-4C05-B1A1-0A76B3A2FE9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A772BDD9-9DF5-4C05-B1A1-0A76B3A2FE9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7ADCA4F9-A9E6-485A-B3DB-141989E24826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7ADCA4F9-A9E6-485A-B3DB-141989E24826}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7ADCA4F9-A9E6-485A-B3DB-141989E24826}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7ADCA4F9-A9E6-485A-B3DB-141989E24826}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,7 +103,6 @@ Global
 		{0D7C2FB9-33B1-40F8-B55F-A15AE20EF952} = {18929EA9-882F-42DF-8554-A50B9BBBF3B5}
 		{208C666B-5451-4BCA-8A25-BAAD7593B891} = {BDA4F1F6-525A-45F2-AA6D-860EA8EBF7AE}
 		{A772BDD9-9DF5-4C05-B1A1-0A76B3A2FE9E} = {BDA4F1F6-525A-45F2-AA6D-860EA8EBF7AE}
-		{7ADCA4F9-A9E6-485A-B3DB-141989E24826} = {BAE9B267-B084-4708-90FA-11BD9ABD9CF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2626EFD-F097-45EC-99B0-99351AA3A4B8}
