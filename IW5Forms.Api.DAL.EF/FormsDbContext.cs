@@ -25,20 +25,28 @@ namespace IW5Forms.API.DAL
             modelBuilder.Entity<FormEntity>()
                 .HasMany(formEntity => formEntity.Questions)
                 .WithOne(questionEntity => questionEntity.Form)
-                .HasForeignKey(questionEntity => questionEntity.FormId);
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 1-N User -> Answer
+            modelBuilder.Entity<UserEntity>()
+               .HasMany(typeof(AnswerEntity))
+               .WithOne(nameof(AnswerEntity.Responder));
 
             // 1-N Question -> Answer
             modelBuilder.Entity<QuestionEntity>()
                 .HasMany(questionEntity => questionEntity.Answers)
                 .WithOne(answerEntity => answerEntity.Question)
-                .HasForeignKey(answerEntity => answerEntity.QuestionId);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // 1-N User -> UserFormEntity
             modelBuilder.Entity<UserEntity>()
                 .HasMany(userEntity => userEntity.Forms)
-                .WithOne(formEntity => formEntity.User)
-                .HasForeignKey(formEntity => formEntity.UserId);
+                .WithOne(userFormEntity => userFormEntity.User);
 
+            // 1-N Form -> UserForm
+            modelBuilder.Entity<FormEntity>()
+                .HasMany(typeof(UserFormEntity))
+                .WithOne(nameof(UserFormEntity.Form));
         }
     }
 }

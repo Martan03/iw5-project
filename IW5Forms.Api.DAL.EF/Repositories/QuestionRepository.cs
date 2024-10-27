@@ -23,7 +23,7 @@ namespace IW5Forms.Api.DAL.EF.Repositories
         {
             return DbContext.Questions
                 .Include(question => question.Answers)
-                .SingleOrDefault();
+                .SingleOrDefault(entity => entity.Id == id);
         }
 
         public override Guid? Update(QuestionEntity questionEntity)
@@ -42,19 +42,6 @@ namespace IW5Forms.Api.DAL.EF.Repositories
                 return existingQuestion!.Id;
             }
             else return null;
-        }
-
-        public override void Remove(Guid id)
-        {
-            var entity = GetById(id);
-            if (entity != null)
-            {
-                DbContext.Answers
-                    .Where(answer => answer.QuestionId == id)
-                    .ExecuteDelete();
-                DbContext.Questions.Remove(entity);
-                DbContext.SaveChanges();
-            }
         }
     }
 }

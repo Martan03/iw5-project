@@ -21,7 +21,7 @@ namespace IW5Forms.Api.DAL.Common.Entities
         public required bool SingleTry { get; set; }
 
         // if SingleTry is true, UsersCompleted will store users which already completed the form
-        public ICollection<Guid>? CompletedUsersId { get; set; } = new List<Guid>();
+        public IList<Guid>? CompletedUsersId { get; set; } = new List<Guid>();
 
         // public form doesnt require logged user
         //public required bool Public { get; set; }

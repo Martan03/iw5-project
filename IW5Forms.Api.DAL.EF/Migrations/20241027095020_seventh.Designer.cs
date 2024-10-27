@@ -4,6 +4,7 @@ using IW5Forms.API.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IW5Forms.Api.DAL.EF.Migrations
 {
     [DbContext(typeof(FormsDbContext))]
-    partial class FormsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241027095020_seventh")]
+    partial class seventh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +31,7 @@ namespace IW5Forms.Api.DAL.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("QuestionId")
+                    b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ResponderId")
@@ -41,8 +44,6 @@ namespace IW5Forms.Api.DAL.EF.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("ResponderId");
 
                     b.ToTable("Answers");
                 });
@@ -160,17 +161,10 @@ namespace IW5Forms.Api.DAL.EF.Migrations
                     b.HasOne("IW5Forms.Api.DAL.Common.Entities.QuestionEntity", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("IW5Forms.Api.DAL.Common.Entities.UserEntity", "Responder")
-                        .WithMany()
-                        .HasForeignKey("ResponderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Question");
-
-                    b.Navigation("Responder");
                 });
 
             modelBuilder.Entity("IW5Forms.Api.DAL.Common.Entities.QuestionEntity", b =>

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace IW5Forms.Common.Models.Question
 {
-    public record QuestionListModel
+    public record QuestionListModel : IWithId
     {
         public required Guid Id { get; init; }
 
-        public required QuestionTypes Type { get; set; }
+        public required QuestionTypes QuestionType { get; set; }
 
         public required string Text { get; set; }
     }

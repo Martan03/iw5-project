@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using IW5Forms.Api.DAL.EF.Installers;
 using Microsoft.Extensions.DependencyInjection;
 using IW5Forms.Api.BL.Facades;
+using IW5Forms.Common.Extentions;
 using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Common.Models.Question;
@@ -75,13 +76,15 @@ namespace IW5Forms.Api.App
         {
             //EF stuff
 
-            serviceCollection.AddTransient<SeedScript>();
             serviceCollection.AddDbContext<FormsDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("TestConnection"));
             });
 
-            ServiceCollectionExtensions.AddInstaller<ApiBLInstaller>(serviceCollection);
+            serviceCollection.AddInstaller<RepositoriesInstaller>();
+
+            serviceCollection.AddInstaller<ApiBLInstaller>();
+
         }
 
         private static void ConfigureAutoMapper(IServiceCollection serviceCollection)

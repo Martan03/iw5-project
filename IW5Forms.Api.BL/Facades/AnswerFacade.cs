@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IW5Forms.Api.DAL.Common.Entities;
 using IW5Forms.Api.DAL.Common.Repositories;
+using IW5Forms.Common.Models.Question;
 
 namespace IW5Forms.Api.BL.Facades
 {  
@@ -28,19 +29,28 @@ namespace IW5Forms.Api.BL.Facades
             return answerRepository.Exists(answerModel.Id)
                 ? Update(answerModel)!.Value
                 : Create(answerModel);
-
         }
 
         public Guid Create(AnswerListAndDetailModel answerModel)
         {
-            var answerEntity = mapper.Map<AnswerEntity>(answerModel);
-            return answerRepository.Insert(answerEntity);
+            AnswerEntity newAnswerEntity = new AnswerEntity()
+            {
+                Id = answerModel.Id,
+                ResponderId = answerModel.ResponderId,
+                Text = answerModel.Text,
+            };
+
+            return answerRepository.Insert(newAnswerEntity);
         }
 
         public Guid? Update(AnswerListAndDetailModel answerModel)
         {
-            var answerEntity = mapper.Map<AnswerEntity>(answerModel);
-            return answerRepository.Update(answerEntity);
+            AnswerEntity? newAnswerEntity = answerRepository.GetById(answerModel.Id);
+            if (newAnswerEntity == null) return null;
+            newAnswerEntity.ResponderId = answerModel.ResponderId;
+            newAnswerEntity.Text = answerModel.Text;
+            
+            return answerRepository.Update(newAnswerEntity);
         }
 
         public void Delete(Guid id)

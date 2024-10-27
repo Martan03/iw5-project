@@ -14,10 +14,11 @@ namespace IW5Forms.Api.BL.MapperProfiles
     {
         public FormMapperProfile()
         {
-            CreateMap <FormEntity, FormListModel > ();
-            CreateMap <FormEntity, FormDetailModel > ();
+            CreateMap<FormEntity, FormListModel>();
+            CreateMap<FormEntity, FormDetailModel>();
+            //CreateMap<FormDetailModel, FormEntity>();
+            //CreateMap<FormListModel, FormEntity>();
 
-            CreateMap<FormDetailModel, FormEntity>();
         }
     }
 }

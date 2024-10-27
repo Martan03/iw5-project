@@ -13,9 +13,9 @@ namespace IW5Forms.Api.BL.MapperProfiles
     {
         public AnswerMapperProfile()
         {
-            // přidat při merge s DAL
+            
             CreateMap<AnswerEntity, AnswerListAndDetailModel>();
-            CreateMap<AnswerListAndDetailModel, AnswerEntity>();
+            //CreateMap<AnswerListAndDetailModel, AnswerEntity>();
         }
     }
 }

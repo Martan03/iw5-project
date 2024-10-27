@@ -10,10 +10,14 @@ namespace IW5Forms.Api.DAL.Common.Entities
 {
     public record UserFormEntity : EntityBase
     {
-        public required FormEntity Form { get; set; }
-        public required FormRelationTypes FormRelationTypes { get; set; }
-        public required Guid UserId { get; set; }
+
+        public Guid UserId { get; set; }
         public UserEntity? User { get; set; }
+
+        public required Guid FormId { get; set; }
+        public FormEntity? Form { get; set; }
+
+        public required FormRelationTypes FormRelationTypes { get; set; }
 }
     public class UserFormEntityMapperProfile : Profile
     {
