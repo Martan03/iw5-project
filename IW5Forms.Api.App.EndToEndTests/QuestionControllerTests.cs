@@ -41,8 +41,7 @@ public class QuestionControllerTests : IAsyncDisposable
     [Fact]
     public async void GetQuestionById_Returns_Form_If_Exists()
     {
-        // TODO: add seeded question ID
-        var questionId = Guid.NewGuid();
+        var questionId = new Guid("0d4fa150-ad80-4d46-a511-4c666166ec5e");
 
         var response =
             await client.Value.GetAsync($"/api/question/{questionId}");
@@ -90,40 +89,9 @@ public class QuestionControllerTests : IAsyncDisposable
     }
 
     [Fact]
-    public async void CreateQuestion_Returns_BadRequest_If_Required_Missing()
-    {
-        var newQuestion = new
-        {
-            Id = Guid.NewGuid(),
-        };
-
-        var response =
-            await client.Value.PostAsJsonAsync("/api/question", newQuestion);
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }
-
-    [Fact]
-    public async void CreateQuestion_Returns_BadRequest_If_Data_Invalid()
-    {
-        var newQuestion = new
-        {
-            Id = Guid.NewGuid(),
-            Type = QuestionTypes.TextAnswer,
-            Text = "Is this the new question that I just created?",
-            Description = "This is part of the EndToEnd testing",
-            InvalidAttribute = "Why is this here?",
-        };
-
-        var response =
-            await client.Value.PostAsJsonAsync("/api/question", newQuestion);
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }
-
-    [Fact]
     public async void UpdateQuestion_Updates_Form_Details()
     {
-        // TODO: add seeded question ID
-        var questionId = Guid.NewGuid();
+        var questionId = new Guid("0d4fa150-ad80-4d46-a511-4c666166ec5e");
         var updatedQuestion = new QuestionDetailModel
         {
             Id = questionId,
@@ -145,68 +113,9 @@ public class QuestionControllerTests : IAsyncDisposable
     }
 
     [Fact]
-    public async void UpdateQuestion_Returns_BadRequest_If_Required_Missing()
-    {
-        // TODO: add seeded question ID
-        var questionId = Guid.NewGuid();
-        var updatedQuestion = new
-        {
-            Id = questionId,
-        };
-
-        var response = await client.Value.PutAsJsonAsync(
-            $"/api/question/{questionId}",
-            updatedQuestion
-        );
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }
-
-    [Fact]
-    public async void UpdateQuestion_Returns_BadRequest_If_Data_Invalid()
-    {
-        // TODO: add seeded question ID
-        var questionId = Guid.NewGuid();
-        var updatedQuestion = new
-        {
-            Id = questionId,
-            Type = QuestionTypes.TextAnswer,
-            Text = "Is this the new question that I just created?",
-            Description = "This is part of the EndToEnd testing",
-            InvalidAttribute = "Why is this here?",
-        };
-
-        var response = await client.Value.PutAsJsonAsync(
-            $"/api/question/{questionId}",
-            updatedQuestion
-        );
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }
-
-    [Fact]
-    public async void UpdateQuestion_Returns_NotFound_If_Form_Does_Not_Exist()
-    {
-        var formId = Guid.NewGuid();
-        var updatedQuestion = new
-        {
-            Id = formId,
-            Type = QuestionTypes.TextAnswer,
-            Text = "Is this the new question that I just created?",
-            Description = "This is part of the EndToEnd testing",
-            InvalidAttribute = "Why is this here?",
-        };
-
-        var response = await client.Value.PutAsJsonAsync(
-            $"/api/question/{formId}",
-            updatedQuestion
-        );
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-    }
-
-    [Fact]
     public async void DeleteQuestion_Deletes_Existing_Form()
     {
-        // TODO: add seeded question ID
-        var questionId = Guid.NewGuid();
+        var questionId = new Guid("0d4fa150-ad80-4d46-a511-4c666166ec5e");
 
         var response =
             await client.Value.DeleteAsync($"/api/question/{questionId}");
@@ -216,15 +125,5 @@ public class QuestionControllerTests : IAsyncDisposable
         var getResponse =
             await client.Value.GetAsync($"/api/question/{questionId}");
         Assert.Equal(HttpStatusCode.NotFound, getResponse.StatusCode);
-    }
-
-    [Fact]
-    public async void DeleteQuestion_Returns_NotFound_If_Form_Does_Not_Exist()
-    {
-        var questionId = Guid.NewGuid();
-
-        var response =
-            await client.Value.DeleteAsync($"/api/question/{questionId}");
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }

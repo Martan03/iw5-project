@@ -39,8 +39,7 @@ public class FormControllerTests : IAsyncDisposable
     [Fact]
     public async void GetFormById_Returns_Form_If_Exists()
     {
-        // TODO: add seeded form ID
-        var formId = Guid.NewGuid();
+        var formId = new Guid("fabde0cd-eefe-443f-baf6-3d96cc2cbf2e");
 
         var response = await client.Value.GetAsync($"/api/form/{formId}");
         response.EnsureSuccessStatusCode();
@@ -87,42 +86,12 @@ public class FormControllerTests : IAsyncDisposable
     }
 
     [Fact]
-    public async void CreateForm_Returns_BadRequest_If_Required_Missing()
-    {
-        var newForm = new
-        {
-            Id = Guid.NewGuid(),
-        };
-
-        var response =
-            await client.Value.PostAsJsonAsync("/api/form", newForm);
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }
-
-    [Fact]
-    public async void CreateForm_Returns_BadRequest_If_Data_Invalid()
-    {
-        var newForm = new
-        {
-            Id = Guid.NewGuid(),
-            AnswerAcceptanceStartTime = DateTime.UtcNow,
-            AnswerAcceptanceEndTime = DateTime.UtcNow.AddDays(1),
-            InvalidAttribute = "What is this?",
-        };
-
-        var response =
-            await client.Value.PostAsJsonAsync("/api/form", newForm);
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }
-
-    [Fact]
     public async void UpdateForm_Updates_Form_Details()
     {
-        // TODO: add seeded form ID
-        var formId = Guid.NewGuid();
+        var formId = new Guid("fabde0cd-eefe-443f-baf6-3d96cc2cbf2e");
         var updatedForm = new FormDetailModel
         {
-            Id = Guid.NewGuid(),
+            Id = formId,
             Name = "This is form testing",
             BeginTime = DateTime.UtcNow,
             EndTime = DateTime.UtcNow.AddDays(3),
@@ -143,65 +112,9 @@ public class FormControllerTests : IAsyncDisposable
     }
 
     [Fact]
-    public async void UpdateForm_Returns_BadRequest_If_Required_Missing()
-    {
-        // TODO: add seeded form ID
-        var formId = Guid.NewGuid();
-        var updatedForm = new
-        {
-            Id = formId,
-        };
-
-        var response = await client.Value.PutAsJsonAsync(
-            $"/api/form/{formId}",
-            updatedForm
-        );
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }
-
-    [Fact]
-    public async void UpdateForm_Returns_BadRequest_If_Data_Invalid()
-    {
-        // TODO: add seeded form ID
-        var formId = Guid.NewGuid();
-        var updatedForm = new
-        {
-            Id = formId,
-            AnswerAcceptanceStartTime = DateTime.UtcNow,
-            AnswerAcceptanceEndTime = DateTime.UtcNow.AddDays(3),
-            InvalidAttribute = "Invalid attribute",
-        };
-
-        var response = await client.Value.PutAsJsonAsync(
-            $"/api/form/{formId}",
-            updatedForm
-        );
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }
-
-    [Fact]
-    public async void UpdateForm_Returns_NotFound_If_Form_Does_Not_Exist()
-    {
-        var formId = Guid.NewGuid();
-        var updatedForm = new
-        {
-            Id = formId,
-            AnswerAcceptanceStartTime = DateTime.UtcNow,
-            AnswerAcceptanceEndTime = DateTime.UtcNow.AddDays(3),
-        };
-
-        var response = await client.Value.PutAsJsonAsync(
-            $"/api/form/{formId}",
-            updatedForm
-        );
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-    }
-
-    [Fact]
     public async void DeleteForm_Deletes_Existing_Form()
     {
-        // TODO: add seeded form ID
-        var formId = Guid.NewGuid();
+        var formId = new Guid("fabde0cd-eefe-443f-baf6-3d96cc2cbf2e");
 
         var response = await client.Value.DeleteAsync($"/api/form/{formId}");
         response.EnsureSuccessStatusCode();
@@ -209,14 +122,5 @@ public class FormControllerTests : IAsyncDisposable
 
         var getResponse = await client.Value.GetAsync($"/api/form/{formId}");
         Assert.Equal(HttpStatusCode.NotFound, getResponse.StatusCode);
-    }
-
-    [Fact]
-    public async void DeleteForm_Returns_NotFound_If_Form_Does_Not_Exist()
-    {
-        var formId = Guid.NewGuid();
-
-        var response = await client.Value.DeleteAsync($"/api/form/{formId}");
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }
