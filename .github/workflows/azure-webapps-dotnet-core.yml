@@ -7,6 +7,7 @@ on:
     - main
 
 env:
+  AZURE_SQL_CONNECTION_STRING: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
   AZURE_WEBAPP_NAME: app-iw5-2024-team-xzatloa00-api
   AZURE_WEBAPP_PACKAGE_PATH: "./publish"
 
