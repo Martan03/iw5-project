@@ -135,6 +135,18 @@ public class FormFacadeTests
             Incognito = false,
             SingleTry = true,
         };
+        var formEntity = new FormEntity()
+        {
+            BeginTime = formModel.BeginTime,
+            CompletedUsersId = formModel.CompletedUsersId,
+            EndTime = formModel.EndTime,
+            Id = formModel.Id,
+            Incognito = formModel.Incognito,
+            Name = formModel.Name,
+            Questions = new List<QuestionEntity>(),
+            SingleTry = formModel.SingleTry
+
+        };
 
         var repoMock = new Mock<IFormRepository>();
         var mapperMock = new Mock<IMapper>();
@@ -145,6 +157,9 @@ public class FormFacadeTests
         repoMock
             .Setup(formRepo => formRepo.Update(It.IsAny<FormEntity>()))
             .Returns(Guid.NewGuid());
+        repoMock
+            .Setup(formRepo => formRepo.GetById(It.IsAny<Guid>()))
+            .Returns(formEntity);
 
         var facade = new FormFacade(repoMock.Object, mapperMock.Object);
 
