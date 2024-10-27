@@ -22,12 +22,12 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-
-      - name: Test
-        run: dotnet test
           
       - name: Restore
         run: dotnet restore ./IW5Forms.sln
+        
+      - name: Test
+        run: dotnet test --no-restore
         
       - name: Build
         run: dotnet build ./IW5Forms.sln --configuration Release --no-restore
