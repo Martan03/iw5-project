@@ -37,7 +37,7 @@ jobs:
 
       - name: Run EF Core Migrations
         run: |
-          dotnet ef database update --project ./IW5Forms.Api.DAL.EF.csproj --context FormsDbContext --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}"
+          dotnet ef database update --project ./IW5Forms.Api.DAL.EF/IW5Forms.Api.DAL.EF.csproj --context FormsDbContext --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}"
         
       - name: Deployment
         uses: azure/webapps-deploy@v2
