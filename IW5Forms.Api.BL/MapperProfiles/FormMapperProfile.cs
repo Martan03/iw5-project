@@ -15,9 +15,7 @@ namespace IW5Forms.Api.BL.MapperProfiles
         public FormMapperProfile()
         {
             CreateMap<FormEntity, FormListModel>();
-            CreateMap<FormEntity, FormDetailModel>()
-                .ForMember(dst => dst.CompletedUsersId, config => config.MapFrom(src => src.CompletedUsersId));
-
+            CreateMap<FormEntity, FormDetailModel>();
             CreateMap<FormDetailModel, FormEntity>();
         }
     }

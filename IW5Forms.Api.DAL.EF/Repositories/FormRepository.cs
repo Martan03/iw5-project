@@ -24,7 +24,6 @@ namespace IW5Forms.Api.DAL.EF.Repositories
         {
             return DbContext.Forms
                 .Include(entity => entity.Questions)
-                .Include(entity => entity.CompletedUsersId)
                 .SingleOrDefault();
         }
 
@@ -34,7 +33,6 @@ namespace IW5Forms.Api.DAL.EF.Repositories
             {
                 var existingForm = DbContext.Forms
                     .Include(entity => entity.Questions)
-                    .Include(entity => entity.CompletedUsersId)
                     .SingleOrDefault(form => form.Id == questionEntity.Id);
 
                 mapper.Map(questionEntity, existingForm);

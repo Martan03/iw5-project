@@ -15,7 +15,7 @@ namespace IW5Forms.Api.BL.MapperProfiles
         {
             
             CreateMap<AnswerEntity, AnswerListAndDetailModel>();
-            //CreateMap<AnswerListAndDetailModel, AnswerEntity>();
+            CreateMap<AnswerListAndDetailModel, AnswerEntity>();
         }
     }
 }
