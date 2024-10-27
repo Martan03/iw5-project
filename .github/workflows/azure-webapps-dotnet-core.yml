@@ -20,16 +20,16 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '8.0.x'
           
       - name: Restore
-        run: dotnet restore ./IW5Forms.Api.App.sln
+        run: dotnet restore ./IW5Forms.sln
         
       - name: Build
-        run: dotnet build ./IW5Forms.Api.App.sln --configuration Release --no-restore
+        run: dotnet build ./IW5Forms.sln --configuration Release --no-restore
         
       - name: Publish
-        run: dotnet publish ./IW5Forms.Api.App.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+        run: dotnet publish ./IW5Forms.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         
       - name: Deployment
         uses: azure/webapps-deploy@v2
