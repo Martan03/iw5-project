@@ -67,7 +67,9 @@ namespace IW5Forms.Api.App
 
             serviceCollection.AddDbContext<FormsDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("TestConnection"));
+                var connectionString = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTION_STRING")
+                ?? configuration.GetConnectionString("TestConnection");
+                options.UseSqlServer(connectionString);
             });
 
             serviceCollection.AddInstaller<RepositoriesInstaller>();
