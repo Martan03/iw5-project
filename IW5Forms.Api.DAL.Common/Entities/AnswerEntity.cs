@@ -16,7 +16,7 @@ namespace IW5Forms.Api.DAL.Common.Entities
         public required Guid ResponderId { get; set; }
         public UserEntity? Responder { get; set; }
 
-        public Guid QuestionId { get; set; }
+        public Guid? QuestionId { get; set; }
         public QuestionEntity? Question { get; set; }
     }
 

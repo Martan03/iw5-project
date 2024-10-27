@@ -24,25 +24,34 @@ namespace IW5Forms.Api.BL.Facades
             return mapper.Map<AnswerListAndDetailModel>(answerEntity);
         }
 
-        //public Guid CreateOrUpdate(AnswerListAndDetailModel answerModel)
-        //{
-        //    return answerRepository.Exists(answerModel.Id)
-        //        ? Update(answerModel)!.Value
-        //        : Create(answerModel);
+        public Guid CreateOrUpdate(AnswerListAndDetailModel answerModel)
+        {
+            return answerRepository.Exists(answerModel.Id)
+                ? Update(answerModel)!.Value
+                : Create(answerModel);
+        }
 
-        //}
+        public Guid Create(AnswerListAndDetailModel answerModel)
+        {
+            AnswerEntity newAnswerEntity = new AnswerEntity()
+            {
+                Id = answerModel.Id,
+                ResponderId = answerModel.ResponderId,
+                Text = answerModel.Text,
+            };
 
-        //public Guid Create(AnswerListAndDetailModel answerModel)
-        //{
-        //    var answerEntity = mapper.Map<AnswerEntity>(answerModel);
-        //    return answerRepository.Insert(answerEntity);
-        //}
+            return answerRepository.Insert(newAnswerEntity);
+        }
 
-        //public Guid? Update(AnswerListAndDetailModel answerModel)
-        //{
-        //    var answerEntity = mapper.Map<AnswerEntity>(answerModel);
-        //    return answerRepository.Update(answerEntity);
-        //}
+        public Guid? Update(AnswerListAndDetailModel answerModel)
+        {
+            AnswerEntity? newAnswerEntity = answerRepository.GetById(answerModel.Id);
+            if (newAnswerEntity == null) return null;
+            newAnswerEntity.ResponderId = answerModel.ResponderId;
+            newAnswerEntity.Text = answerModel.Text;
+            
+            return answerRepository.Update(newAnswerEntity);
+        }
 
         public void Delete(Guid id)
         {

@@ -15,7 +15,7 @@ namespace IW5Forms.Api.DAL.Common.Entities
         public UserEntity? User { get; set; }
 
         public required Guid FormId { get; set; }
-        public required FormEntity Form { get; set; }
+        public FormEntity? Form { get; set; }
 
         public required FormRelationTypes FormRelationTypes { get; set; }
 }

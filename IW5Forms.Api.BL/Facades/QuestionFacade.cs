@@ -48,30 +48,44 @@ namespace IW5Forms.Api.BL.Facades
             return mapper.Map<QuestionDetailModel>(questionEntity);
         }
 
-        //public Guid CreateOrUpdate(QuestionDetailModel questionModel) 
-        //{
-        //    return questionRepository.Exists(questionModel.Id)
-        //        ? Update(questionModel)!.Value
-        //        : Create(questionModel);
-        //}
+        public Guid CreateOrUpdate(QuestionDetailModel questionModel)
+        {
+            return questionRepository.Exists(questionModel.Id)
+                ? Update(questionModel)!.Value
+                : Create(questionModel);
+        }
 
-        //public Guid Create(QuestionDetailModel questionModel)
-        //{
-            
-        //    var questionEntity = mapper.Map<QuestionEntity>(questionModel);
-        //    List<AnswerEntity> list = questionEntity.Answers.ToList();
+        public Guid Create(QuestionDetailModel questionModel)
+        {
+            QuestionEntity newQuestionEntity = new QuestionEntity()
+            {
+                Answers = new List<AnswerEntity>(),
+                Description = questionModel.Description,
+                Options = questionModel.Options,
+                Id = questionModel.Id,
+                QuestionType = questionModel.QuestionType,
+                Text = questionModel.Text,
+            };
 
-        //    foreach (var item in list)
-        //    {
-        //        item.QuestionId = questionModel.Id;
-        //        item.Question = questionEntity;
-        //    }
-        //    return questionRepository.Insert(questionEntity);
-        //}
+            foreach (var item in questionModel.Answers)
+            {
+                newQuestionEntity.Answers.Add(new AnswerEntity()
+                {
+                    Id = item.Id,
+                    Question = newQuestionEntity,
+                    QuestionId = newQuestionEntity.Id,
+                    ResponderId = item.ResponderId,
+                    Text = item.Text,
+                });
+
+            }
+            return questionRepository.Insert(newQuestionEntity);
+        }
 
         public Guid? Update(QuestionDetailModel questionModel) 
         {
             var questionEntity = questionRepository.GetById(questionModel.Id);
+            if (questionEntity == null) return null;
             questionEntity.Description = questionModel.Description;
             questionEntity.Options = questionModel.Options;
             questionEntity.QuestionType = questionModel.QuestionType;

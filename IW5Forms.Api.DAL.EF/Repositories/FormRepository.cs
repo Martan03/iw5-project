@@ -32,7 +32,7 @@ namespace IW5Forms.Api.DAL.EF.Repositories
         {
             return DbContext.Forms
                 .Include(entity => entity.Questions)
-                .SingleOrDefault();
+                .SingleOrDefault(entity => entity.Id == id);
         }
 
         public override Guid? Update(FormEntity questionEntity)
