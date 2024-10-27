@@ -13,7 +13,7 @@ namespace IW5Forms.Api.DAL.Common.Entities
         public required string Text { get; set; }
 
         // UserId is nullable, in case incognito mode is enabled
-        public required Guid ResponderId { get; set; }
+        public Guid? ResponderId { get; set; }
         public UserEntity? Responder { get; set; }
 
         public Guid? QuestionId { get; set; }
