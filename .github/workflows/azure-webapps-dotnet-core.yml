@@ -41,9 +41,9 @@ jobs:
       - name: Publish
         run: dotnet publish ./IW5Forms.sln --configuration Release --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
-      - name: Run EF Core Migrations
-        run: |
-          dotnet ef database update --project ./IW5Forms.Api.DAL.EF/IW5Forms.Api.DAL.EF.csproj --context FormsDbContext --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}"
+     # - name: Run EF Core Migrations
+      #  run: |
+       #   dotnet ef database update --project ./IW5Forms.Api.DAL.EF/IW5Forms.Api.DAL.EF.csproj --context FormsDbContext --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}"
 
         
       - name: Deployment
