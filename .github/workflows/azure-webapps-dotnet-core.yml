@@ -29,8 +29,8 @@ jobs:
       - name: Build
         run: dotnet build ./IW5Forms.sln --configuration Release --no-restore
 
-      #- name: Test
-       # run: dotnet test --no-restore
+      - name: Test
+        run: dotnet test --no-restore
 
       - name: Install EF Core Tools
         run: dotnet tool install --global dotnet-ef
@@ -41,9 +41,9 @@ jobs:
       - name: Publish
         run: dotnet publish ./IW5Forms.sln --configuration Release --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
-      - name: Run EF Core Migrations
-        run: |
-          dotnet ef migrations add InitialCreate --project ./IW5Forms.Api.DAL.EF/IW5Forms.Api.DAL.EF.csproj --context FormsDbContext
+     # - name: Run EF Core Migrations
+      #  run: |
+       #   dotnet ef database update --project ./IW5Forms.Api.DAL.EF/IW5Forms.Api.DAL.EF.csproj --context FormsDbContext --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}"
 
         
       - name: Deployment

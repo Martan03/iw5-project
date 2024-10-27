@@ -64,11 +64,12 @@ namespace IW5Forms.Api.App
         private static void ConfigureDependencies(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             //EF stuff
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__AZURE_SQL_CONNECTION_STRING")
+               ?? configuration.GetConnectionString("TestConnection");
 
             serviceCollection.AddDbContext<FormsDbContext>(options =>
             {
-                var connectionString = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTION_STRING")
-                ?? configuration.GetConnectionString("TestConnection");
+               
                 options.UseSqlServer(connectionString);
             });
 
