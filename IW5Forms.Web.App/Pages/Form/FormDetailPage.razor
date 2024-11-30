@@ -1,0 +1,29 @@
+@page "/form/{formId:int}"
+@inject NavigationManager Navigation
+
+<PageTitle>Form Details</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">@form.Title</MudText>
+    <MudText Typo="Typo.body1">Form ID: @FormId</MudText>
+</MudContainer>
+
+@code {
+    [Parameter] public int FormId { get; set; }
+
+    private Form form = new();
+
+    protected override void OnInitialized()
+    {
+        form = new Form {
+            Id = FormId,
+            Title = "Testing form",
+        };
+    }
+
+    public class Form
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+    }
+}

@@ -1,0 +1,86 @@
+@page "/forms"
+@inject NavigationManager Navigation
+
+<PageTitle>Forms</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Available Forms</MudText>
+
+    <MudTable Items="forms" Dense="true" Hover="true">
+        <HeaderContent>
+            <MudTh>Title</MudTh>
+            <MudTh>Actions</MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Title">@context.Title</MudTd>
+            <MudTd>
+                <MudButton
+                    Variant="Variant.Text"
+                    Color="Color.Primary"
+                    OnClick="@(() => NavigateToForm(context.Id))"
+                >
+                    View
+                </MudButton>
+                <MudButton
+                    Variant="Variant.Text"
+                    Color="Color.Secondary"
+                    OnClick="@(() => EditForm(context.Id))"
+                >
+                    Edit
+                </MudButton>
+                <MudButton
+                    Variant="Variant.Text"
+                    Color="Color.Error"
+                    OnClick="@(() => DeleteForm(context.Id))"
+                >
+                    Delete
+                </MudButton>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudContainer>
+
+@code {
+    private List<Form> forms = new();
+
+    protected override void OnInitialized()
+    {
+        forms = new List<Form>
+        {
+            new Form {
+                Id = 1,
+                Title = "Interesting form",
+            },
+            new Form {
+                Id = 2,
+                Title = "Form Numero 2",
+            },
+            new Form {
+                Id = 3,
+                Title = "Last form",
+            }
+        };
+    }
+
+    private void NavigateToForm(int formId)
+    {
+        Navigation.NavigateTo($"/form/{formId}");
+    }
+
+    private void EditForm(int formId)
+    {
+        Navigation.NavigateTo($"/form/edit/{formId}");
+    }
+
+    private void DeleteForm(int formId)
+    {
+        forms = forms.Where(f => f.Id != formId).ToList();
+    }
+
+    public class Form
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+    }
+}
