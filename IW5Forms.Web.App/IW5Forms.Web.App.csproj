@@ -12,4 +12,8 @@
     <PackageReference Include="MudBlazor" Version="7.15.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IW5Forms.Web.BL\IW5Forms.Web.BL.csproj" />
+  </ItemGroup>
+
 </Project>

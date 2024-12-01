@@ -1,29 +1,48 @@
-@page "/form/{formId:int}"
-@inject NavigationManager Navigation
+@page "/form/{Id:guid}"
+@namespace IW5Forms.Web.App.Pages
 
 <PageTitle>Form Details</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
-    <MudText Typo="Typo.h4" GutterBottom="true">@form.Title</MudText>
-    <MudText Typo="Typo.body1">Form ID: @FormId</MudText>
-</MudContainer>
-
-@code {
-    [Parameter] public int FormId { get; set; }
-
-    private Form form = new();
-
-    protected override void OnInitialized()
+@{
+    if (Data is null)
     {
-        form = new Form {
-            Id = FormId,
-            Title = "Testing form",
-        };
-    }
-
-    public class Form
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
+        <MudGrid Justify="Justify.Center" Class="mt-3">
+            <MudItem>
+                <MudProgressCircular
+                    Color="Color.Primary"
+                    Indeterminate="true"
+                />
+            </MudItem>
+        </MudGrid>
+        return;
     }
 }
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudChipSet T="int">
+        <MudChip Value="@(Data.Incognito ? "Incognito" : "Not incognito")" />
+        <MudChip Value="@(Data.SingleTry ? "Single Try" : "Multiple Tries")" />
+    </MudChipSet>
+    <MudText Typo="Typo.h4" GutterBottom="true">@Data.Name</MudText>
+    <MudText>@OpenRange</MudText>
+
+    <MudText Typo="Typo.h5" Class="mt-4 mb-2">Questions</MudText>
+    <MudTable Items="Data.Questions" Dense="true" Hover="true">
+        <HeaderContent>
+            <MudTh>Text</MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Text">@context.Text</MudTd>
+        </RowTemplate>
+
+        <FooterContent>
+            @if (Data.Questions == null || !Data.Questions.Any())
+            {
+                <MudText Class="mt-3 mb-3 ml-3 mr-3">
+                    No questions found.
+                </MudText>
+            }
+        </FooterContent>
+    </MudTable>
+</MudContainer>
