@@ -7,6 +7,9 @@ namespace IW5Forms.Web.App.Pages;
 public partial class FormDetailPage
 {
     [Inject]
+    private NavigationManager navigationManager { get; set; } = null!;
+
+    [Inject]
     private FormFacade FormFacade { get; set; } = null!;
 
     private FormDetailModel Data { get; set; } = null!;
@@ -23,5 +26,12 @@ public partial class FormDetailPage
         Data = await FormFacade.GetByIdAsync(Id);
 
         await base.OnInitializedAsync();
+    }
+
+    public void NavQuestionCreate()
+    {
+        navigationManager.NavigateTo(
+            $"/question/create/{Data.Id}"
+        );
     }
 }

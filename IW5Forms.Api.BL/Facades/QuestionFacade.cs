@@ -65,6 +65,7 @@ namespace IW5Forms.Api.BL.Facades
                 Id = questionModel.Id,
                 QuestionType = questionModel.QuestionType,
                 Text = questionModel.Text,
+                FormId = questionModel.FormId,
             };
 
             foreach (var item in questionModel.Answers)

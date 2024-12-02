@@ -1,6 +1,6 @@
 @page "/forms"
 @namespace IW5Forms.Web.App.Pages
-@inject NavigationManager Navigation
+@inject IDialogService DialogService
 
 <PageTitle>Forms</PageTitle>
 
@@ -33,6 +33,7 @@
                 <MudButton
                     Variant="Variant.Text"
                     Color="Color.Error"
+                    OnClick="@(() => DeleteAsync(context.Id))"
                 >
                     Delete
                 </MudButton>
@@ -46,4 +47,11 @@
             }
         </FooterContent>
     </MudTable>
+
+    <MudFab
+        Color="Color.Primary"
+        StartIcon="@Icons.Material.Filled.Add"
+        Style="position: fixed; bottom: 16px; right: 16px;"
+        OnClick="@(() => NavEditor(null))"
+    />
 </MudContainer>

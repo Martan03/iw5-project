@@ -1,5 +1,4 @@
-@page "/question/editor"
-@page "/question/editor/{Id:guid}"
+@page "/question/{Action}/{Id:guid}"
 @using IW5Forms.Common.Enums
 @namespace IW5Forms.Web.App.Pages
 
@@ -42,6 +41,7 @@
         <MudButton
             Variant="Variant.Filled"
             Color="Color.Primary"
+            OnClick="Save"
         >
             Save
         </MudButton>

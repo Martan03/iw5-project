@@ -43,6 +43,26 @@ public partial class FormEditPage
             Data.EndTime.Date.Add(value.Value) : Data.EndTime;
     }
 
+    private bool Incognito
+    {
+        get => Data.Incognito;
+        set {
+            Data.Incognito = value;
+            if (Data.Incognito && Data.SingleTry)
+                Data.SingleTry = false;
+        }
+    }
+
+    private bool SingleTry
+    {
+        get => Data.SingleTry;
+        set {
+            Data.SingleTry = value;
+            if (Data.SingleTry && Data.Incognito)
+                Data.Incognito = false;
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         if (Id != Guid.Empty)

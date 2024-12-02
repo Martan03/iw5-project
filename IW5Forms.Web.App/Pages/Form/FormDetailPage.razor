@@ -1,4 +1,5 @@
 @page "/form/{Id:guid}"
+@using IW5Forms.Common.Enums
 @namespace IW5Forms.Web.App.Pages
 
 <PageTitle>Form Details</PageTitle>
@@ -27,22 +28,45 @@
     <MudText>@OpenRange</MudText>
 
     <MudText Typo="Typo.h5" Class="mt-4 mb-2">Questions</MudText>
-    <MudTable Items="Data.Questions" Dense="true" Hover="true">
-        <HeaderContent>
-            <MudTh>Text</MudTh>
-        </HeaderContent>
-
-        <RowTemplate>
-            <MudTd DataLabel="Text">@context.Text</MudTd>
-        </RowTemplate>
-
-        <FooterContent>
-            @if (Data.Questions == null || !Data.Questions.Any())
-            {
-                <MudText Class="mt-3 mb-3 ml-3 mr-3">
-                    No questions found.
-                </MudText>
+    @if (Data.Questions.Any()) {
+        <MudForm>
+            @foreach (var question in Data.Questions) {
+                <MudPaper Elevation="1" Class="pa-4 mb-4">
+                    <MudText>@question.Text</MudText>
+                    @if (question.QuestionType == QuestionTypes.TextAnswer)
+                    {
+                        <MudTextField
+                            T="string"
+                            Label="Answer"
+                            Required="true"
+                        />
+                    }
+                    else if (
+                        question.QuestionType == QuestionTypes.NumericValue
+                    ) {
+                        <MudNumericField
+                            T="int"
+                            Label="Answer"
+                            Variant="Variant.Text"
+                        />
+                    } else {
+                        <MudTextField
+                            T="string"
+                            Label="Not supported"
+                            Disabled="true"
+                        />
+                    }
+                </MudPaper>
             }
-        </FooterContent>
-    </MudTable>
+        </MudForm>
+    } else {
+        <MudText>No questions found...</MudText>
+    }
+
+    <MudFab
+        Color="Color.Primary"
+        StartIcon="@Icons.Material.Filled.Add"
+        Style="position: fixed; bottom: 16px; right: 16px;"
+        OnClick="NavQuestionCreate"
+    />
 </MudContainer>
