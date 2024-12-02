@@ -33,6 +33,7 @@
             @foreach (var question in Data.Questions) {
                 <MudPaper Elevation="1" Class="pa-4 mb-4">
                     <MudText>@question.Text</MudText>
+                    <MudText>@question.Description</MudText>
                     @if (question.QuestionType == QuestionTypes.TextAnswer)
                     {
                         <MudTextField
@@ -48,13 +49,21 @@
                             T="int"
                             Label="Answer"
                             Variant="Variant.Text"
+                            Required="true"
                         />
                     } else {
-                        <MudTextField
+                        <MudSelect
                             T="string"
-                            Label="Not supported"
-                            Disabled="true"
-                        />
+                            Label="Select answer"
+                            Required="true"
+                        >
+                            @foreach (var option in question.Options)
+                            {
+                                <MudSelectItem T="string" Value="option">
+                                    @option
+                                </MudSelectItem>
+                            }
+                        </MudSelect>
                     }
                 </MudPaper>
             }

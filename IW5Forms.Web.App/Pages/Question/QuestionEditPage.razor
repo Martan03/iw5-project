@@ -38,6 +38,34 @@
             }
         </MudSelect>
 
+        @if (Data.QuestionType == QuestionTypes.ManyOptions)
+        {
+            <MudDivider Class="mb-3" />
+            <MudText Typo="Typo.h5" GutterBottom="true">Options</MudText>
+
+            @foreach (var option in
+                Data.Options.Select((value, index) => new { value, index }))
+            {
+                <MudTextField
+                    T="string"
+                    Class="mb-4"
+                    Label="Option"
+                    @bind-Text="Data.Options[option.index]"
+                    Adornment="Adornment.End"
+                    AdornmentIcon="@Icons.Material.Filled.Delete"
+                    OnAdornmentClick="@(() => RemOption(option.index))"
+                />
+            }
+            <MudButton
+                Variant="Variant.Outlined"
+                Color="Color.Primary"
+                Class="mb-4"
+                OnClick="AddOption"
+            >
+                Add Option
+            </MudButton>
+        }
+
         <MudButton
             Variant="Variant.Filled"
             Color="Color.Primary"

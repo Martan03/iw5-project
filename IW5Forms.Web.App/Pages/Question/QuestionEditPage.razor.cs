@@ -33,6 +33,19 @@ public partial class QuestionEditPage
         await base.OnInitializedAsync();
     }
 
+    public void AddOption()
+    {
+        Data.Options.Add(string.Empty);
+        StateHasChanged();
+    }
+
+    public void RemOption(int id)
+    {
+
+        Data.Options.RemoveAt(id);
+        StateHasChanged();
+    }
+
     public async Task Save()
     {
         await QuestionFacade.SaveAsync(Data);
