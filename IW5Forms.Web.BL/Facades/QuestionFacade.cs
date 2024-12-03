@@ -13,10 +13,10 @@ public class QuestionFacade:
 
     public QuestionFacade(
         IQuestionApiClient apiClient,
-        QuestionRepository ingredientRepository,
+        QuestionRepository ingredientRepo,
         IMapper mapper,
         IOptions<LocalDbOptions> localDbOptions)
-        : base(ingredientRepository, mapper, localDbOptions)
+        : base(ingredientRepo, mapper, localDbOptions)
     {
         this.apiClient = apiClient;
     }

@@ -12,10 +12,10 @@ public class FormFacade : FacadeBase<FormDetailModel, FormListModel>
 
     public FormFacade(
         IFormApiClient apiClient,
-        FormRepository recipeRepository,
+        FormRepository formRepo,
         IMapper mapper,
         IOptions<LocalDbOptions> localDbOptions)
-        : base(recipeRepository, mapper, localDbOptions)
+        : base(formRepo, mapper, localDbOptions)
     {
         this.apiClient = apiClient;
     }
@@ -25,11 +25,11 @@ public class FormFacade : FacadeBase<FormDetailModel, FormListModel>
         var formsAll = await base.GetAllAsync();
 
         var formsFromApi = await apiClient.FormGetAsync();
-        foreach (var recipeFromApi in formsFromApi)
+        foreach (var formFromApi in formsFromApi)
         {
-            if (formsAll.Any(r => r.Id == recipeFromApi.Id) is false)
+            if (formsAll.Any(r => r.Id == formFromApi.Id) is false)
             {
-                formsAll.Add(recipeFromApi);
+                formsAll.Add(formFromApi);
             }
         }
 
