@@ -66,6 +66,7 @@ public class QuestionFacadeTests
             Id = Guid.NewGuid(),
             QuestionType = QuestionTypes.TextAnswer,
             Text = "Question text",
+            FormId = Guid.NewGuid(),
         };
 
         // Act
@@ -87,6 +88,7 @@ public class QuestionFacadeTests
             Id = Guid.NewGuid(),
             QuestionType = QuestionTypes.TextAnswer,
             Text = "Question text",
+            FormId = Guid.NewGuid(),
         };
         var questionEntity = new QuestionEntity
         {
@@ -130,6 +132,7 @@ public class QuestionFacadeTests
             Id = questionId,
             QuestionType = QuestionTypes.TextAnswer,
             Text = "Question text",
+            FormId = Guid.NewGuid(),
         };
         var questionEntity = new QuestionEntity
         {

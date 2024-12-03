@@ -35,15 +35,15 @@ namespace IW5Forms.Api.DAL.EF.Repositories
                 .SingleOrDefault(entity => entity.Id == id);
         }
 
-        public override Guid? Update(FormEntity questionEntity)
+        public override Guid? Update(FormEntity formEntity)
         {
-            if (Exists(questionEntity.Id))
+            if (Exists(formEntity.Id))
             {
                 var existingForm = DbContext.Forms
                     .Include(entity => entity.Questions)
-                    .SingleOrDefault(form => form.Id == questionEntity.Id);
+                    .SingleOrDefault(form => form.Id == formEntity.Id);
 
-                mapper.Map(questionEntity, existingForm);
+                mapper.Map(formEntity, existingForm);
 
                 DbContext.Forms.Update(existingForm!);
                 DbContext.SaveChanges();

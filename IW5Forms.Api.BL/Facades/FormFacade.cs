@@ -57,21 +57,28 @@ namespace IW5Forms.Api.BL.Facades
         {
             var newFormEntity = formRepository.GetById(formModel.Id);
             if (newFormEntity == null) return null;
+
             newFormEntity.BeginTime = formModel.BeginTime;
             newFormEntity.CompletedUsersId = formModel.CompletedUsersId;
             newFormEntity.EndTime = formModel.EndTime;
             newFormEntity.Incognito = formModel.Incognito;
             newFormEntity.Name = formModel.Name;
-
-            newFormEntity.Questions = new List<QuestionEntity>();
             newFormEntity.SingleTry = formModel.SingleTry;
 
-
-
+            newFormEntity.Questions = new List<QuestionEntity>();
             foreach (var question in formModel.Questions)
             {
                 newFormEntity.Questions.Add(new QuestionEntity()
-                { Answers = new List<AnswerEntity>(), Form = newFormEntity, FormId = newFormEntity.Id, Id = question.Id, Text = question.Text, QuestionType = question.QuestionType, Options = new List<string>() });
+                {
+                    Id = question.Id,
+                    QuestionType = question.QuestionType,
+                    Text = question.Text,
+                    Description = question.Description,
+                    Options = question.Options,
+                    Answers = new List<AnswerEntity>(),
+                    Form = newFormEntity,
+                    FormId = newFormEntity.Id,
+                });
             }
             return formRepository.Update(newFormEntity);
         }
