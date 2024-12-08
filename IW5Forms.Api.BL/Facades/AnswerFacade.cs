@@ -10,52 +10,65 @@ using IW5Forms.Api.DAL.Common.Repositories;
 using IW5Forms.Common.Models.Question;
 
 namespace IW5Forms.Api.BL.Facades
-{  
-    public class AnswerFacade(IAnswerRepository answerRepository, IMapper mapper) : IAnswerFacade
+{
+    public class AnswerFacade : FacadeBase<IAnswerRepository, AnswerEntity>, IAnswerFacade
     {
+        private readonly IAnswerRepository _answerRepository;
+        private readonly IMapper _mapper;
+
+        public AnswerFacade(
+            IAnswerRepository answerRepository,
+            IMapper mapper)
+            : base(answerRepository)
+        {
+            _answerRepository = answerRepository;
+            _mapper = mapper;
+        }
+
         public List<AnswerListAndDetailModel> GetAll()
         {
-            return mapper.Map<List<AnswerListAndDetailModel>>(answerRepository.GetAll());
+            return _mapper.Map<List<AnswerListAndDetailModel>>(_answerRepository.GetAll());
         }
 
         public AnswerListAndDetailModel? GetById(Guid id)
         {
-            var answerEntity = answerRepository.GetById(id);
-            return mapper.Map<AnswerListAndDetailModel>(answerEntity);
+            var answerEntity = _answerRepository.GetById(id);
+            return _mapper.Map<AnswerListAndDetailModel>(answerEntity);
         }
 
-        public Guid CreateOrUpdate(AnswerListAndDetailModel answerModel)
+        public Guid CreateOrUpdate(AnswerListAndDetailModel answerModel, string? ownerId)
         {
-            return answerRepository.Exists(answerModel.Id)
-                ? Update(answerModel)!.Value
-                : Create(answerModel);
+            return _answerRepository.Exists(answerModel.Id) ? Update(answerModel, ownerId)!.Value : Create(answerModel, ownerId);
         }
 
-        public Guid Create(AnswerListAndDetailModel answerModel)
+        public Guid Create(AnswerListAndDetailModel answerModel, string? ownerId)
         {
             AnswerEntity newAnswerEntity = new AnswerEntity()
             {
                 Id = answerModel.Id,
                 ResponderId = answerModel.ResponderId,
                 Text = answerModel.Text,
+                IdentityOwnerId = ownerId,
             };
 
-            return answerRepository.Insert(newAnswerEntity);
+            return _answerRepository.Insert(newAnswerEntity);
         }
 
-        public Guid? Update(AnswerListAndDetailModel answerModel)
+        public Guid? Update(AnswerListAndDetailModel answerModel, string? ownerId = null)
         {
-            AnswerEntity? newAnswerEntity = answerRepository.GetById(answerModel.Id);
+            ThrowIfWrongOwner(answerModel.Id, ownerId);
+            AnswerEntity? newAnswerEntity = _answerRepository.GetById(answerModel.Id);
             if (newAnswerEntity == null) return null;
             newAnswerEntity.ResponderId = answerModel.ResponderId;
             newAnswerEntity.Text = answerModel.Text;
-            
-            return answerRepository.Update(newAnswerEntity);
+
+            return _answerRepository.Update(newAnswerEntity);
         }
 
-        public void Delete(Guid id)
+        public void Delete(Guid id, string? ownerId = null)
         {
-            answerRepository.Remove(id);
+            ThrowIfWrongOwner(id, ownerId);
+            _answerRepository.Remove(id);
         }
     }
 }

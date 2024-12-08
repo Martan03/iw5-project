@@ -1,53 +1,66 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using IW5Forms.Api.DAL.Common.Entities;
 using IW5Forms.Api.DAL.Common.Repositories;
 using IW5Forms.Common.Models.User;
 
 namespace IW5Forms.Api.BL.Facades
 {
-    public class UserFacade(IUserRepository userRepository, IMapper mapper) : IUserFacade
+    public class UserFacade : FacadeBase<IUserRepository, UserEntity>, IUserFacade
     {
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+
+        public UserFacade(IUserRepository userRepository, IMapper mapper) : base(userRepository)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+        }
+
         public List<UserListModel> GetAll()
         {
-            return mapper.Map<List<UserListModel>>(userRepository.GetAll());
+            return _mapper.Map<List<UserListModel>>(_userRepository.GetAll());
 
         }
 
         public List<UserListModel> SearchByName(string name)
         {
-            var users = mapper.Map<List<UserListModel>>(userRepository.GetAll());
+            var users = _mapper.Map<List<UserListModel>>(_userRepository.GetAll());
             users.RemoveAll(u => !u.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
             return users;
         }
 
         public UserDetailModel? GetById(Guid id)
         {
-            var userEntity = userRepository.GetById(id);
-            return mapper.Map<UserDetailModel>(userEntity);
+            var userEntity = _userRepository.GetById(id);
+            return _mapper.Map<UserDetailModel>(userEntity);
         }
 
-        public Guid CreateOrUpdate(UserDetailModel userModel)
+        public Guid CreateOrUpdate(UserDetailModel userModel, string? ownerId)
         {
-            return userRepository.Exists(userModel.Id)
-                ? Update(userModel)!.Value
-                : Create(userModel);
+            return _userRepository.Exists(userModel.Id)
+                ? Update(userModel, ownerId)!.Value
+                : Create(userModel, ownerId);
         }
 
-        public Guid Create(UserDetailModel userModel)
-        {
-            var userEntity = NewUserFromModel(userModel);
-            return userRepository.Insert(userEntity);
-        }
-
-        public Guid? Update(UserDetailModel userModel)
+        public Guid Create(UserDetailModel userModel, string? ownerId)
         {
             var userEntity = NewUserFromModel(userModel);
-            return userRepository.Update(userEntity);
+            userEntity.IdentityOwnerId = ownerId;
+            return _userRepository.Insert(userEntity);
         }
 
-        public void Delete(Guid id)
+        public Guid? Update(UserDetailModel userModel, string? ownerId)
         {
-            userRepository.Remove(id);
+            ThrowIfWrongOwner(userModel.Id, ownerId);
+            var userEntity = NewUserFromModel(userModel);
+            return _userRepository.Update(userEntity);
+        }
+
+        public void Delete(Guid id, string? ownerId)
+        {
+            ThrowIfWrongOwner(id, ownerId);
+            _userRepository.Remove(id);
         }
 
         public UserEntity NewUserFromModel(UserDetailModel userModel)

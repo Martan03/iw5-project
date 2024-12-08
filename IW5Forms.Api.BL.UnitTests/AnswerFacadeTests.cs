@@ -65,7 +65,7 @@ public class AnswerFacadeTests
         };
 
         // Act
-        facade.CreateOrUpdate(answerModel);
+        facade.CreateOrUpdate(answerModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(
@@ -107,7 +107,7 @@ public class AnswerFacadeTests
         var facade = new AnswerFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facade.CreateOrUpdate(answerModel);
+        facade.CreateOrUpdate(answerModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(
@@ -150,7 +150,7 @@ public class AnswerFacadeTests
         var facade = new AnswerFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facade.CreateOrUpdate(answerModel);
+        facade.CreateOrUpdate(answerModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IW5Forms.Api.DAL.Common.Entities;
+using IW5Forms.Common.Extentions;
 
 namespace IW5Forms.Api.BL.MapperProfiles
 {
