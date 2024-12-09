@@ -25,7 +25,7 @@ namespace IW5Forms.IdentityProvider.DAL
         public IdentityProviderDbContext CreateDbContext()
         {
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings2.json")
                 .AddUserSecrets<IdentityProviderDbContextFactory>(optional: true)
                 .AddUserSecrets(startupAssembly, optional: true)
                 .Build();

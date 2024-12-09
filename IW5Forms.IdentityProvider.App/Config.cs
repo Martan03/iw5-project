@@ -41,7 +41,7 @@ namespace IW5Forms.IdentityProvider.App
                 RedirectUris =
                 [
                     "https://oauth.pstmn.io/v1/callback",
-                    "https://localhost:44355/authentication/login-callback",
+                    "https://app-iw5-2024-team-xzatloa00-web.azurewebsites.net/",
                 ],
                 AllowedGrantTypes =
                 [

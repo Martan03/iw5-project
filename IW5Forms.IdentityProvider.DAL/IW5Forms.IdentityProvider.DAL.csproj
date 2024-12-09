@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IW5Forms.Api.App\IW5Forms.Api.App.csproj" />
     <ProjectReference Include="..\IW5Forms.Common\IW5Forms.Common.csproj" />
   </ItemGroup>
 
