@@ -1,33 +1,21 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider IsDarkMode="true"/>
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar>
-        <MudIconButton
-            Icon="@Icons.Material.Filled.Menu"
-            Color="Color.Inherit"
-            Edge="Edge.Start"
-            OnClick="@((e) => DrawerToggle())"
-        />
-        IW5Forms
+        <MudAppBar Elevation="4">
+        <MudImage Src="logo.png" Style="width: 200px;" Alt="Logo" />
+        <MudSpacer />
+        <MudNavLink Href="/" Match="NavLinkMatch.All">HOME</MudNavLink>
+        <MudNavLink Href="/forms" Match="NavLinkMatch.All">FORMS</MudNavLink>
+        <MudNavLink Href="/forms" Match="NavLinkMatch.All">QUESTIONS</MudNavLink>
+        <MudNavLink Href="/users" Match="NavLinkMatch.All">MANAGE USERS</MudNavLink>
+        <MudIconButton Href="/userinfo"  Icon="@Icons.Material.Outlined.Person" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen">
-        <NavMenu />
-    </MudDrawer>
     <MudMainContent>
         @Body
     </MudMainContent>
 </MudLayout>
-
-@code {
-    bool _drawerOpen = true;
-
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
-}
