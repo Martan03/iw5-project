@@ -1,60 +1,42 @@
-# Combined ASP.NET Pipeline
-# Builds, publishes artifacts, and deploys the application.
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
 trigger:
 - main
 
-pool:
-  vmImage: 'windows-latest'
-
 variables:
-  # Build Variables
-  solution: '**/IW5Forms.Api.App.csproj'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   dotNetFramework: 'net8.0'
   dotNetVersion: '8.0.x'
   targetRuntime: 'win-x64'
-  packageLocation: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
-  
-  # Deployment Variables
   azureWebAppName: 'app-iw5-2024-team-xzatloa00-api/api'
   azureSubscription: 'azure-connection'
 
+pool:
+  vmImage: windows-latest
+
 steps:
-# Step 1: Build the API and Publish Artifacts
-- task: NuGetToolInstaller@1
+    - template: build-API.yml
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: '**/IW5Forms.Api.App.csproj'
+        arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(build.artifactStagingDirectory)/api'
+        modifyOutputPath: false
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '$(solution)'
-    arguments: '--configuration $(buildConfiguration) --framework $(dotNetFramework) --output $(Build.ArtifactStagingDirectory)/api'
-    modifyOutputPath: false
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/api'
-    ArtifactName: 'API'
-    publishLocation: 'Container'
-
-# Step 2: Deploy the Published Artifacts
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: '$(azureSubscription)'
-    appType: 'webApp'
-    WebAppName: '$(azureWebAppName)'
-    packageForLinux: '$(packageLocation)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(build.artifactStagingDirectory)/api'
+        ArtifactName: 'API'
+        publishLocation: 'Container'
+        
+    - task: AzureRmWebAppDeployment@3
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: '$(azureSubscription)'
+        appType: 'webApp'                        
+        WebAppName: '$(azureWebAppName)'
+        packageForLinux: '$(build.artifactStagingDirectory)/api'
