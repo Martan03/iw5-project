@@ -2,6 +2,27 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h3" Class="mb-2 mt-2">
+            Welcome to MasterForms!
+    </MudText>
+    <MudText Typo="Typo.h5" Class="mb-6">
+            Here you can create, manage, and fill out all the forms in the world.
+        </MudText>
 
-Welcome to your new app.
+    <MudPaper Class="p-4 mb-4 pa-3" Elevation="2">
+        <MudText Typo="Typo.h4" GutterBottom="true" Class="mb-2">
+            Authors
+        </MudText>
+        <MudList T="string">
+            <MudListItem T="string">Jan Krahula (xkrahuj00)</MudListItem>
+            <MudListItem T="string">Martin Slezák (xsleza26)</MudListItem>
+            <MudListItem T="string">Adam Zatloukal (xzatloa00)</MudListItem>
+        </MudList>
+    </MudPaper>
+
+        <MudText Typo="Typo.body1">
+            This app was built using WebAssembly and MudBlazor.
+        </MudText>
+</MudContainer>
+
