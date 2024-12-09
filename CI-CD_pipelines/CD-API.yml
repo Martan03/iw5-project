@@ -25,16 +25,10 @@ steps:
         command: 'publish'
         publishWebProjects: false
         projects: '**/IW5Forms.Api.App.csproj'
-        arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(build.artifactStagingDirectory)/api'
+        arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(packageLocation)'
         modifyOutputPath: false
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(build.artifactStagingDirectory)/api'
-        ArtifactName: 'API'
-        publishLocation: 'Container'
         
-    - task: AzureRmWebAppDeployment@3
+    - task: AzureRmWebAppDeployment@2
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: '$(azureSubscription)'
