@@ -26,5 +26,6 @@ namespace IW5Forms.Common.Models.Question
 
         public List<AnswerListAndDetailModel> Answers { get; set; } = [];
 
+        public required Guid FormId { get; set; }
     }
 }

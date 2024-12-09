@@ -1,0 +1,87 @@
+@page "/form/{Id:guid}"
+@using IW5Forms.Common.Enums
+@namespace IW5Forms.Web.App.Pages
+
+<PageTitle>Form Details</PageTitle>
+
+@{
+    if (Data is null)
+    {
+        <MudGrid Justify="Justify.Center" Class="mt-3">
+            <MudItem>
+                <MudProgressCircular
+                    Color="Color.Primary"
+                    Indeterminate="true"
+                />
+            </MudItem>
+        </MudGrid>
+        return;
+    }
+}
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudChipSet T="int">
+        <MudChip Value="@(Data.Incognito ? "Incognito" : "Not incognito")" />
+        <MudChip Value="@(Data.SingleTry ? "Single Try" : "Multiple Tries")" />
+    </MudChipSet>
+    <MudText Typo="Typo.h4" GutterBottom="true">@Data.Name</MudText>
+    <MudText>@OpenRange</MudText>
+
+    <MudText Typo="Typo.h5" Class="mt-4 mb-2">Questions</MudText>
+    @if (Data.Questions.Any()) {
+        <MudForm>
+            @foreach (var question in Data.Questions) {
+                <MudPaper Elevation="1" Class="pa-4 mb-4">
+                    <MudText>@question.Text</MudText>
+                    <MudText>@question.Description</MudText>
+                    @if (question.QuestionType == QuestionTypes.TextAnswer)
+                    {
+                        <MudTextField
+                            T="string"
+                            Label="Answer"
+                            Required="true"
+                        />
+                    }
+                    else if (
+                        question.QuestionType == QuestionTypes.NumericValue
+                    ) {
+                        <MudNumericField
+                            T="int"
+                            Label="Answer"
+                            Variant="Variant.Text"
+                            Required="true"
+                        />
+                    } else {
+                        <MudSelect
+                            T="string"
+                            Label="Select answer"
+                            Required="true"
+                        >
+                            @foreach (var option in question.Options)
+                            {
+                                <MudSelectItem T="string" Value="option">
+                                    @option
+                                </MudSelectItem>
+                            }
+                        </MudSelect>
+                    }
+                </MudPaper>
+            }
+            <MudButton
+                Variant="Variant.Filled"
+                Color="Color.Primary"
+            >
+                Submit
+            </MudButton>
+        </MudForm>
+    } else {
+        <MudText>No questions found...</MudText>
+    }
+
+    <MudFab
+        Color="Color.Primary"
+        StartIcon="@Icons.Material.Filled.Add"
+        Style="position: fixed; bottom: 16px; right: 16px;"
+        OnClick="NavQuestionCreate"
+    />
+</MudContainer>

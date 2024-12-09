@@ -1,0 +1,74 @@
+@page "/form/editor"
+@page "/form/editor/{Id:guid}"
+@namespace IW5Forms.Web.App.Pages
+
+<PageTitle>Form editor</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Form editor</MudText>
+
+    <MudForm Model="@Data" Valid="isValid" ValidationDelay="100">
+        <MudTextField
+            Class="mb-4"
+            Label="Name"
+            @bind-Value="Data.Name"
+            Required="true"
+        />
+
+        <MudGrid Justify="Justify.Center" Class="mb-4" Spacing="2">
+            <MudItem xs="12" sm="6" md="6" lg="6">
+                <MudDatePicker
+                    Label="Begin Date"
+                    @bind-Date="BeginDate"
+                    Required="true"
+                />
+            </MudItem>
+            <MudItem xs="12" sm="6" md="6" lg="6">
+                <MudTimePicker
+                    Label="Begin Time"
+                    @bind-Time="BeginTime"
+                    Required="true"
+                />
+            </MudItem>
+        </MudGrid>
+
+        <MudGrid Justify="Justify.Center" Class="mb-4" Spacing="2">
+            <MudItem xs="12" sm="6" md="6" lg="6">
+                <MudDatePicker
+                    Label="End Date"
+                    @bind-Date="EndDate"
+                    Required="true"
+                />
+            </MudItem>
+            <MudItem xs="12" sm="6" md="6" lg="6">
+                <MudTimePicker
+                    Label="End Time"
+                    @bind-Time="EndTime"
+                    Required="true"
+                />
+            </MudItem>
+        </MudGrid>
+
+        <MudSwitch
+            T="bool"
+            Label="Incognito"
+            Color="Color.Primary"
+            @bind-Value="Incognito"
+        />
+        <MudSwitch
+            Class="mb-4"
+            T="bool"
+            Label="Single Try"
+            Color="Color.Primary"
+            @bind-Value="SingleTry"
+        />
+
+        <MudButton
+            OnClick="Save"
+            Variant="Variant.Filled"
+            Color="Color.Primary"
+        >
+            Save
+        </MudButton>
+    </MudForm>
+</MudContainer>

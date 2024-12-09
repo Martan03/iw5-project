@@ -1,0 +1,77 @@
+@page "/question/{Action}/{Id:guid}"
+@using IW5Forms.Common.Enums
+@namespace IW5Forms.Web.App.Pages
+
+<PageTitle>Question editor</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Question editor</MudText>
+
+    <MudForm Model="@Data" Valid="isValid" ValidationDelay="100">
+        <MudTextField
+            Class="mb-4"
+            Label="Question"
+            @bind-Value="Data.Text"
+            Required="true"
+        />
+        <MudTextField
+            T="string"
+            Class="mb-4"
+            Label="Description"
+            Variant="Variant.Text"
+            @bind-Text="@Data.Description"
+            Lines="3"
+        />
+
+        <MudSelect
+            T="QuestionTypes"
+            Class="mb-4"
+            Label="Select Question Type"
+            @bind-Value="Data.QuestionType"
+            Required="true"
+        >
+            @foreach (var type in Enum.GetValues<QuestionTypes>())
+            {
+                <MudSelectItem T="QuestionTypes" Value="type">
+                    @TypeToString(type)
+                </MudSelectItem>
+            }
+        </MudSelect>
+
+        @if (Data.QuestionType == QuestionTypes.ManyOptions)
+        {
+            <MudDivider Class="mb-3" />
+            <MudText Typo="Typo.h5" GutterBottom="true">Options</MudText>
+
+            @foreach (var option in
+                Data.Options.Select((value, index) => new { value, index }))
+            {
+                <MudTextField
+                    T="string"
+                    Class="mb-4"
+                    Label="Option"
+                    @bind-Text="Data.Options[option.index]"
+                    Adornment="Adornment.End"
+                    AdornmentIcon="@Icons.Material.Filled.Delete"
+                    OnAdornmentClick="@(() => RemOption(option.index))"
+                />
+            }
+            <MudButton
+                Variant="Variant.Outlined"
+                Color="Color.Primary"
+                Class="mb-4"
+                OnClick="AddOption"
+            >
+                Add Option
+            </MudButton>
+        }
+
+        <MudButton
+            Variant="Variant.Filled"
+            Color="Color.Primary"
+            OnClick="Save"
+        >
+            Save
+        </MudButton>
+    </MudForm>
+</MudContainer>

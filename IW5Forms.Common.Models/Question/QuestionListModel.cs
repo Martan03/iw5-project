@@ -15,5 +15,10 @@ namespace IW5Forms.Common.Models.Question
         public required QuestionTypes QuestionType { get; set; }
 
         public required string Text { get; set; }
+
+        public string? Description { get; set; }
+
+        // in case the type is ManyOptions, they will be stored here
+        public List<string> Options { get; set; } = [];
     }
 }

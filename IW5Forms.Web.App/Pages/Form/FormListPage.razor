@@ -1,0 +1,57 @@
+@page "/forms"
+@namespace IW5Forms.Web.App.Pages
+@inject IDialogService DialogService
+
+<PageTitle>Forms</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Available Forms</MudText>
+
+    <MudTable Items="Forms" Dense="true" Hover="true">
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Actions</MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd>
+                <MudButton
+                    Variant="Variant.Text"
+                    Color="Color.Primary"
+                    OnClick="@(() => NavDetail(context.Id))"
+                >
+                    View
+                </MudButton>
+                <MudButton
+                    Variant="Variant.Text"
+                    Color="Color.Secondary"
+                    OnClick="@(() => NavEditor(context.Id))"
+                >
+                    Edit
+                </MudButton>
+                <MudButton
+                    Variant="Variant.Text"
+                    Color="Color.Error"
+                    OnClick="@(() => DeleteAsync(context.Id))"
+                >
+                    Delete
+                </MudButton>
+            </MudTd>
+        </RowTemplate>
+
+        <FooterContent>
+            @if (Forms == null || !Forms.Any())
+            {
+                <MudText Class="mt-3 mb-3 ml-3 mr-3">No Forms found.</MudText>
+            }
+        </FooterContent>
+    </MudTable>
+
+    <MudFab
+        Color="Color.Primary"
+        StartIcon="@Icons.Material.Filled.Add"
+        Style="position: fixed; bottom: 16px; right: 16px;"
+        OnClick="@(() => NavEditor(null))"
+    />
+</MudContainer>

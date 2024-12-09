@@ -6,7 +6,7 @@ using IW5Forms.Common.Models.Question;
 
 namespace IW5Forms.Api.BL.Facades
 {
-    public class QuestionFacade : FacadeBase<IQuestionRepository, QuestionEntity>, IQuestionFacade 
+    public class QuestionFacade : FacadeBase<IQuestionRepository, QuestionEntity>, IQuestionFacade
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IMapper _mapper;
@@ -75,6 +75,7 @@ namespace IW5Forms.Api.BL.Facades
                 QuestionType = questionModel.QuestionType,
                 Text = questionModel.Text,
                 IdentityOwnerId = ownerId,
+                FormId = questionModel.FormId,
             };
 
             foreach (var item in questionModel.Answers)
