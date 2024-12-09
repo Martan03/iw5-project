@@ -68,7 +68,7 @@ public class UserFacadeTests
         };
 
         // Act
-        facade.CreateOrUpdate(userModel);
+        facade.CreateOrUpdate(userModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(userRepo => userRepo.Exists(userModel.Id), Times.Once);
@@ -101,7 +101,7 @@ public class UserFacadeTests
         var facade = new UserFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facade.CreateOrUpdate(userModel);
+        facade.CreateOrUpdate(userModel, null);
 
         // Assert
         repoMock.Verify(userRepo => userRepo.Insert(It.IsAny<UserEntity>()), Times.Once);
@@ -137,7 +137,7 @@ public class UserFacadeTests
         var facade = new UserFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facade.CreateOrUpdate(userModel);
+        facade.CreateOrUpdate(userModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(
@@ -160,7 +160,7 @@ public class UserFacadeTests
         var itemId = Guid.NewGuid();
 
         // Act
-        facade.Delete(itemId);
+        facade.Delete(itemId, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(userRepo => userRepo.Remove(itemId), Times.Once);
