@@ -5,6 +5,7 @@ using IW5Forms.IdentityProvider.App.Endpoints;
 using IW5Forms.IdentityProvider.App.Installers;
 using IW5Forms.IdentityProvider.BL.Installers;
 using IW5Forms.IdentityProvider.DAL;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -16,7 +17,6 @@ Log.Information("Starting up");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-
     builder.Services.AddInstaller<IdentityProviderDALInstaller>();
     builder.Services.AddInstaller<IdentityProviderBLInstaller>();
     builder.Services.AddInstaller<IdentityProviderAppInstaller>();

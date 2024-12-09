@@ -27,11 +27,14 @@ namespace IW5Forms.IdentityProvider.DAL
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings2.json")
                 .AddUserSecrets<IdentityProviderDbContextFactory>(optional: true)
+                //.AddEnvironmentVariables()
                 .AddUserSecrets(startupAssembly, optional: true)
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<IdentityProviderDbContext>();
-            var connectionString = Environment.GetEnvironmentVariable("AZURE_SQL_IDENTITY_CONNECTION_STRING")??configuration.GetConnectionString("DefaultConnection");
+            var connectionString = Environment.GetEnvironmentVariable("AZURE_SQL_IDENTITY_CONNECTION_STRING")??configuration.GetConnectionString("AZURE_SQL_IDENTITY_CONNECTION_STRING");
+            if (connectionString == null)
+                connectionString = configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connectionString);
             return new IdentityProviderDbContext(optionsBuilder.Options);
         }
