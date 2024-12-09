@@ -63,3 +63,19 @@ steps:
     appType: 'webApp'                        
     WebAppName: '$(apiAppName)'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/Api.zip'
+
+# Build and Deploy Identity Provider
+- task: VSBuild@1
+  inputs:
+    solution: '$(identityProject)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)/Identity.zip"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: '$(azureSubscription)'
+    appType: 'webApp'                        
+    WebAppName: '$(identityAppName)'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/Identity.zip'
