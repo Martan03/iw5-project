@@ -31,7 +31,7 @@ namespace IW5Forms.IdentityProvider.DAL
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<IdentityProviderDbContext>();
-            var connectionString = configuration.GetConnectionString("AZURE_SQL_IDENTITY_CONNECTION_STRING")??configuration.GetConnectionString("DefaultConnection");
+            var connectionString = Environment.GetEnvironmentVariable("AZURE_SQL_IDENTITY_CONNECTION_STRING")??configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connectionString);
             return new IdentityProviderDbContext(optionsBuilder.Options);
         }
