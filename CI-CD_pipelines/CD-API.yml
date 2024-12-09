@@ -25,7 +25,7 @@ steps:
         command: 'publish'
         publishWebProjects: false
         projects: '**/IW5Forms.Api.App.csproj'
-        arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(packageLocation)'
+        arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(build.artifactStagingDirectory)/api'
         modifyOutputPath: false
 
     - task: PublishBuildArtifacts@1
