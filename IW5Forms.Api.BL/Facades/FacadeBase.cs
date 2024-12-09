@@ -20,7 +20,7 @@ namespace IW5Forms.Api.BL.Facades
             this.repository = repository;
         }
 
-        protected void ThrowIfWrongOwner(Guid id, string? ownerId)
+        public virtual void ThrowIfWrongOwner(Guid id, string? ownerId)
         {
             if (ownerId is not null
                 && repository.GetById(id)?.IdentityOwnerId != ownerId)
