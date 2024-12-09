@@ -11,7 +11,7 @@ variables:
   dotNetFramework: 'net8.0'
   dotNetVersion: '8.0.x'
   targetRuntime: 'win-x64'
-  azureWebAppName: 'app-iw5-2024-team-xzatloa00-api/api'
+  azureWebAppName: 'app-iw5-2024-team-xzatloa00-api'
   azureSubscription: 'azure-connection'
 
 pool:
