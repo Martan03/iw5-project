@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager Navigation
+@namespace IW5Forms.Web.App
+
+
+<AuthorizeView>
+    <Authorized>
+        <div class="nav-link font-weight-bold">
+            Hello logged in user!
+        </div>
+
+        <button class="nav-link btn btn-link" @onclick="BeginLogOut">Log out</button>
+    </Authorized>
+    <NotAuthorized>
+        <a href="https://app-iw5-2024-team-xzatloa00-identity-bhbtg5a6fmh8e7fk.westeurope-01.azurewebsites.net/Account/Login?ReturnUrl=%2Fdiagnostics" class="nav-link font-weight-bold">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+    private void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+}

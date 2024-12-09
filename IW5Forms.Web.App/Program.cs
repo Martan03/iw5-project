@@ -7,7 +7,9 @@ using IW5Forms.Web.BL.Options;
 using IW5Forms.Web.DAL.Installers;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using MudBlazor.Services;
+using Microsoft.JSInterop;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -19,7 +21,19 @@ var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
 
 builder.Services.AddInstaller<WebDALInstaller>();
 builder.Services.AddInstaller<WebBLInstaller>(apiBaseUrl);
-builder.Services.AddScoped(sp => new HttpClient {
+
+builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(apiBaseUrl))
+    .AddHttpMessageHandler(serviceProvider
+        => serviceProvider?.GetService<AuthorizationMessageHandler>()
+            ?.ConfigureHandler(
+                authorizedUrls: new[] { apiBaseUrl },
+                scopes: new[] { "iw5api" }));
+
+builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>().CreateClient("api"));
+
+
+builder.Services.AddScoped(sp => new HttpClient
+{
     BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
 });
 builder.Services.AddAutoMapper(configuration =>
@@ -28,6 +42,15 @@ builder.Services.AddAutoMapper(configuration =>
     // More information here: https://github.com/AutoMapper/AutoMapper/issues/3988
     configuration.Internal().MethodMappingEnabled = false;
 }, typeof(WebBLInstaller));
+
+builder.Services.AddOidcAuthentication(options =>
+{
+    builder.Configuration.Bind("IdentityServer", options.ProviderOptions);
+    var configurationSection = builder.Configuration.GetSection("IdentityServer");
+    var authority = configurationSection["Authority"];
+
+    options.ProviderOptions.DefaultScopes.Add("iw5api");
+});
 
 builder.Services.Configure<LocalDbOptions>(options => {
     options.IsLocalDbEnabled = bool.Parse(
