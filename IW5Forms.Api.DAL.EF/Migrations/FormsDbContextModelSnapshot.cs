@@ -28,9 +28,6 @@ namespace IW5Forms.Api.DAL.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IdentityOwnerId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
@@ -65,9 +62,6 @@ namespace IW5Forms.Api.DAL.EF.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IdentityOwnerId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Incognito")
                         .HasColumnType("bit");
 
@@ -100,9 +94,6 @@ namespace IW5Forms.Api.DAL.EF.Migrations
                     b.Property<Guid>("FormId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IdentityOwnerId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Options")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -128,9 +119,6 @@ namespace IW5Forms.Api.DAL.EF.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdentityOwnerId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -159,9 +147,6 @@ namespace IW5Forms.Api.DAL.EF.Migrations
 
                     b.Property<int>("FormRelationTypes")
                         .HasColumnType("int");
-
-                    b.Property<string>("IdentityOwnerId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");

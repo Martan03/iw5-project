@@ -6,26 +6,17 @@ using IW5Forms.Common.Models.Question;
 
 namespace IW5Forms.Api.BL.Facades
 {
-    public class QuestionFacade : FacadeBase<IQuestionRepository, QuestionEntity>, IQuestionFacade
+    public class QuestionFacade(IQuestionRepository questionRepository, IMapper mapper) : IQuestionFacade
     {
-        private readonly IQuestionRepository _questionRepository;
-        private readonly IMapper _mapper;
-
-        public QuestionFacade(IQuestionRepository questionRepository, IMapper mapper) : base(questionRepository)
-        {
-            _questionRepository = questionRepository;
-            _mapper = mapper;
-        }
-
         public List<QuestionListModel> GetAll()
         {
-            return _mapper.Map<List<QuestionListModel>>(_questionRepository.GetAll());
+            return mapper.Map<List<QuestionListModel>>(questionRepository.GetAll());
 
         }
 
         public List<QuestionListModel> SearchByText(string text)
         {
-            var questions = _mapper.Map<List<QuestionListModel>>(_questionRepository.GetAll());
+            var questions = mapper.Map<List<QuestionListModel>>(questionRepository.GetAll());
             questions.RemoveAll(q => !q.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
             return questions;
         }
@@ -33,7 +24,7 @@ namespace IW5Forms.Api.BL.Facades
 
         public List<QuestionListModel> SearchByDescription(string description)
         {
-            var questions = _mapper.Map<List<QuestionListModel>>(_questionRepository.GetAll());
+            var questions = mapper.Map<List<QuestionListModel>>(questionRepository.GetAll());
             RemoveQuestionsNotContainingDescription(questions, description);
             return questions;
         }
@@ -42,7 +33,7 @@ namespace IW5Forms.Api.BL.Facades
         {
             foreach (var question in questions)
             {
-                var questionDetail = _questionRepository.GetById(question.Id);
+                var questionDetail = questionRepository.GetById(question.Id);
 
                 if (questionDetail is null || questionDetail.Description is null || !questionDetail.Description.Contains(description, StringComparison.OrdinalIgnoreCase))
                 {
@@ -53,18 +44,18 @@ namespace IW5Forms.Api.BL.Facades
 
         public QuestionDetailModel? GetById(Guid id)
         {
-            var questionEntity = _questionRepository.GetById(id);
-            return _mapper.Map<QuestionDetailModel>(questionEntity);
+            var questionEntity = questionRepository.GetById(id);
+            return mapper.Map<QuestionDetailModel>(questionEntity);
         }
 
-        public Guid CreateOrUpdate(QuestionDetailModel questionModel, string? ownerId)
+        public Guid CreateOrUpdate(QuestionDetailModel questionModel)
         {
-            if(_questionRepository.Exists(questionModel.Id))
-                return Update(questionModel, ownerId)!.Value;
-                return Create(questionModel, ownerId);
+            return questionRepository.Exists(questionModel.Id)
+                ? Update(questionModel)!.Value
+                : Create(questionModel);
         }
 
-        public Guid Create(QuestionDetailModel questionModel, string? ownerId)
+        public Guid Create(QuestionDetailModel questionModel)
         {
             QuestionEntity newQuestionEntity = new QuestionEntity()
             {
@@ -74,7 +65,6 @@ namespace IW5Forms.Api.BL.Facades
                 Id = questionModel.Id,
                 QuestionType = questionModel.QuestionType,
                 Text = questionModel.Text,
-                IdentityOwnerId = ownerId,
                 FormId = questionModel.FormId,
             };
 
@@ -87,17 +77,15 @@ namespace IW5Forms.Api.BL.Facades
                     QuestionId = newQuestionEntity.Id,
                     ResponderId = item.ResponderId,
                     Text = item.Text,
-                    IdentityOwnerId = ownerId,
                 });
 
             }
-            return _questionRepository.Insert(newQuestionEntity);
+            return questionRepository.Insert(newQuestionEntity);
         }
 
-        public Guid? Update(QuestionDetailModel questionModel, string? ownerId = null)
+        public Guid? Update(QuestionDetailModel questionModel)
         {
-            ThrowIfWrongOwner(questionModel.Id, ownerId);
-            var questionEntity = _questionRepository.GetById(questionModel.Id);
+            var questionEntity = questionRepository.GetById(questionModel.Id);
             if (questionEntity == null) return null;
             questionEntity.Description = questionModel.Description;
             questionEntity.Options = questionModel.Options;
@@ -112,13 +100,12 @@ namespace IW5Forms.Api.BL.Facades
                     ResponderId = t.ResponderId,
                     Text = t.Text
                 }).ToList();
-            return _questionRepository.Update(questionEntity);
+            return questionRepository.Update(questionEntity);
         }
 
-        public void Delete(Guid id, string? ownerId = null)
+        public void Delete(Guid id)
         {
-            ThrowIfWrongOwner(id, ownerId);
-            _questionRepository.Remove(id);
+            questionRepository.Remove(id);
         }
 
 

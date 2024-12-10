@@ -11,35 +11,27 @@ using IW5Forms.Api.DAL.Common.Entities;
 
 namespace IW5Forms.Api.BL.Facades
 {
-    public class FormFacade : FacadeBase<IFormRepository, FormEntity>, IFormFacade
+    public class FormFacade(IFormRepository formRepository, IMapper mapper) : IFormFacade
     {
-        private readonly IFormRepository _formRepository;
-        private readonly IMapper _mapper;
-
-        public FormFacade(IFormRepository formRepository, IMapper mapper) : base(formRepository)
-        {
-            _formRepository = formRepository;
-            _mapper = mapper;
-        }
-
         public List<FormListModel> GetAll()
         {
-            return _mapper.Map<List<FormListModel>>(_formRepository.GetAll());
+            return mapper.Map<List<FormListModel>>(formRepository.GetAll());
 
         }
         public FormDetailModel? GetById(Guid id)
         {
-            var formEntity = _formRepository.GetById(id);
-            return _mapper.Map<FormDetailModel>(formEntity);
+            var formEntity = formRepository.GetById(id);
+            return mapper.Map<FormDetailModel>(formEntity);
         }
 
-        public Guid CreateOrUpdate(FormDetailModel formModel, string? ownerId)
+        public Guid CreateOrUpdate(FormDetailModel formModel)
         {
-            ThrowIfWrongOwner(formModel.Id, ownerId);
-            return _formRepository.Exists(formModel.Id) ? Update(formModel, ownerId)!.Value : Create(formModel, ownerId);
+            return formRepository.Exists(formModel.Id)
+                ? Update(formModel)!.Value
+                : Create(formModel);
         }
 
-        public Guid Create(FormDetailModel formModel, string? ownerId)
+        public Guid Create(FormDetailModel formModel)
         {
             var newFormEntity = new FormEntity()
             {
@@ -50,8 +42,7 @@ namespace IW5Forms.Api.BL.Facades
                 Incognito = formModel.Incognito,
                 Name = formModel.Name,
                 Questions = new List<QuestionEntity>(),
-                SingleTry = formModel.SingleTry,
-                IdentityOwnerId = ownerId
+                SingleTry = formModel.SingleTry
 
             };
             foreach (var question in formModel.Questions)
@@ -59,13 +50,12 @@ namespace IW5Forms.Api.BL.Facades
                 newFormEntity.Questions.Add(new QuestionEntity()
                 { Answers = new List<AnswerEntity>(), Form = newFormEntity, FormId = newFormEntity.Id, Id = question.Id, Text = question.Text, QuestionType = question.QuestionType, Options = new List<string>() });
             }
-            return _formRepository.Insert(newFormEntity);
+            return formRepository.Insert(newFormEntity);
         }
 
-        public Guid? Update(FormDetailModel formModel, string? ownerId = null)
+        public Guid? Update(FormDetailModel formModel)
         {
-            ThrowIfWrongOwner(formModel.Id, ownerId);
-            var newFormEntity = _formRepository.GetById(formModel.Id);
+            var newFormEntity = formRepository.GetById(formModel.Id);
             if (newFormEntity == null) return null;
 
             newFormEntity.BeginTime = formModel.BeginTime;
@@ -90,13 +80,12 @@ namespace IW5Forms.Api.BL.Facades
                     FormId = newFormEntity.Id,
                 });
             }
-            return _formRepository.Update(newFormEntity);
+            return formRepository.Update(newFormEntity);
         }
 
-        public void Delete(Guid id, string? ownerId = null)
+        public void Delete(Guid id)
         {
-            ThrowIfWrongOwner(id, ownerId);
-            _formRepository.Remove(id);
+            formRepository.Remove(id);
         }
 
     }
