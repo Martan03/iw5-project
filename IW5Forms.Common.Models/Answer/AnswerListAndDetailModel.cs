@@ -16,5 +16,6 @@ namespace IW5Forms.Common.Models.Answer
 
         public required Guid ResponderId { get; set; }
 
+        public Guid? QuestionId { get; set; }
     }
 }

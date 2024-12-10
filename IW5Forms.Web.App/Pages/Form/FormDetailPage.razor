@@ -31,7 +31,15 @@
     @if (Data.Questions.Any()) {
         <MudForm>
             @foreach (var question in Data.Questions) {
-                <MudPaper Elevation="1" Class="pa-4 mb-4">
+                <MudPaper Elevation="1" Class="pa-4 mb-4" Style="position:relative;">
+                    <MudButton
+                        Variant="Variant.Filled"
+                        Color="Color.Primary"
+                        Style="position: absolute; top: 5px; right: 5px;"
+                        OnClick="@(() => NavQuestionDetail(question.Id))"
+                    >
+                        Detail
+                    </MudButton>
                     <MudText>@question.Text</MudText>
                     <MudText>@question.Description</MudText>
                     @if (question.QuestionType == QuestionTypes.TextAnswer)
@@ -40,6 +48,7 @@
                             T="string"
                             Label="Answer"
                             Required="true"
+                            ValueChanged="@(value => Answers[question.Id] = value)"
                         />
                     }
                     else if (
@@ -50,12 +59,14 @@
                             Label="Answer"
                             Variant="Variant.Text"
                             Required="true"
+                            ValueChanged="@(value => Answers[question.Id] = value)"
                         />
                     } else {
                         <MudSelect
                             T="string"
                             Label="Select answer"
                             Required="true"
+                            ValueChanged="@(value => Answers[question.Id] = value)"
                         >
                             @foreach (var option in question.Options)
                             {
@@ -70,6 +81,7 @@
             <MudButton
                 Variant="Variant.Filled"
                 Color="Color.Primary"
+                OnClick="@SubmitForm"
             >
                 Submit
             </MudButton>
