@@ -1,0 +1,32 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+variables:
+  buildConfiguration: 'Release'
+  dotNetFramework: 'net8.0'
+  dotNetVersion: '8.0.x'
+  targetRuntime: 'win-x64'
+
+pool:
+  vmImage: windows-latest
+
+steps:
+    - template: build-IDENTITY.yml
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: '**/IW5Forms.IdentityProvider.App.csproj'
+        arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(build.artifactStagingDirectory)/identity'
+        modifyOutputPath: false
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(build.artifactStagingDirectory)/identity'
+        ArtifactName: 'IDENTITY'
+        publishLocation: 'Container'

@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using IW5Forms.Web.App
+@inherits LayoutComponentBase
 
 <MudThemeProvider IsDarkMode="true"/>
 <MudPopoverProvider />
@@ -13,7 +14,7 @@
         <MudNavLink Href="/forms" Match="NavLinkMatch.All">FORMS</MudNavLink>
         <MudNavLink Href="/search" Match="NavLinkMatch.All">SEARCH</MudNavLink>
         <MudNavLink Href="/users" Match="NavLinkMatch.All">MANAGE USERS</MudNavLink>
-        <MudIconButton Href="/"  Icon="@Icons.Material.Outlined.Person" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+        <Login />
     </MudAppBar>
     <MudMainContent>
         @Body
