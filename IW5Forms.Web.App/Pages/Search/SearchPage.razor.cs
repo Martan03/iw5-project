@@ -74,12 +74,16 @@ public partial class SearchPage
     {
         if(isUser)
             navigationManager.NavigateTo($"/users/{id}");
+        else
+            navigationManager.NavigateTo($"/question/{id.ToString() ?? ""}");
     }
 
     public void NavEditor(Guid? id)
     {
         if (isUser)
             navigationManager.NavigateTo($"/users/editor/{id?.ToString() ?? ""}");
+        else
+            navigationManager.NavigateTo($"/question/edit/{id?.ToString() ?? ""}");
     }
 
     public async Task Delete(Guid id)
