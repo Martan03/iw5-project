@@ -1,0 +1,51 @@
+@page "/search"
+@namespace IW5Forms.Web.App.Pages
+
+<PageTitle>Search</PageTitle>
+
+<MudCard Class="ma-4 mb-6">
+    <MudCardContent>
+        <MudText Typo="Typo.h5" Class="mb-2">Search questions or users:</MudText>
+
+        <MudForm>
+            <MudTextField Label="Search Query" @bind-Value="searchQuery" Variant="Variant.Outlined" Placeholder="Enter search text" />
+
+            <MudSelect Label="Search By" @bind-Value="selectedCriteria" Variant="Variant.Outlined">
+                <MudSelectItem Value="@("Text")">Question Text</MudSelectItem>
+                <MudSelectItem Value="@("Description")">Question Description</MudSelectItem>
+                <MudSelectItem Value="@("Name")">User Name</MudSelectItem>
+            </MudSelect>
+
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="PerformSearch">Search</MudButton>
+        </MudForm>
+    </MudCardContent>
+</MudCard>
+
+<MudText Class="ma-4" Typo="Typo.h5">Result of search (@(isUser ? "user" : "questions")):</MudText>
+<MudTable Class="ma-4" Items="searchEntity" Dense="true" Hover="true">
+     <HeaderContent>
+         <MudTh>Name/Text</MudTh>
+         <MudTh>Actions</MudTh>
+     </HeaderContent>
+
+     <RowTemplate>
+         <MudTd DataLabel="Name/Text">@context.NameOrText</MudTd>
+         <MudTd>
+             <MudButton Variant="Variant.Text"
+                        Color="Color.Primary"
+                        OnClick="@(() => NavDetail(context.Id))">
+                 View
+             </MudButton>
+             <MudButton Variant="Variant.Text"
+                        Color="Color.Secondary"
+                        OnClick="@(() => NavEditor(context.Id))">
+                 Edit
+             </MudButton>
+             <MudButton Variant="Variant.Text"
+                        Color="Color.Error"
+                        OnClick="@(() => Delete(context.Id))">
+                 Delete
+             </MudButton>
+         </MudTd>
+     </RowTemplate>
+ </MudTable>

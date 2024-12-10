@@ -2,7 +2,7 @@
 @namespace IW5Forms.Web.App.Pages
 @inject IDialogService DialogService
 
-<PageTitle>Forms</PageTitle>
+<PageTitle>Users</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
     <MudText Typo="Typo.h4" GutterBottom="true">Found users</MudText>
@@ -10,7 +10,7 @@
     <MudTable Items="Users" Dense="true" Hover="true">
         <HeaderContent>
             <MudTh>Name</MudTh>
-            <MudTh></MudTh>
+            <MudTh>Actions</MudTh>
         </HeaderContent>
 
         <RowTemplate>
@@ -33,7 +33,7 @@
                 <MudButton
                     Variant="Variant.Text"
                     Color="Color.Error"
-                    OnClick="@(() => DeleteAsync(context.Id))"
+                    OnClick="@(() => Delete(context.Id))"
                 >
                     Delete
                 </MudButton>
@@ -43,7 +43,7 @@
         <FooterContent>
             @if (Users == null || !Users.Any())
             {
-                <MudText Class="mt-3 mb-3 ml-3 mr-3">No Forms found.</MudText>
+                <MudText Class="mt-3 mb-3 ml-3 mr-3">No users found.</MudText>
             }
         </FooterContent>
     </MudTable>

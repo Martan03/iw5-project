@@ -1,0 +1,24 @@
+@page "/users/editor"
+@page "/users/editor/{Id:guid}"
+@namespace IW5Forms.Web.App.Pages
+
+<PageTitle>User editor</PageTitle>
+
+
+<MudCard>
+    <MudCardContent>
+        <MudForm @bind-IsValid="isValid">
+            <MudText Typo="Typo.h5">Edit User Details</MudText>
+
+            <MudTextField T="string" Label="Name" @bind-Value="Data.Name" Required="true" RequiredError="Name is required." />
+            <MudTextField T="string" Label="Photo Url" @bind-Value="Data.PhotoUrl" />
+            <MudSwitch T="bool"
+                       Label="Is admin"
+                       Color="Color.Primary"
+                       @bind-Value="IsAdmin" />
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Save" Disabled="!isValid">
+                Submit
+            </MudButton>
+        </MudForm>
+    </MudCardContent>
+</MudCard>
