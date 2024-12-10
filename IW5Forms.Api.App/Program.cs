@@ -59,6 +59,7 @@ namespace IW5Forms.Api.App
             {
                 options.AddDefaultPolicy(o =>
                     o.AllowAnyOrigin()
+                        .AllowCredentials()
                         .AllowAnyHeader()
                         .AllowAnyMethod());
             });
