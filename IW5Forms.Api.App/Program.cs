@@ -29,7 +29,7 @@ namespace IW5Forms.Api.App
 
             var builder = WebApplication.CreateBuilder();
 
-            builder.Services.AddAuthentication();
+            // builder.Services.AddAuthentication();
 
             ConfigureCors(builder.Services);
             ConfigureOpenApiDocuments(builder.Services);
@@ -96,7 +96,7 @@ namespace IW5Forms.Api.App
 
             serviceCollection.AddDbContext<FormsDbContext>(options =>
             {
-               
+
                 options.UseSqlServer(connectionString);
             });
 

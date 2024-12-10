@@ -42,6 +42,7 @@ namespace IW5Forms.IdentityProvider.App
                 [
                     "https://oauth.pstmn.io/v1/callback",
                     "https://app-iw5-2024-team-xzatloa00-web.azurewebsites.net/authentication/login-callback",
+                    "http://localhost:5258/authentication/login-callback"
                 ],
                 AllowedGrantTypes =
                 [
