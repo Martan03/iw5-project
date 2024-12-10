@@ -1,3 +1,4 @@
+using IW5Forms.Common.Enums;
 using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Common.Models.Question;
@@ -21,5 +22,15 @@ public partial class QuestionDetailPage
         Data = await QuestionFacade.GetByIdAsync(Id);
 
         await base.OnInitializedAsync();
+    }
+
+    private static string TypeToString(QuestionTypes type) {
+        return type switch
+        {
+            QuestionTypes.ManyOptions => "Multiple options",
+            QuestionTypes.TextAnswer => "Text",
+            QuestionTypes.NumericValue => "Numeric",
+            _ => type.ToString(),
+        };
     }
 }

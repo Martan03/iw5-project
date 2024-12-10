@@ -55,7 +55,7 @@ public partial class FormDetailPage
                     Id = Guid.NewGuid(),
                     Text = answer.ToString(),
                     // TODO
-                    ResponderId = new("A62A2FB6-2B80-45B1-8F82-1401A6834ABE"),
+                    ResponderId = Guid.NewGuid(),
                     QuestionId = question.Id,
                 };
                 await AnswerFacade.SaveAsync(answerModel);

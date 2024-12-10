@@ -23,6 +23,17 @@
     <MudText Typo="Typo.h4" GutterBottom="true">@Data.Text</MudText>
     <MudText>@Data.Description</MudText>
 
+    <MudText Class="mt-3">
+        <b>Type:</b> @TypeToString(@Data.QuestionType)
+    </MudText>
+    @if (Data.QuestionType == QuestionTypes.ManyOptions) {
+        <MudList T="string">
+            @foreach (var option in Data.Options) {
+                <MudListItem T="string">@option</MudListItem>
+            }
+        </MudList>
+    }
+
     <MudText Typo="Typo.h5" Class="mt-4 mb-2">Answers</MudText>
     @if (Data.Answers.Any()) {
         @foreach (var answer in Data.Answers) {
