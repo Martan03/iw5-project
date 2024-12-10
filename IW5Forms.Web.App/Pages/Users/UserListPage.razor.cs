@@ -24,36 +24,27 @@ public partial class UserListPage
         await base.OnInitializedAsync();
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        var parameters = new DialogParameters<Dialog>
-        {
-            { x => x.ContentText, "Do you really want to delete this user?" },
-            { x => x.ButtonText, "Delete" },
-            { x => x.Color, Color.Error },
-            { x => x.OnSubmit, EventCallback.Factory.Create(
-                this, async () => await Delete(id)
-            )},
-        };
-
-        var options = new DialogOptions() { MaxWidth = MaxWidth.ExtraSmall };
-
-        return DialogService.ShowAsync<Dialog>("Delete", parameters, options);
+       await UserFacade.DeleteAsync(id);
+       var user =  Users.FirstOrDefault(user => user.Id == id);
+        if (user != null)
+            Users.Remove(user);
     }
 
     public void NavDetail(Guid id)
     {
-        navigationManager.NavigateTo($"/user/{id}");
+        navigationManager.NavigateTo($"/users/{id}");
     }
 
     public void NavEditor(Guid? id)
     {
-        navigationManager.NavigateTo($"/user/editor/{id?.ToString() ?? ""}");
+        navigationManager.NavigateTo($"/users/editor/{id?.ToString() ?? ""}");
     }
 
     public async Task Delete(Guid id)
     {
-        await UserFacade.DeleteAsync(id);
+        await DeleteAsync(id);
         StateHasChanged();
     }
 }

@@ -37,6 +37,13 @@ public class WebBLInstaller
             }
         );
 
+        serviceCollection.AddTransient<ISearchApiClient, SearchApiClient>(
+          provider => {
+              var client = CreateApiHttpClient(provider, apiBaseUrl);
+              return new SearchApiClient(client, apiBaseUrl);
+          }
+      );
+
         serviceCollection.Scan(
             selector => selector.FromAssemblyOf<WebBLInstaller>()
                 .AddClasses(classes => classes.AssignableTo<IAppFacade>())
