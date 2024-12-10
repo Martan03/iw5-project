@@ -9,7 +9,5 @@ namespace IW5Forms.Api.DAL.Common.Entities
     public interface IEntity
     {
         public Guid Id { get;  init; }
-
-        string? IdentityOwnerId { get; set; }
     }
 }

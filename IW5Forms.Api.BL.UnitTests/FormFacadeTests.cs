@@ -55,6 +55,7 @@ public class FormFacadeTests
 
         var repo = repoMock.Object;
         var mapper = new Mock<IMapper>().Object;
+        var facade = new FormFacade(repo, mapper);
 
         var formModel = new FormDetailModel
         {
@@ -66,14 +67,10 @@ public class FormFacadeTests
             SingleTry = true,
         };
 
-        var facadeMock = new Mock<FormFacade>(repoMock.Object, mapper) { CallBase = true };
-        facadeMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
-
         // Act
-        facadeMock.Object.CreateOrUpdate(formModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
+        facade.CreateOrUpdate(formModel);
 
         // Assert
-        facadeMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);
         repoMock.Verify(formRepo => formRepo.Exists(formModel.Id), Times.Once);
     }
 
@@ -113,14 +110,12 @@ public class FormFacadeTests
             .Setup(formRepo => formRepo.Insert(formEntity))
             .Returns(Guid.NewGuid());
 
-        var facadeMock = new Mock<FormFacade>(repoMock.Object, mapperMock.Object) { CallBase = true };
-        facadeMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
+        var facade = new FormFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facadeMock.Object.CreateOrUpdate(formModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
+        facade.CreateOrUpdate(formModel);
 
         // Assert
-        facadeMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);
         repoMock.Verify(
             formRepo => formRepo.Insert(It.IsAny<FormEntity>()),
             Times.Once
@@ -166,11 +161,10 @@ public class FormFacadeTests
             .Setup(formRepo => formRepo.GetById(It.IsAny<Guid>()))
             .Returns(formEntity);
 
-        var facadeMock = new Mock<FormFacade>(repoMock.Object, mapperMock.Object) { CallBase = true };
-        facadeMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
+        var facade = new FormFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facadeMock.Object.CreateOrUpdate(formModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
+        facade.CreateOrUpdate(formModel);
 
         // Assert
         repoMock.Verify(

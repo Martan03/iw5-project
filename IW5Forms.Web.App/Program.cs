@@ -48,6 +48,8 @@ builder.Services.AddOidcAuthentication(options =>
     var configurationSection = builder.Configuration.GetSection("IdentityServer");
     var authority = configurationSection["Authority"];
 
+    options.ProviderOptions.Authority = authority;
+    options.ProviderOptions.ClientId = "formsclient";
     options.ProviderOptions.DefaultScopes.Add("iw5api");
 });
 
@@ -59,9 +61,9 @@ builder.Services.Configure<LocalDbOptions>(options => {
     );
 });
 
-builder.Services.AddScoped(sp => new HttpClient {
-    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-});
+//builder.Services.AddScoped(sp => new HttpClient {
+//    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+//});
 
 builder.Services.AddMudServices();
 
