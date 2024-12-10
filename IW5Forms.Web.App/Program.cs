@@ -49,6 +49,7 @@ builder.Services.AddOidcAuthentication(options =>
     var authority = configurationSection["Authority"];
 
     options.ProviderOptions.Authority = authority;
+    options.ProviderOptions.ClientId = "formsclient";
     options.ProviderOptions.DefaultScopes.Add("iw5api");
 });
 
