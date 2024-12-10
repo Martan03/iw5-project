@@ -1,0 +1,47 @@
+@page "/question/{Id:guid}"
+@using IW5Forms.Common.Enums
+@namespace IW5Forms.Web.App.Pages
+
+<PageTitle>Question Details</PageTitle>
+
+@{
+    if (Data is null)
+    {
+        <MudGrid Justify="Justify.Center" Class="mt-3">
+            <MudItem>
+                <MudProgressCircular
+                    Color="Color.Primary"
+                    Indeterminate="true"
+                />
+            </MudItem>
+        </MudGrid>
+        return;
+    }
+}
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">@Data.Text</MudText>
+    <MudText>@Data.Description</MudText>
+
+    <MudText Class="mt-3">
+        <b>Type:</b> @TypeToString(@Data.QuestionType)
+    </MudText>
+    @if (Data.QuestionType == QuestionTypes.ManyOptions) {
+        <MudList T="string">
+            @foreach (var option in Data.Options) {
+                <MudListItem T="string">@option</MudListItem>
+            }
+        </MudList>
+    }
+
+    <MudText Typo="Typo.h5" Class="mt-4 mb-2">Answers</MudText>
+    @if (Data.Answers.Any()) {
+        @foreach (var answer in Data.Answers) {
+            <MudPaper Elevation="1" Class="pa-4 mb-4">
+                <MudText>@answer.Text</MudText>
+            </MudPaper>
+        }
+    } else {
+        <MudText>No answers found...</MudText>
+    }
+</MudContainer>

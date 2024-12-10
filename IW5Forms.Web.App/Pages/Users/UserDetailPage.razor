@@ -4,11 +4,26 @@
 
 <PageTitle>User Details</PageTitle>
 
+@{
+    if (Data is null)
+    {
+        <MudGrid Justify="Justify.Center" Class="mt-3">
+            <MudItem>
+                <MudProgressCircular
+                    Color="Color.Primary"
+                    Indeterminate="true"
+                />
+            </MudItem>
+        </MudGrid>
+        return;
+    }
+}
+
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
     <MudText Typo="Typo.h5" GutterBottom="true">Name:</MudText>
     <MudText Class="mb-2">@Data.Name</MudText>
     <MudText Typo="Typo.h5" Class="mb-2"  GutterBottom="true">Role:</MudText>
     <MudText>@(Data.Role == RoleTypes.User ? "User" : "Admin")</MudText>
     <MudText Typo="Typo.h5" Class="mb-2" GutterBottom="true">Profile picture:</MudText>
-    <MudImage Src="@Data.PhotoUrl" Elevation="25" Class="rounded-lg" />
+    <MudImage Src="@Data.PhotoUrl" Elevation="25" Class="rounded-lg" Width="200" />
 </MudContainer>
