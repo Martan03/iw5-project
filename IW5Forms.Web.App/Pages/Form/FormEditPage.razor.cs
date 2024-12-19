@@ -1,4 +1,6 @@
+using IW5Forms.Common.Enums;
 using IW5Forms.Common.Models.Form;
+using IW5Forms.Common.Models.Question;
 using IW5Forms.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
@@ -11,8 +13,11 @@ public partial class FormEditPage
 
     [Inject]
     private FormFacade FormFacade { get; set; } = null!;
+    [Inject]
+    private QuestionFacade QuestionFacade { get; set; } = null!;
 
     private FormDetailModel Data { get; set; } = GetNewForm();
+    private List<QuestionDetailModel> Questions { get; set; } = new();
 
     [Parameter]
     public Guid Id { get; init; }
@@ -43,31 +48,13 @@ public partial class FormEditPage
             Data.EndTime.Date.Add(value.Value) : Data.EndTime;
     }
 
-    private bool Incognito
-    {
-        get => Data.Incognito;
-        set {
-            Data.Incognito = value;
-            if (Data.Incognito && Data.SingleTry)
-                Data.SingleTry = false;
-        }
-    }
-
-    private bool SingleTry
-    {
-        get => Data.SingleTry;
-        set {
-            Data.SingleTry = value;
-            if (Data.SingleTry && Data.Incognito)
-                Data.Incognito = false;
-        }
-    }
-
     protected override async Task OnInitializedAsync()
     {
         if (Id != Guid.Empty)
         {
             Data = await FormFacade.GetByIdAsync(Id);
+            if (Data != null)
+                Questions = await LoadQuestions();
         }
 
         await base.OnInitializedAsync();
@@ -92,5 +79,55 @@ public partial class FormEditPage
         EndTime = DateTime.Now.AddDays(30),
         Incognito = false,
         SingleTry = true,
+    };
+
+    private async Task<List<QuestionDetailModel>> LoadQuestions() {
+        var questions = new List<QuestionDetailModel>();
+        foreach (var question in Data.Questions) {
+            var quest = await QuestionFacade.GetByIdAsync(question.Id);
+            questions.Add(quest);
+        }
+        return questions;
+    }
+
+    public void AddQuestion()
+    {
+        Questions.Add(GetNewQuestion(Data.Id));
+        StateHasChanged();
+    }
+
+    public void RemQuestion(int id)
+    {
+        Questions.RemoveAt(id);
+        StateHasChanged();
+    }
+
+    public void AddOption(QuestionDetailModel question)
+    {
+        question.Options.Add(string.Empty);
+        StateHasChanged();
+    }
+
+    public void RemOption(QuestionDetailModel question, int id)
+    {
+        question.Options.RemoveAt(id);
+        StateHasChanged();
+    }
+
+    public static string TypeToString(QuestionTypes type) {
+        return type switch
+        {
+            QuestionTypes.ManyOptions => "Multiple options",
+            QuestionTypes.TextAnswer => "Text",
+            QuestionTypes.NumericValue => "Numeric",
+            _ => type.ToString(),
+        };
+    }
+
+    private static QuestionDetailModel GetNewQuestion(Guid formId) => new() {
+        Id = Guid.NewGuid(),
+        QuestionType = QuestionTypes.TextAnswer,
+        Text = string.Empty,
+        FormId = formId,
     };
 }

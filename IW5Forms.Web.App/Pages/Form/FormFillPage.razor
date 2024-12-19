@@ -2,7 +2,7 @@
 @using IW5Forms.Common.Enums
 @namespace IW5Forms.Web.App.Pages
 
-<PageTitle>Form Details</PageTitle>
+<PageTitle>Form...</PageTitle>
 
 @{
     if (Data is null)
@@ -19,6 +19,8 @@
     }
 }
 
+<PageTitle>@Data.Name</PageTitle>
+
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
     <MudChipSet T="int">
         <MudChip Value="@(Data.Incognito ? "Incognito" : "Not incognito")" />
@@ -29,17 +31,9 @@
 
     <MudText Typo="Typo.h5" Class="mt-4 mb-2">Questions</MudText>
     @if (Data.Questions.Any()) {
-        <MudForm>
+        <MudForm OnValidSubmit="OnValidSubmit">
             @foreach (var question in Data.Questions) {
                 <MudPaper Elevation="1" Class="pa-4 mb-4" Style="position:relative;">
-                    <MudButton
-                        Variant="Variant.Filled"
-                        Color="Color.Primary"
-                        Style="position: absolute; top: 5px; right: 5px;"
-                        OnClick="@(() => NavQuestionDetail(question.Id))"
-                    >
-                        Detail
-                    </MudButton>
                     <MudText>@question.Text</MudText>
                     <MudText>@question.Description</MudText>
                     @if (question.QuestionType == QuestionTypes.TextAnswer)

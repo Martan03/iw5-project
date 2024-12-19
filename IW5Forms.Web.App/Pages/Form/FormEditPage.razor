@@ -1,6 +1,7 @@
 @page "/form/editor"
 @page "/form/editor/{Id:guid}"
 @namespace IW5Forms.Web.App.Pages
+@using IW5Forms.Common.Enums
 
 <PageTitle>Form editor</PageTitle>
 
@@ -53,20 +54,105 @@
             T="bool"
             Label="Incognito"
             Color="Color.Primary"
-            @bind-Value="Incognito"
+            @bind-Value="Data.Incognito"
         />
         <MudSwitch
             Class="mb-4"
             T="bool"
             Label="Single Try"
             Color="Color.Primary"
-            @bind-Value="SingleTry"
+            @bind-Value="Data.SingleTry"
         />
+
+        <div
+            style="display: flex; justify-content: space-between; align-items: center;"
+            class="mb-2"
+        >
+            <MudText Typo="Typo.h5">Questions</MudText>
+            <MudFab
+                Color="Color.Primary"
+                StartIcon="@Icons.Material.Filled.Add"
+                Size="Size.Small"
+                OnClick="@AddQuestion"
+            />
+        </div>
+
+        @foreach (var question in Questions.Select((value, index) => new { value, index })) {
+            <MudPaper Elevation="1" Class="pa-4 mb-4" style="position: relative">
+                <MudFab
+                    Color="Color.Transparent"
+                    DropShadow="false"
+                    StartIcon="@Icons.Material.Filled.Delete"
+                    Size="Size.Small"
+                    Style="position: absolute; top: 3px; right: 3px; z-index: 10;"
+                    OnClick="@(() => RemQuestion(question.index))"
+                />
+
+                <MudTextField
+                    Class="mb-4"
+                    Label="Question"
+                    @bind-Value="question.value.Text"
+                    Required="true"
+                />
+                <MudTextField
+                    T="string"
+                    Class="mb-4"
+                    Label="Description"
+                    Variant="Variant.Text"
+                    @bind-Text="question.value.Description"
+                    Lines="3"
+                />
+
+                <MudSelect
+                    T="QuestionTypes"
+                    Class="mb-4"
+                    Label="Select Question Type"
+                    @bind-Value="question.value.QuestionType"
+                    Required="true"
+                >
+                    @foreach (var type in Enum.GetValues<QuestionTypes>())
+                    {
+                        <MudSelectItem T="QuestionTypes" Value="type">
+                            @TypeToString(type)
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+
+                @if (question.value.QuestionType == QuestionTypes.ManyOptions)
+                {
+                    <MudDivider Class="mb-3" />
+                    <MudText Typo="Typo.h5" GutterBottom="true">Options</MudText>
+
+                    @foreach (var option in
+                        question.value.Options.Select((value, index) => new { value, index }))
+                    {
+                        <MudTextField
+                            T="string"
+                            Class="mb-4"
+                            Label="Option"
+                            @bind-Text="question.value.Options[option.index]"
+                            Adornment="Adornment.End"
+                            AdornmentIcon="@Icons.Material.Filled.Delete"
+                            OnAdornmentClick="@(() => RemOption(question.value, option.index))"
+                        />
+                    }
+                    <MudButton
+                        Variant="Variant.Outlined"
+                        Color="Color.Primary"
+                        Class="mb-4"
+                        OnClick="@(() => AddOption(question.value))"
+                    >
+                        Add Option
+                    </MudButton>
+                }
+            </MudPaper>
+        }
 
         <MudButton
             OnClick="Save"
             Variant="Variant.Filled"
             Color="Color.Primary"
+            Class="mb-4"
         >
             Save
         </MudButton>

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace IW5Forms.Web.App.Pages;
 
-public partial class FormDetailPage
+public partial class FormFillPage
 {
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;
