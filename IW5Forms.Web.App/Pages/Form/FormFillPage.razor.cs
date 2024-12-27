@@ -2,6 +2,7 @@ using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace IW5Forms.Web.App.Pages;
 
@@ -16,6 +17,8 @@ public partial class FormFillPage
     private AnswerFacade AnswerFacade { get; set; } = null!;
 
     private FormDetailModel Data { get; set; } = null!;
+
+    private MudForm Form { get; set; } = null!;
 
     private string OpenRange =>
         $"{Data.BeginTime:dd.MM.yyyy HH:mm} " +
@@ -47,6 +50,11 @@ public partial class FormFillPage
 
     private async void SubmitForm()
     {
+        await Form.Validate();
+        if (!Form.IsValid) {
+            return;
+        }
+
         foreach (var question in Data.Questions)
         {
             if (Answers.TryGetValue(question.Id, out var answer))
@@ -54,8 +62,8 @@ public partial class FormFillPage
                 var answerModel = new AnswerListAndDetailModel() {
                     Id = Guid.NewGuid(),
                     Text = answer.ToString(),
-                    // TODO
-                    ResponderId = Guid.NewGuid(),
+                    // TODO fix the Responder GUID
+                    ResponderId = new Guid("924E241A-F158-465C-9F55-D39429E61137"),
                     QuestionId = question.Id,
                 };
                 await AnswerFacade.SaveAsync(answerModel);

@@ -31,7 +31,7 @@
 
     <MudText Typo="Typo.h5" Class="mt-4 mb-2">Questions</MudText>
     @if (Data.Questions.Any()) {
-        <MudForm OnValidSubmit="OnValidSubmit">
+        <MudForm @ref="Form">
             @foreach (var question in Data.Questions) {
                 <MudPaper Elevation="1" Class="pa-4 mb-4" Style="position:relative;">
                     <MudText>@question.Text</MudText>

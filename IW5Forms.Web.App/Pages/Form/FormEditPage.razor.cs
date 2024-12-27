@@ -3,6 +3,7 @@ using IW5Forms.Common.Models.Form;
 using IW5Forms.Common.Models.Question;
 using IW5Forms.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace IW5Forms.Web.App.Pages;
 
@@ -18,6 +19,8 @@ public partial class FormEditPage
 
     private FormDetailModel Data { get; set; } = GetNewForm();
     private List<QuestionDetailModel> Questions { get; set; } = new();
+
+    private MudForm Form { get; set; } = null!;
 
     [Parameter]
     public Guid Id { get; init; }
@@ -62,7 +65,15 @@ public partial class FormEditPage
 
     public async Task Save()
     {
+        await Form.Validate();
+        if (!Form.IsValid) {
+            return;
+        }
+
         await FormFacade.SaveAsync(Data);
+        foreach (var question in Questions) {
+            await QuestionFacade.SaveAsync(question);
+        }
         navigationManager.NavigateTo($"/forms");
     }
 

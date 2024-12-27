@@ -1,0 +1,36 @@
+@page "/form/answers/{Id:guid}"
+@namespace IW5Forms.Web.App.Pages
+@using IW5Forms.Common.Models.Question;
+
+<PageTitle>Form answers</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Questions</MudText>
+
+    <MudTable
+        T="QuestionDetailModel"
+        Items="Questions"
+        Dense="true"
+        Hover="true"
+        OnRowClick="NavQuestionDetail"
+    >
+        <HeaderContent>
+            <MudTh>Text</MudTh>
+            <MudTh>Answer count</MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Text">@context.Text</MudTd>
+            <MudTd DataLabel="Count">@context.Answers.Count</MudTd>
+        </RowTemplate>
+
+        <FooterContent>
+            @if (Questions == null || !Questions.Any())
+            {
+                <MudText Class="mt-3 mb-3 ml-3 mr-3">
+                    No questions found.
+                </MudText>
+            }
+        </FooterContent>
+    </MudTable>
+</MudContainer>

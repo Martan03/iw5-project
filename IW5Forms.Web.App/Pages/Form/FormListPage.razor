@@ -26,6 +26,13 @@
                 <MudButton
                     Variant="Variant.Text"
                     Color="Color.Secondary"
+                    OnClick="@(() => NavAnswers(context.Id))"
+                >
+                    Answers
+                </MudButton>
+                <MudButton
+                    Variant="Variant.Text"
+                    Color="Color.Secondary"
                     OnClick="@(() => NavEditor(context.Id))"
                 >
                     Edit

@@ -45,6 +45,11 @@ public partial class FormListPage
         navigationManager.NavigateTo($"/form/{id}");
     }
 
+    public void NavAnswers(Guid id)
+    {
+        navigationManager.NavigateTo($"/form/answers/{id}");
+    }
+
     public void NavEditor(Guid? id)
     {
         navigationManager.NavigateTo($"/form/editor/{id?.ToString() ?? ""}");

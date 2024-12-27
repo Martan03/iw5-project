@@ -8,7 +8,7 @@
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
     <MudText Typo="Typo.h4" GutterBottom="true">Form editor</MudText>
 
-    <MudForm Model="@Data" Valid="isValid" ValidationDelay="100">
+    <MudForm Model="@Data" @ref="Form">
         <MudTextField
             Class="mb-4"
             Label="Name"
