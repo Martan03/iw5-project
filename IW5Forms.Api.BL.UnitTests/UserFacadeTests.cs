@@ -33,7 +33,7 @@ public class UserFacadeTests
     public void GetById_Calls_Correct_Method_On_Repository()
     {
         // Arrange
-        var repoMock = new Mock<IUserRepository>();
+        var repoMock = new Mock<IUserRepository>(MockBehavior.Loose);
         repoMock.Setup(userRepo => userRepo.GetById(It.IsAny<Guid>()));
 
         var repo = repoMock.Object;
@@ -68,7 +68,7 @@ public class UserFacadeTests
         };
 
         // Act
-        facade.CreateOrUpdate(userModel);
+        facade.CreateOrUpdate(userModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(userRepo => userRepo.Exists(userModel.Id), Times.Once);
@@ -101,7 +101,7 @@ public class UserFacadeTests
         var facade = new UserFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facade.CreateOrUpdate(userModel);
+        facade.CreateOrUpdate(userModel, null);
 
         // Assert
         repoMock.Verify(userRepo => userRepo.Insert(It.IsAny<UserEntity>()), Times.Once);
@@ -134,12 +134,14 @@ public class UserFacadeTests
             .Setup(userRepo => userRepo.Update(It.IsAny<UserEntity>()))
             .Returns(Guid.NewGuid());
 
-        var facade = new UserFacade(repoMock.Object, mapperMock.Object);
+        var userMock = new Mock<UserFacade>(repoMock.Object, mapperMock.Object) { CallBase = true };
+        userMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
 
         // Act
-        facade.CreateOrUpdate(userModel);
+        userMock.Object.CreateOrUpdate(userModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
+        userMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);
         repoMock.Verify(
             userRepo => userRepo.Update(It.IsAny<UserEntity>()),
             Times.Once
@@ -155,14 +157,17 @@ public class UserFacadeTests
 
         var repo = repoMock.Object;
         var mapper = new Mock<IMapper>(MockBehavior.Strict).Object;
-        var facade = new UserFacade(repo, mapper);
 
         var itemId = Guid.NewGuid();
 
+        var userMock = new Mock<UserFacade>(repo, mapper) { CallBase = true };
+        userMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
+
         // Act
-        facade.Delete(itemId);
+        userMock.Object.Delete(itemId, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
+        userMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);
         repoMock.Verify(userRepo => userRepo.Remove(itemId), Times.Once);
     }
 }

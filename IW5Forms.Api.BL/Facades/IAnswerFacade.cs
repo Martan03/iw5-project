@@ -12,9 +12,9 @@ namespace IW5Forms.Api.BL.Facades
     {
         List<AnswerListAndDetailModel> GetAll();
         AnswerListAndDetailModel? GetById(Guid id);
-        Guid CreateOrUpdate(AnswerListAndDetailModel answerModel);
-        Guid Create(AnswerListAndDetailModel answerModel);
-        Guid? Update(AnswerListAndDetailModel answerModel);
-        void Delete(Guid id);
+        Guid CreateOrUpdate(AnswerListAndDetailModel answerModel, string? ownerId);
+        Guid Create(AnswerListAndDetailModel answerModel, string? ownerId);
+        Guid? Update(AnswerListAndDetailModel answerModel, string? ownerId);
+        void Delete(Guid id, string? ownerId);
     }
 }

@@ -65,7 +65,7 @@ public class AnswerFacadeTests
         };
 
         // Act
-        facade.CreateOrUpdate(answerModel);
+        facade.CreateOrUpdate(answerModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(
@@ -107,7 +107,7 @@ public class AnswerFacadeTests
         var facade = new AnswerFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facade.CreateOrUpdate(answerModel);
+        facade.CreateOrUpdate(answerModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
         repoMock.Verify(
@@ -147,12 +147,14 @@ public class AnswerFacadeTests
             .Setup(answerRepo => answerRepo.GetById(It.IsAny<Guid>()))
             .Returns(answerEntity);
 
-        var facade = new AnswerFacade(repoMock.Object, mapperMock.Object);
+        var answerMock = new Mock<AnswerFacade>(repoMock.Object, mapperMock.Object) { CallBase = true };
+        answerMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
 
         // Act
-        facade.CreateOrUpdate(answerModel);
+        answerMock.Object.CreateOrUpdate(answerModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
+        answerMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);
         repoMock.Verify(
             answerRepo => answerRepo.Update(answerEntity),
             Times.Once
