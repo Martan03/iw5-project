@@ -28,7 +28,7 @@ namespace IW5Forms.IdentityProvider.App
 
         public static IEnumerable<ApiScope> ApiScopes =>
         [
-            new ("iw5api", [JwtClaimTypes.Role])
+            new ("formsapi", [JwtClaimTypes.Role])
         ];
 
         public static IEnumerable<Client> Clients =>
@@ -55,7 +55,7 @@ namespace IW5Forms.IdentityProvider.App
                 [
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
-                    "iw5api"
+                    "formsapi"
                 ],
                 ClientSecrets =
                 {

@@ -15,12 +15,10 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Configuration.AddJsonFile("appsettings.json");
-
 var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
 
 builder.Services.AddInstaller<WebDALInstaller>();
-builder.Services.AddInstaller<WebBLInstaller>(apiBaseUrl);
+builder.Services.AddInstaller<WebBLInstaller>();
 
 builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(apiBaseUrl))
     .AddHttpMessageHandler(serviceProvider
@@ -31,10 +29,6 @@ builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(api
 
 builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>().CreateClient("api"));
 
-// builder.Services.AddScoped(sp => new HttpClient
-// {
-//     BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-// });
 builder.Services.AddAutoMapper(configuration =>
 {
     // This is a temporary fix - should be able to remove this when version 11.0.2 comes out
