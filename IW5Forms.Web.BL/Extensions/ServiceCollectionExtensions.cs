@@ -11,6 +11,6 @@ public static class ServiceCollectionExtensions
     ) where TInstaller : WebBLInstaller, new()
     {
         var installer = new TInstaller();
-        installer.Install(serviceCollection, apiBaseUrl);
+        installer.Install(serviceCollection);
     }
 }

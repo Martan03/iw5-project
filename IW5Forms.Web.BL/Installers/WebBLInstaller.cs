@@ -6,43 +6,14 @@ namespace IW5Forms.Web.BL.Installers;
 public class WebBLInstaller
 {
     public void Install(
-        IServiceCollection serviceCollection,
-        string apiBaseUrl
+        IServiceCollection serviceCollection
     ) {
-        serviceCollection.AddTransient<IFormApiClient, FormApiClient>(
-            provider => {
-                var client = CreateApiHttpClient(provider, apiBaseUrl);
-                return new FormApiClient(client, apiBaseUrl);
-            }
-        );
+        serviceCollection.AddScoped<IAnswerApiClient, AnswerApiClient>();
+        serviceCollection.AddScoped<IFormApiClient, FormApiClient>();
+        serviceCollection.AddScoped<IQuestionApiClient, QuestionApiClient>();
+        serviceCollection.AddScoped<ISearchApiClient, SearchApiClient>();
+        serviceCollection.AddScoped<IUserApiClient, UserApiClient>();
 
-        serviceCollection.AddTransient<IQuestionApiClient, QuestionApiClient>(
-            provider => {
-                var client = CreateApiHttpClient(provider, apiBaseUrl);
-                return new QuestionApiClient(client, apiBaseUrl);
-            }
-        );
-
-        serviceCollection.AddTransient<IAnswerApiClient, AnswerApiClient>(
-            provider => {
-                var client = CreateApiHttpClient(provider, apiBaseUrl);
-                return new AnswerApiClient(client, apiBaseUrl);
-            }
-        );
-
-        serviceCollection.AddTransient<IUserApiClient, UserApiClient>(
-            provider => {
-                var client = CreateApiHttpClient(provider, apiBaseUrl);
-                return new UserApiClient(client, apiBaseUrl);
-            }
-        );
-
-        serviceCollection.AddTransient<ISearchApiClient, SearchApiClient>(
-          provider => {
-              var client = CreateApiHttpClient(provider, apiBaseUrl);
-              return new SearchApiClient(client, apiBaseUrl);
-          }
-      );
 
         serviceCollection.Scan(
             selector => selector.FromAssemblyOf<WebBLInstaller>()
