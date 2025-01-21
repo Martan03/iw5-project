@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AnswerApiClient.cs" />
+    <Compile Remove="FormApiClient.cs" />
+    <Compile Remove="QuestionApiClient.cs" />
+    <Compile Remove="SearchApiClient.cs" />
+    <Compile Remove="UserApiClient.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\IW5Forms.Common.BL\IW5Forms.Common.BL.csproj" />
     <ProjectReference Include="..\IW5Forms.Common.Models\IW5Forms.Common.Models.csproj" />
     <ProjectReference Include="..\IW5Forms.Web.DAL\IW5Forms.Web.DAL.csproj" />
