@@ -27,6 +27,13 @@ namespace IW5Forms.Api.BL.Facades
             return _mapper.Map<List<FormListModel>>(_formRepository.GetAll());
 
         }
+
+        public List<FormListModel> GetAllOwned(string? ownerId)
+        {
+            var allForms = _formRepository.GetAll();
+            foreach (var form in allForms) { if (form.IdentityOwnerId != null && (form.IdentityOwnerId!) != ownerId) allForms.Remove(form); }
+            return _mapper.Map<List<FormListModel>>(allForms);
+        }
         public FormDetailModel? GetById(Guid id)
         {
             var formEntity = _formRepository.GetById(id);

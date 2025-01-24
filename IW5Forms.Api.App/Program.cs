@@ -196,7 +196,15 @@ namespace IW5Forms.Api.App
                 .WithTags("form");
 
             // get all forms - require admin
-            formEndpoints.MapGet("", (IFormFacade formFacade) => formFacade.GetAll()).RequireAuthorization(ApiPolicies.FormsAdmin);
+            formEndpoints.MapGet("", (IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
+            {
+                var isAdmin = IsAdmin(httpContextAccessor);
+                if (isAdmin != null && (isAdmin! == true))
+                {
+                    return formFacade.GetAll();
+                }
+                else return formFacade.GetAllOwned(GetUserId(httpContextAccessor));
+            });
 
             // get form by id - require login
             formEndpoints.MapGet("{id:guid}", Results<Ok<FormDetailModel>, NotFound<string>> (Guid id, IFormFacade formFacade)
@@ -369,6 +377,11 @@ namespace IW5Forms.Api.App
         {
             var idClaim = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier);
             return idClaim?.Value;
+        }
+
+        public static bool? IsAdmin(IHttpContextAccessor httpContextAccessor)
+        {
+            return httpContextAccessor.HttpContext?.User.IsInRole(ApiPolicies.FormsAdmin);
         }
     }
 }

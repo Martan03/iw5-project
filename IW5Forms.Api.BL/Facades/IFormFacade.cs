@@ -11,6 +11,7 @@ namespace IW5Forms.Api.BL.Facades
     public interface IFormFacade : IAppFacade
     {
         List<FormListModel> GetAll();
+        List<FormListModel> GetAllOwned(string? ownerId);
         FormDetailModel? GetById(Guid id);
         Guid CreateOrUpdate(FormDetailModel formModel, string? ownerId);
         Guid Create(FormDetailModel formModel, string? ownerId);
