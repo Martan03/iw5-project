@@ -202,7 +202,7 @@ namespace IW5Forms.Api.App
                 if(userId != null && userId == "Honza-Admin")
                 {
                     return formFacade.GetAll();
-                }else return formFacade.GetAllOwned(GetUserId(httpContextAccessor));  
+                }else return formFacade.GetAllOwned(userId);  
 
                 //var isAdmin = IsAdmin(httpContextAccessor);
                 //if (isAdmin != null && (isAdmin! == true))

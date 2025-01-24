@@ -30,11 +30,7 @@ namespace IW5Forms.Api.BL.Facades
 
         public List<FormListModel> GetAllOwned(string? ownerId)
         {
-            var allForms = _formRepository.GetAll();
-            foreach (var form in allForms) { 
-                if (form.IdentityOwnerId != ownerId) 
-                    allForms.Remove(form);
-            }
+            var allForms = _formRepository.GetAll().Where(form => form.IdentityOwnerId == ownerId).ToList();
             return _mapper.Map<List<FormListModel>>(allForms);
         }
 
