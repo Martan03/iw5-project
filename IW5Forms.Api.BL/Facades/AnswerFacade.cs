@@ -46,7 +46,6 @@ namespace IW5Forms.Api.BL.Facades
             AnswerEntity newAnswerEntity = new AnswerEntity()
             {
                 Id = answerModel.Id,
-                ResponderId = answerModel.ResponderId,
                 Text = answerModel.Text,
                 IdentityOwnerId = ownerId,
             };
@@ -59,7 +58,7 @@ namespace IW5Forms.Api.BL.Facades
             ThrowIfWrongOwner(answerModel.Id, ownerId);
             AnswerEntity? newAnswerEntity = _answerRepository.GetById(answerModel.Id);
             if (newAnswerEntity == null) return null;
-            newAnswerEntity.ResponderId = answerModel.ResponderId;
+            newAnswerEntity.IdentityOwnerId = answerModel.IdentityOwnerId;
             newAnswerEntity.Text = answerModel.Text;
 
             return _answerRepository.Update(newAnswerEntity);

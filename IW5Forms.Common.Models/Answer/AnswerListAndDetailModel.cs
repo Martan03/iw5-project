@@ -14,7 +14,7 @@ namespace IW5Forms.Common.Models.Answer
 
         public required string Text { get; set; }
 
-        public required string IdentityOwnerId { get; set; }
+        public string? IdentityOwnerId { get; set; }
 
         public Guid? QuestionId { get; set; }
     }

@@ -85,7 +85,6 @@ namespace IW5Forms.Api.BL.Facades
                     Id = item.Id,
                     Question = newQuestionEntity,
                     QuestionId = newQuestionEntity.Id,
-                    ResponderId = item.ResponderId,
                     Text = item.Text,
                     IdentityOwnerId = ownerId,
                 });
