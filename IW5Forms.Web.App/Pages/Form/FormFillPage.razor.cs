@@ -18,9 +18,6 @@ public partial class FormFillPage
     [Inject]
     private AnswerFacade AnswerFacade { get; set; } = null!;
 
-    [Inject]
-    private IHttpContextAccessor httpContextAccessor { get; set; }
-
     private FormDetailModel Data { get; set; } = null!;
 
     private MudForm Form { get; set; } = null!;
@@ -60,7 +57,6 @@ public partial class FormFillPage
             return;
         }
 
-        var idClaim = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier);
         foreach (var question in Data.Questions)
         {
             if (Answers.TryGetValue(question.Id, out var answer))
@@ -68,9 +64,6 @@ public partial class FormFillPage
                 var answerModel = new AnswerListAndDetailModel() {
                     Id = Guid.NewGuid(),
                     Text = answer.ToString(),
-                    // TODO fix the Responder GUID
-
-                    IdentityOwnerId = idClaim.Value,
                     QuestionId = question.Id,
                 };
                 await AnswerFacade.SaveAsync(answerModel);
