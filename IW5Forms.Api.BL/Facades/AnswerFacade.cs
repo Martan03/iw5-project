@@ -48,6 +48,7 @@ namespace IW5Forms.Api.BL.Facades
                 Id = answerModel.Id,
                 Text = answerModel.Text,
                 IdentityOwnerId = ownerId,
+                QuestionId = answerModel.QuestionId,
             };
 
             return _answerRepository.Insert(newAnswerEntity);
