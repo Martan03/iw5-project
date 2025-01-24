@@ -204,7 +204,7 @@ namespace IW5Forms.Api.App
                     return formFacade.GetAll();
                 }
                 else return formFacade.GetAllOwned(GetUserId(httpContextAccessor));
-            });
+            }).RequireAuthorization();
 
             // get form by id - require login
             formEndpoints.MapGet("{id:guid}", Results<Ok<FormDetailModel>, NotFound<string>> (Guid id, IFormFacade formFacade)
@@ -381,7 +381,7 @@ namespace IW5Forms.Api.App
 
         public static bool? IsAdmin(IHttpContextAccessor httpContextAccessor)
         {
-            return httpContextAccessor.HttpContext?.User.IsInRole(ApiPolicies.FormsAdmin);
+            return httpContextAccessor.HttpContext?.User.IsInRole("forms-admin");
         }
     }
 }

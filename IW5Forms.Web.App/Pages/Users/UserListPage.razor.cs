@@ -19,7 +19,15 @@ public partial class UserListPage
 
     protected override async Task OnInitializedAsync()
     {
-        Users = await UserFacade.GetAllAsync();
+        try
+        {
+            Users = await UserFacade.GetAllAsync();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
 
         await base.OnInitializedAsync();
     }
