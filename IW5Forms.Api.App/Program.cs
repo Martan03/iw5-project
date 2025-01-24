@@ -198,14 +198,17 @@ namespace IW5Forms.Api.App
             // get all forms - require admin
             formEndpoints.MapGet("", (IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
             {
-                return formFacade.GetAll();
+                var userId = GetUserId(httpContextAccessor);
+                if(userId != null && userId == "Honza-Admin")
+                {
+                    return formFacade.GetAll();
+                }else return formFacade.GetAllOwned(GetUserId(httpContextAccessor));  
 
                 //var isAdmin = IsAdmin(httpContextAccessor);
                 //if (isAdmin != null && (isAdmin! == true))
                 //{
                 //     formFacade.GetAll();
                 //}
-                //else formFacade.GetAllOwned(GetUserId(httpContextAccessor));  
             }).RequireAuthorization();
 
             // get form by id - require login
