@@ -35,7 +35,6 @@ namespace IW5Forms.Api.BL.Facades
 
         public Guid CreateOrUpdate(FormDetailModel formModel, string? ownerId)
         {
-            ThrowIfWrongOwner(formModel.Id, ownerId);
             return _formRepository.Exists(formModel.Id) ? Update(formModel, ownerId)!.Value : Create(formModel, ownerId);
         }
 
