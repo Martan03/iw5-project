@@ -2,7 +2,9 @@ using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
 using MudBlazor;
+using System.Security.Claims;
 
 namespace IW5Forms.Web.App.Pages;
 
@@ -15,6 +17,9 @@ public partial class FormFillPage
     private FormFacade FormFacade { get; set; } = null!;
     [Inject]
     private AnswerFacade AnswerFacade { get; set; } = null!;
+
+    [Inject]
+    private IHttpContextAccessor httpContextAccessor { get; set; }
 
     private FormDetailModel Data { get; set; } = null!;
 
@@ -55,6 +60,7 @@ public partial class FormFillPage
             return;
         }
 
+        var idClaim = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier);
         foreach (var question in Data.Questions)
         {
             if (Answers.TryGetValue(question.Id, out var answer))
@@ -63,7 +69,8 @@ public partial class FormFillPage
                     Id = Guid.NewGuid(),
                     Text = answer.ToString(),
                     // TODO fix the Responder GUID
-                    ResponderId = new Guid("924E241A-F158-465C-9F55-D39429E61137"),
+
+                    IdentityOwnerId = idClaim.Value,
                     QuestionId = question.Id,
                 };
                 await AnswerFacade.SaveAsync(answerModel);
