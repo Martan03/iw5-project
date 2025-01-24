@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Duende.IdentityServer.Models;
 using IW5Forms.Common.Extentions;
 using IW5Forms.IdentityProvider.App;
 using IW5Forms.IdentityProvider.App.Endpoints;
@@ -20,6 +21,13 @@ try
     builder.Services.AddInstaller<IdentityProviderDALInstaller>();
     builder.Services.AddInstaller<IdentityProviderBLInstaller>();
     builder.Services.AddInstaller<IdentityProviderAppInstaller>();
+
+    builder.Services.ConfigureApplicationCookie(options =>
+    {
+        options.Cookie.SameSite = SameSiteMode.None;  // Set SameSite=None
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;  // Ensure HTTPS
+        options.Cookie.HttpOnly = true;  // Ensure HttpOnly for security
+    });
 
     builder.Host.UseSerilog((ctx, lc) => lc
         .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
