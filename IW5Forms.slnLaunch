@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "web+api+idenityt",
+    "Projects": [
+      {
+        "Path": "IW5Forms.Api.App\\IW5Forms.Api.App.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "IW5Forms.Web.App\\IW5Forms.Web.App.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "IW5Forms.IdentityProvider.App\\IW5Forms.IdentityProvider.App.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

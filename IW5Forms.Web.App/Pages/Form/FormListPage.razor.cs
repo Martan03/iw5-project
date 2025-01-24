@@ -1,10 +1,13 @@
+using System.Net.Http.Json;
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Web.BL.Facades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace IW5Forms.Web.App.Pages;
 
+[Authorize]
 public partial class FormListPage
 {
     [Inject]
@@ -13,11 +16,15 @@ public partial class FormListPage
     [Inject]
     private FormFacade FormFacade { get; set; } = null!;
 
+    [Inject]
+    private HttpClient httpClient { get; set; } = null!;
+
     private ICollection<FormListModel> Forms { get; set; } =
         new List<FormListModel>();
 
     protected override async Task OnInitializedAsync()
     {
+        //var forms = httpClient.GetFromJsonAsync<ICollection<FormListModel>>("https://localhost:7089/api/form");
         Forms = await FormFacade.GetAllAsync();
 
         await base.OnInitializedAsync();

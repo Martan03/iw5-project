@@ -92,8 +92,7 @@ namespace IW5Forms.Api.App
         private static void ConfigureDependencies(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             //EF stuff
-            var connectionString = configuration.GetConnectionString("AZURE_SQL_CONNECTION_STRING")
-                                   ?? configuration.GetConnectionString("TestConnection1");
+            var connectionString = configuration.GetConnectionString("TestConnection1");
 
             serviceCollection.AddDbContext<FormsDbContext>(options =>
             {

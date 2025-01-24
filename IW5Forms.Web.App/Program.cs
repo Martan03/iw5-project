@@ -19,15 +19,32 @@ var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
 
 builder.Services.AddInstaller<WebDALInstaller>();
 builder.Services.AddInstaller<WebBLInstaller>();
+builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
 
 builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(apiBaseUrl))
     .AddHttpMessageHandler(serviceProvider
-        => serviceProvider?.GetService<AuthorizationMessageHandler>()
+        => serviceProvider?.GetService<CustomAuthorizationMessageHandler>()
             ?.ConfigureHandler(
                 authorizedUrls: new[] { apiBaseUrl },
                 scopes: new[] { "iw5api" }));
 
-builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>().CreateClient("api"));
+builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("api"));
+
+//builder.Services.AddScoped<HttpClient>(serviceProvider =>
+//{
+//    var messageHandler = serviceProvider?.GetService<CustomAuthorizationMessageHandler>()
+//        ?.ConfigureHandler(
+//            authorizedUrls: new[] { apiBaseUrl },
+//            scopes: new[] { "iw5api" });
+//    if (messageHandler is not null)
+//    {
+//        messageHandler.InnerHandler = new HttpClientHandler();
+//        var client = new HttpClient(messageHandler);
+//        return client;
+//    }
+
+//    throw new ArgumentException();
+//});
 
 builder.Services.AddAutoMapper(configuration =>
 {
