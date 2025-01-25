@@ -37,17 +37,13 @@
                 >
                     Edit
                 </MudButton>
-                <AuthorizeView Roles="admin">
-                    <Authorized Context="authContext">
-                        <MudButton
-                            Variant="Variant.Text"
-                            Color="Color.Error"
-                            OnClick="@(() => DeleteAsync(context.Id))"
-                        >
-                            Delete
-                        </MudButton>
-                    </Authorized>
-                </AuthorizeView>
+                <MudButton
+                    Variant="Variant.Text"
+                    Color="Color.Error"
+                    OnClick="@(() => DeleteAsync(context.Id))"
+                >
+                    Delete
+                </MudButton>
             </MudTd>
         </RowTemplate>
 
