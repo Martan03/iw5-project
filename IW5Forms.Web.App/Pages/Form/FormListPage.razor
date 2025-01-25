@@ -1,5 +1,7 @@
 @page "/forms"
 @namespace IW5Forms.Web.App.Pages
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject IDialogService DialogService
 
 <PageTitle>Forms</PageTitle>
@@ -37,13 +39,17 @@
                 >
                     Edit
                 </MudButton>
-                <MudButton
-                    Variant="Variant.Text"
-                    Color="Color.Error"
-                    OnClick="@(() => DeleteAsync(context.Id))"
-                >
-                    Delete
-                </MudButton>
+                <AuthorizeView Roles="admin">
+                    <Authorized>
+                        <MudButton
+                            Variant="Variant.Text"
+                            Color="Color.Error"
+                            OnClick="@(() => DeleteAsync(context.Id))"
+                        >
+                            Delete
+                        </MudButton>
+                    </Authorized>
+                </AuthorizeView>
             </MudTd>
         </RowTemplate>
 
