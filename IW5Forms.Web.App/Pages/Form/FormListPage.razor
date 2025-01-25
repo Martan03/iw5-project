@@ -1,7 +1,5 @@
 @page "/forms"
 @namespace IW5Forms.Web.App.Pages
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject IDialogService DialogService
 
 <PageTitle>Forms</PageTitle>
@@ -40,7 +38,7 @@
                     Edit
                 </MudButton>
                 <AuthorizeView Roles="admin">
-                    <Authorized>
+                    <Authorized Context="authContext">
                         <MudButton
                             Variant="Variant.Text"
                             Color="Color.Error"
