@@ -198,17 +198,12 @@ namespace IW5Forms.Api.App
             // get all forms - require admin
             formEndpoints.MapGet("", (IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
             {
-                var userId = GetUserId(httpContextAccessor);
-                if(userId != null && userId == "Honza-Admin")
+                if (IsAdmin(httpContextAccessor))
                 {
                     return formFacade.GetAll();
-                }else return formFacade.GetAllOwned(userId);  
-
-                //var isAdmin = IsAdmin(httpContextAccessor);
-                //if (isAdmin != null && (isAdmin! == true))
-                //{
-                //     formFacade.GetAll();
-                //}
+                }
+                var userId = GetUserId(httpContextAccessor);
+                return formFacade.GetAllOwned(userId);
             }).RequireAuthorization();
 
             // get form by id - require login
@@ -384,9 +379,9 @@ namespace IW5Forms.Api.App
             return idClaim?.Value;
         }
 
-        public static bool? IsAdmin(IHttpContextAccessor httpContextAccessor)
+        public static bool IsAdmin(IHttpContextAccessor httpContextAccessor)
         {
-            return httpContextAccessor.HttpContext?.User.IsInRole("forms-admin");
+            return httpContextAccessor.HttpContext?.User.IsInRole("forms-admin") ?? false;
         }
     }
 }
