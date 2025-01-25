@@ -381,7 +381,7 @@ namespace IW5Forms.Api.App
 
         public static bool IsAdmin(IHttpContextAccessor httpContextAccessor)
         {
-            return httpContextAccessor.HttpContext?.User.IsInRole("forms-admin") ?? false;
+            return httpContextAccessor.HttpContext?.User.IsInRole("admin") ?? false;
         }
     }
 }
