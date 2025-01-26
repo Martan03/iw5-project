@@ -1,11 +1,13 @@
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Common.Models.User;
 using IW5Forms.Web.BL.Facades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace IW5Forms.Web.App.Pages;
 
+[Authorize]
 public partial class UserListPage
 {
     [Inject]

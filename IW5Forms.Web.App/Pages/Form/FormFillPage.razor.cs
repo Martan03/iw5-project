@@ -2,6 +2,7 @@ using IW5Forms.Common.Models.Answer;
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http;
 using MudBlazor;
 using System.Security.Claims;
@@ -18,6 +19,9 @@ public partial class FormFillPage
     [Inject]
     private AnswerFacade AnswerFacade { get; set; } = null!;
 
+    [Inject]
+    private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+
     private FormDetailModel Data { get; set; } = null!;
 
     private MudForm Form { get; set; } = null!;
@@ -31,9 +35,20 @@ public partial class FormFillPage
     [Parameter]
     public Guid Id { get; init; }
 
+    public bool LoadForm = false;
+
     protected override async Task OnInitializedAsync()
     {
         Data = await FormFacade.GetByIdAsync(Id);
+        LoadForm = Data.Incognito;
+
+        if (!LoadForm)
+        {
+
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var authenticated = authState.User.Identity?.IsAuthenticated ?? false;
+            LoadForm = authenticated;
+        }
 
         await base.OnInitializedAsync();
     }
@@ -53,7 +68,8 @@ public partial class FormFillPage
     private async void SubmitForm()
     {
         await Form.Validate();
-        if (!Form.IsValid) {
+        if (!Form.IsValid)
+        {
             return;
         }
 
@@ -61,7 +77,8 @@ public partial class FormFillPage
         {
             if (Answers.TryGetValue(question.Id, out var answer))
             {
-                var answerModel = new AnswerListAndDetailModel() {
+                var answerModel = new AnswerListAndDetailModel()
+                {
                     Id = Guid.NewGuid(),
                     Text = answer?.ToString() ?? "",
                     QuestionId = question.Id,

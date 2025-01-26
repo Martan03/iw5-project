@@ -1,10 +1,13 @@
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Web.BL.Facades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using MudBlazor;
 
 namespace IW5Forms.Web.App.Pages;
+
 
 public partial class FormListPage
 {
@@ -22,9 +25,14 @@ public partial class FormListPage
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadForms();
-        navigationManager.LocationChanged += HandleRedirect;
-        await base.OnInitializedAsync();
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity?.IsAuthenticated == true)
+        {
+            await LoadForms();
+            navigationManager.LocationChanged += HandleRedirect;
+            await base.OnInitializedAsync();
+
+        }
     }
 
     private async void HandleRedirect(object sender, LocationChangedEventArgs e)

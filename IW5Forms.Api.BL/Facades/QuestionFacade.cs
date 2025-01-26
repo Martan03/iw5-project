@@ -34,21 +34,21 @@ namespace IW5Forms.Api.BL.Facades
         public List<QuestionListModel> SearchByDescription(string description)
         {
             var questions = _mapper.Map<List<QuestionListModel>>(_questionRepository.GetAll());
-            RemoveQuestionsNotContainingDescription(questions, description);
+            questions = RemoveQuestionsNotContainingDescription(questions, description);
             return questions;
         }
 
-        private void RemoveQuestionsNotContainingDescription(List<QuestionListModel> questions, string description)
+        private List<QuestionListModel> RemoveQuestionsNotContainingDescription(List<QuestionListModel> questions, string description)
         {
-            foreach (var question in questions)
-            {
-                var questionDetail = _questionRepository.GetById(question.Id);
-
-                if (questionDetail is null || questionDetail.Description is null || !questionDetail.Description.Contains(description, StringComparison.OrdinalIgnoreCase))
-                {
-                    questions.Remove(question);
-                }
-            }
+            return questions.FindAll(t => t.Description?.Contains(description) ?? false);
+            //foreach (var question in questions)
+            //{
+            //    var questionDetail = _questionRepository.GetById(question.Id);
+            //    if (questionDetail is null || questionDetail.Description is null || !questionDetail.Description.Contains(description, StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        questions.Remove(question);
+            //    }
+            //}
         }
 
         public QuestionDetailModel? GetById(Guid id)

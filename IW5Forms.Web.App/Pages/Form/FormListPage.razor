@@ -3,98 +3,108 @@
 @namespace IW5Forms.Web.App.Pages
 @using IW5Forms.Common.Models.Form;
 @inject IDialogService DialogService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
 
 <PageTitle>Forms</PageTitle>
+<AuthorizeView>
+    <Authorized>
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
-    @if (Action is null || Action == "all") {
-        <MudText Typo="Typo.h4" GutterBottom="true">
-            Available Forms
-        </MudText>
-    } else {
-        <MudText Typo="Typo.h4" GutterBottom="true">
-            Managable Forms
-        </MudText>
-    }
 
-    <MudChipSet T="int">
-        <MudChip
-            OnClick="@(() => navigationManager.NavigateTo("/forms"))"
-            Color="@((Action is null || Action == "all") ? Color.Primary : Color.Default)"
-        >
-            All Forms
-        </MudChip>
-        <MudChip
-            OnClick="@(() => navigationManager.NavigateTo("/forms/managable"))"
-            Color="@((Action == "managable") ? Color.Primary : Color.Default)"
-        >
-            Managable Forms
-        </MudChip>
-    </MudChipSet>
-
-    <MudTable
-        T="FormListModel"
-        Items="Forms"
-        Class="mt-4"
-        Dense="true"
-        Hover="true"
-        OnRowClick="NavFormDetail"
-    >
-        <HeaderContent>
-            <MudTh>Name</MudTh>
-            @if (Action == "managable") {
-                <MudTh>Actions</MudTh>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+            @if (Action is null || Action == "all") {
+                <MudText Typo="Typo.h4" GutterBottom="true">
+                    Available Forms
+                </MudText>
+            } else {
+                <MudText Typo="Typo.h4" GutterBottom="true">
+                    Managable Forms
+                </MudText>
             }
-        </HeaderContent>
 
-        <RowTemplate>
-            <MudTd DataLabel="Name">@context.Name</MudTd>
-            @if (Action == "managable") {
-                <MudTd>
-                    <MudButton
-                        Variant="Variant.Text"
-                        Color="Color.Primary"
-                        OnClick="@(() => NavDetail(context.Id))"
-                    >
-                        View
-                    </MudButton>
-                    <MudButton
-                        Variant="Variant.Text"
-                        Color="Color.Secondary"
-                        OnClick="@(() => NavAnswers(context.Id))"
-                    >
-                        Answers
-                    </MudButton>
-                    <MudButton
-                        Variant="Variant.Text"
-                        Color="Color.Secondary"
-                        OnClick="@(() => NavEditor(context.Id))"
-                    >
-                        Edit
-                    </MudButton>
-                    <MudButton
-                        Variant="Variant.Text"
-                        Color="Color.Error"
-                        OnClick="@(() => DeleteAsync(context.Id))"
-                    >
-                        Delete
-                    </MudButton>
-                </MudTd>
-            }
-        </RowTemplate>
+            <MudChipSet T="int">
+                <MudChip
+                    OnClick="@(() => navigationManager.NavigateTo("/forms"))"
+                    Color="@((Action is null || Action == "all") ? Color.Primary : Color.Default)"
+                >
+                    All Forms
+                </MudChip>
+                <MudChip
+                    OnClick="@(() => navigationManager.NavigateTo("/forms/managable"))"
+                    Color="@((Action == "managable") ? Color.Primary : Color.Default)"
+                >
+                    Managable Forms
+                </MudChip>
+            </MudChipSet>
 
-        <FooterContent>
-            @if (Forms == null || !Forms.Any())
-            {
-                <MudText Class="mt-3 mb-3 ml-3 mr-3">No Forms found.</MudText>
-            }
-        </FooterContent>
-    </MudTable>
+            <MudTable
+                T="FormListModel"
+                Items="Forms"
+                Class="mt-4"
+                Dense="true"
+                Hover="true"
+                OnRowClick="NavFormDetail"
+            >
+                <HeaderContent>
+                    <MudTh>Name</MudTh>
+                    @if (Action == "managable") {
+                        <MudTh>Actions</MudTh>
+                    }
+                </HeaderContent>
 
-    <MudFab
-        Color="Color.Primary"
-        StartIcon="@Icons.Material.Filled.Add"
-        Style="position: fixed; bottom: 16px; right: 16px;"
-        OnClick="@(() => NavEditor(null))"
-    />
-</MudContainer>
+                <RowTemplate Context="RowContext">
+                    <MudTd DataLabel="Name">@RowContext.Name</MudTd>
+                    @if (Action == "managable") {
+                        <MudTd>
+                            <MudButton
+                                Variant="Variant.Text"
+                                Color="Color.Primary"
+                                       OnClick="@(() => NavDetail(RowContext.Id))">
+                                View
+                            </MudButton>
+                            <MudButton
+                                Variant="Variant.Text"
+                                Color="Color.Secondary"
+                                       OnClick="@(() => NavAnswers(RowContext.Id))">
+                                Answers
+                            </MudButton>
+                            <MudButton
+                                Variant="Variant.Text"
+                                Color="Color.Secondary"
+                                       OnClick="@(() => NavEditor(RowContext.Id))">
+                                Edit
+                            </MudButton>
+                            <MudButton
+                                Variant="Variant.Text"
+                                Color="Color.Error"
+                                       OnClick="@(() => DeleteAsync(RowContext.Id))">
+                                Delete
+                            </MudButton>
+                        </MudTd>
+                    }
+                </RowTemplate>
+
+                <FooterContent>
+                    @if (Forms == null || !Forms.Any())
+                    {
+                        <MudText Class="mt-3 mb-3 ml-3 mr-3">No Forms found.</MudText>
+                    }
+                </FooterContent>
+            </MudTable>
+
+            <MudFab
+                Color="Color.Primary"
+                StartIcon="@Icons.Material.Filled.Add"
+                Style="position: fixed; bottom: 16px; right: 16px;"
+                OnClick="@(() => NavEditor(null))"
+            />
+        </MudContainer>
+    </Authorized>
+    <NotAuthorized>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+            <p align="center">
+                Please log in!
+            </p>
+        </MudContainer>
+    </NotAuthorized>
+</AuthorizeView>

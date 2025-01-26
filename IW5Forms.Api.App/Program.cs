@@ -214,12 +214,11 @@ namespace IW5Forms.Api.App
                 return formFacade.GetAllOwned(userId);
             }).RequireAuthorization();
 
-            // get form by id - require login
+            // get form by id
             formEndpoints.MapGet("{id:guid}", Results<Ok<FormDetailModel>, NotFound<string>> (Guid id, IFormFacade formFacade)
                 => formFacade.GetById(id) is { } form
                     ? TypedResults.Ok(form)
-                    : TypedResults.NotFound("Form with id:" + id + " was not found."))
-                .RequireAuthorization();
+                    : TypedResults.NotFound("Form with id:" + id + " was not found."));
 
             // create new form - reauire login
             formEndpoints.MapPost("", (FormDetailModel form, IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>

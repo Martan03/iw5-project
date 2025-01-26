@@ -1,5 +1,6 @@
 ﻿@using IW5Forms.Web.App
 @inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <MudThemeProvider IsDarkMode="true"/>
 <MudPopoverProvider />
@@ -7,22 +8,43 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-        <MudAppBar Elevation="4">
+    <MudAppBar Elevation="4">
         <MudImage Src="logo.png" Style="width: 200px;" Alt="Logo" />
         <MudSpacer />
         <MudNavLink Href="/" Match="NavLinkMatch.All">HOME</MudNavLink>
         <MudNavLink Href="/forms" Match="NavLinkMatch.All">FORMS</MudNavLink>
-        <AuthorizeView>
-            <Authorized>
-        <MudNavLink Href="/search" Match="NavLinkMatch.All">SEARCH</MudNavLink>
-            <MudNavLink Href="/users" Match="NavLinkMatch.All">MANAGE USERS</MudNavLink>
-        
-                <p>You are logged in</p>
-                </Authorized>
-        </AuthorizeView>
+                @if (HasAccess == true)
+                {
+                    <MudNavLink Href="/search" Match="NavLinkMatch.All">SEARCH</MudNavLink>
+                    <MudNavLink Href="/users" Match="NavLinkMatch.All">MANAGE USERS</MudNavLink>
+                }
+
         <Login />
     </MudAppBar>
     <MudMainContent>
         @Body
     </MudMainContent>
 </MudLayout>
+
+@code {
+    private bool? HasAccess = null;
+    private System.Security.Claims.ClaimsPrincipal? User = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;
+
+        HasAccess = User.IsInRole("admin");
+    }
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;
+
+        HasAccess = User.IsInRole("admin");
+        base.OnAfterRender(firstRender);
+    }
+
+}
