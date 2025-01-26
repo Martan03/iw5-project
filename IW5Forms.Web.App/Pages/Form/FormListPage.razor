@@ -6,46 +6,73 @@
 <PageTitle>Forms</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
-    <MudText Typo="Typo.h4" GutterBottom="true">Available Forms</MudText>
+    @if (Action == "all") {
+        <MudText Typo="Typo.h4" GutterBottom="true">
+            Available Forms
+        </MudText>
+    } else {
+        <MudText Typo="Typo.h4" GutterBottom="true">
+            Managable Forms
+        </MudText>
+    }
+
+    <MudChipSet T="int">
+        <MudChip
+            Href="/forms"
+            Color="@((Action is null || Action == "all") ? Color.Primary : Color.Default)"
+        >
+            All Forms
+        </MudChip>
+        <MudChip
+            Href="/forms/managable"
+            Color="@((Action == "managable") ? Color.Primary : Color.Default)"
+        >
+            Managable Forms
+        </MudChip>
+    </MudChipSet>
 
     <MudTable Items="Forms" Dense="true" Hover="true">
         <HeaderContent>
             <MudTh>Name</MudTh>
-            <MudTh>Actions</MudTh>
+            @if (Action == "managable") {
+                <MudTh>Actions</MudTh>
+            }
         </HeaderContent>
 
         <RowTemplate>
             <MudTd DataLabel="Name">@context.Name</MudTd>
-            <MudTd>
-                <MudButton
-                    Variant="Variant.Text"
-                    Color="Color.Primary"
-                    OnClick="@(() => NavDetail(context.Id))"
-                >
-                    View
-                </MudButton>
-                <MudButton
-                    Variant="Variant.Text"
-                    Color="Color.Secondary"
-                    OnClick="@(() => NavAnswers(context.Id))"
-                >
-                    Answers
-                </MudButton>
-                <MudButton
-                    Variant="Variant.Text"
-                    Color="Color.Secondary"
-                    OnClick="@(() => NavEditor(context.Id))"
-                >
-                    Edit
-                </MudButton>
-                <MudButton
-                    Variant="Variant.Text"
-                    Color="Color.Error"
-                    OnClick="@(() => DeleteAsync(context.Id))"
-                >
-                    Delete
-                </MudButton>
-            </MudTd>
+            @if (Action == "managable") {
+                <MudTd>
+                    <MudButton
+                        Variant="Variant.Text"
+                        Color="Color.Primary"
+                        OnClick="@(() => NavDetail(context.Id))"
+                    >
+                        View
+                    </MudButton>
+                    <MudButton
+                        Variant="Variant.Text"
+                        Color="Color.Secondary"
+                        OnClick="@(() => NavAnswers(context.Id))"
+                    >
+                        Answers
+                    </MudButton>
+                    <MudButton
+                        Variant="Variant.Text"
+                        Color="Color.Secondary"
+                        OnClick="@(() => NavEditor(context.Id))"
+                    >
+                        Edit
+                    </MudButton>
+                    <MudButton
+                        Variant="Variant.Text"
+                        Color="Color.Error"
+                        OnClick="@(() => DeleteAsync(context.Id))"
+                    >
+                        Delete
+                    </MudButton>
+                </MudTd>
+            }
         </RowTemplate>
 
         <FooterContent>
