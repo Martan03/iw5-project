@@ -6,7 +6,7 @@
 
 <PageTitle>Forms</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-2">
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
     @if (Action == "all") {
         <MudText Typo="Typo.h4" GutterBottom="true">
             Available Forms
@@ -17,15 +17,15 @@
         </MudText>
     }
 
-    <MudChipSet T="int" Class="mt-4">
+    <MudChipSet T="int">
         <MudChip
-            OnClick="@(() => navigationManager.NavigateTo("/forms"))"
+            OnClick="@(() => navigationManager.NavigateTo("/forms", true))"
             Color="@((Action is null || Action == "all") ? Color.Primary : Color.Default)"
         >
             All Forms
         </MudChip>
         <MudChip
-            OnClick="@(() => navigationManager.NavigateTo("/forms/managable"))"
+            OnClick="@(() => navigationManager.NavigateTo("/forms/managable", true))"
             Color="@((Action == "managable") ? Color.Primary : Color.Default)"
         >
             Managable Forms
@@ -35,6 +35,7 @@
     <MudTable
         T="FormListModel"
         Items="Forms"
+        Class="mt-4"
         Dense="true"
         Hover="true"
         OnRowClick="NavFormDetail"
@@ -47,39 +48,41 @@
         </HeaderContent>
 
         <RowTemplate>
-            <MudTd DataLabel="Name">@context.Name</MudTd>
-            @if (Action == "managable") {
-                <MudTd>
-                    <MudButton
-                        Variant="Variant.Text"
-                        Color="Color.Primary"
-                        OnClick="@(() => NavDetail(context.Id))"
-                    >
-                        View
-                    </MudButton>
-                    <MudButton
-                        Variant="Variant.Text"
-                        Color="Color.Secondary"
-                        OnClick="@(() => NavAnswers(context.Id))"
-                    >
-                        Answers
-                    </MudButton>
-                    <MudButton
-                        Variant="Variant.Text"
-                        Color="Color.Secondary"
-                        OnClick="@(() => NavEditor(context.Id))"
-                    >
-                        Edit
-                    </MudButton>
-                    <MudButton
-                        Variant="Variant.Text"
-                        Color="Color.Error"
-                        OnClick="@(() => DeleteAsync(context.Id))"
-                    >
-                        Delete
-                    </MudButton>
-                </MudTd>
-            }
+            <MudTr Style="cursor: pointer">
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                @if (Action == "managable") {
+                    <MudTd>
+                        <MudButton
+                            Variant="Variant.Text"
+                            Color="Color.Primary"
+                            OnClick="@(() => NavDetail(context.Id))"
+                        >
+                            View
+                        </MudButton>
+                        <MudButton
+                            Variant="Variant.Text"
+                            Color="Color.Secondary"
+                            OnClick="@(() => NavAnswers(context.Id))"
+                        >
+                            Answers
+                        </MudButton>
+                        <MudButton
+                            Variant="Variant.Text"
+                            Color="Color.Secondary"
+                            OnClick="@(() => NavEditor(context.Id))"
+                        >
+                            Edit
+                        </MudButton>
+                        <MudButton
+                            Variant="Variant.Text"
+                            Color="Color.Error"
+                            OnClick="@(() => DeleteAsync(context.Id))"
+                        >
+                            Delete
+                        </MudButton>
+                    </MudTd>
+                }
+            </MudTr>
         </RowTemplate>
 
         <FooterContent>
