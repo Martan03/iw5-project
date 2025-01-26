@@ -63,7 +63,7 @@ public partial class FormFillPage
             {
                 var answerModel = new AnswerListAndDetailModel() {
                     Id = Guid.NewGuid(),
-                    Text = answer.ToString(),
+                    Text = answer?.ToString() ?? "",
                     QuestionId = question.Id,
                 };
                 await AnswerFacade.SaveAsync(answerModel);

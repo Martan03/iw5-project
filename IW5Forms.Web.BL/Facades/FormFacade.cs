@@ -36,6 +36,22 @@ public class FormFacade : FacadeBase<FormDetailModel, FormListModel>
         return formsAll;
     }
 
+    public async Task<List<FormListModel>> GetManagableAsync()
+    {
+        var formsAll = await base.GetAllAsync();
+
+        var formsFromApi = await apiClient.ManagableAsync();
+        foreach (var formFromApi in formsFromApi)
+        {
+            if (formsAll.Any(r => r.Id == formFromApi.Id) is false)
+            {
+                formsAll.Add(formFromApi);
+            }
+        }
+
+        return formsAll;
+    }
+
     public override async Task<FormDetailModel> GetByIdAsync(Guid id)
     {
         return await apiClient.FormGetAsync(id);

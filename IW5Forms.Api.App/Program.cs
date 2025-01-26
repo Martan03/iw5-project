@@ -195,8 +195,14 @@ namespace IW5Forms.Api.App
             var formEndpoints = routeGroupBuilder.MapGroup("form")
                 .WithTags("form");
 
-            // get all forms - require admin
+            // get all forms
             formEndpoints.MapGet("", (IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
+            {
+                return formFacade.GetAll();
+            });
+
+            // Gets all forms managable by user
+            formEndpoints.MapGet("managable", (IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
             {
                 if (IsAdmin(httpContextAccessor))
                 {

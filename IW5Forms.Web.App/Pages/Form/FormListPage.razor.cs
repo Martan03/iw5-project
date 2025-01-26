@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text.RegularExpressions;
 using IW5Forms.Common.Models.Form;
 using IW5Forms.Web.BL.Facades;
 using Microsoft.AspNetCore.Authorization;
@@ -19,13 +20,21 @@ public partial class FormListPage
     [Inject]
     private HttpClient httpClient { get; set; } = null!;
 
+    [Parameter]
+    public string Action { get; init; } = "all";
+
     private ICollection<FormListModel> Forms { get; set; } =
         new List<FormListModel>();
 
     protected override async Task OnInitializedAsync()
     {
-        //var forms = httpClient.GetFromJsonAsync<ICollection<FormListModel>>("https://localhost:7089/api/form");
-        Forms = await FormFacade.GetAllAsync();
+        if (Action == "all") {
+            Forms = await FormFacade.GetAllAsync();
+        } else if (Action == "managable") {
+            Forms = await FormFacade.GetManagableAsync();
+        } else {
+            navigationManager.NavigateTo("404");
+        }
 
         await base.OnInitializedAsync();
     }
