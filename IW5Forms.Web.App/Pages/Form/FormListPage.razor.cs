@@ -9,7 +9,6 @@ using MudBlazor;
 
 namespace IW5Forms.Web.App.Pages;
 
-[Authorize]
 public partial class FormListPage
 {
     [Inject]

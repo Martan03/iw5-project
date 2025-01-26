@@ -68,7 +68,11 @@ namespace IW5Forms.Web.BL
         public SearchApiClient(System.Net.Http.HttpClient httpClient)
     #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
+#if DEBUG
+            BaseUrl = "https://localhost:7089/";
+#else
             BaseUrl = "https://app-iw5-2024-team-xzatloa00-api.azurewebsites.net";
+#endif
             _httpClient = httpClient;
             Initialize();
         }
@@ -521,7 +525,11 @@ namespace IW5Forms.Web.BL
         public UserApiClient(System.Net.Http.HttpClient httpClient)
     #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
+#if DEBUG
+            BaseUrl = "https://localhost:7089/";
+#else
             BaseUrl = "https://app-iw5-2024-team-xzatloa00-api.azurewebsites.net";
+#endif
             _httpClient = httpClient;
             Initialize();
         }
@@ -1220,7 +1228,11 @@ namespace IW5Forms.Web.BL
         public FormApiClient(System.Net.Http.HttpClient httpClient)
     #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
+#if DEBUG
+            BaseUrl = "https://localhost:7089/";
+#else
             BaseUrl = "https://app-iw5-2024-team-xzatloa00-api.azurewebsites.net";
+#endif
             _httpClient = httpClient;
             Initialize();
         }
@@ -1988,7 +2000,11 @@ namespace IW5Forms.Web.BL
         public AnswerApiClient(System.Net.Http.HttpClient httpClient)
     #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
+#if DEBUG
+            BaseUrl = "https://localhost:7089/";
+#else
             BaseUrl = "https://app-iw5-2024-team-xzatloa00-api.azurewebsites.net";
+#endif
             _httpClient = httpClient;
             Initialize();
         }
@@ -2680,7 +2696,11 @@ namespace IW5Forms.Web.BL
         public QuestionApiClient(System.Net.Http.HttpClient httpClient)
     #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
+#if DEBUG
+            BaseUrl = "https://localhost:7089/";
+#else
             BaseUrl = "https://app-iw5-2024-team-xzatloa00-api.azurewebsites.net";
+#endif
             _httpClient = httpClient;
             Initialize();
         }

@@ -34,6 +34,12 @@ namespace IW5Forms.Api.BL.Facades
             return _mapper.Map<List<FormListModel>>(allForms);
         }
 
+        public List<FormListModel> GetAllIncognito()
+        {
+            var allForms = _formRepository.GetAll().Where(form => form.Incognito == true).ToList();
+            return _mapper.Map<List<FormListModel>>(allForms);
+        }
+
         public FormDetailModel? GetById(Guid id)
         {
             var formEntity = _formRepository.GetById(id);

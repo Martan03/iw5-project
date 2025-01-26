@@ -12,6 +12,7 @@ namespace IW5Forms.Api.BL.Facades
     {
         List<FormListModel> GetAll();
         List<FormListModel> GetAllOwned(string? ownerId);
+        List<FormListModel> GetAllIncognito();
         FormDetailModel? GetById(Guid id);
         Guid CreateOrUpdate(FormDetailModel formModel, string? ownerId);
         Guid Create(FormDetailModel formModel, string? ownerId);

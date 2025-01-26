@@ -12,8 +12,14 @@
         <MudSpacer />
         <MudNavLink Href="/" Match="NavLinkMatch.All">HOME</MudNavLink>
         <MudNavLink Href="/forms" Match="NavLinkMatch.All">FORMS</MudNavLink>
+        <AuthorizeView>
+            <Authorized>
         <MudNavLink Href="/search" Match="NavLinkMatch.All">SEARCH</MudNavLink>
-        <MudNavLink Href="/users" Match="NavLinkMatch.All">MANAGE USERS</MudNavLink>
+            <MudNavLink Href="/users" Match="NavLinkMatch.All">MANAGE USERS</MudNavLink>
+        
+                <p>You are logged in</p>
+                </Authorized>
+        </AuthorizeView>
         <Login />
     </MudAppBar>
     <MudMainContent>

@@ -198,6 +198,8 @@ namespace IW5Forms.Api.App
             // get all forms
             formEndpoints.MapGet("", (IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
             {
+                var userId = GetUserId(httpContextAccessor);
+                if (userId == null) return formFacade.GetAllIncognito();
                 return formFacade.GetAll();
             });
 
@@ -233,7 +235,7 @@ namespace IW5Forms.Api.App
                 var userId = GetUserId(httpContextAccessor);
 
                 return formFacade.Update(form, userId);
-            });
+            }).RequireAuthorization();
 
             //upsert form - require login
             formEndpoints.MapPost("upsert", (FormDetailModel form, IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
