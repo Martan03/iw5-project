@@ -17,11 +17,8 @@ public partial class FormListPage
     [Inject]
     private FormFacade FormFacade { get; set; } = null!;
 
-    [Inject]
-    private HttpClient httpClient { get; set; } = null!;
-
     [Parameter]
-    public string Action { get; init; } = "all";
+    public string? Action { get; init; } = null;
 
     private ICollection<FormListModel> Forms { get; set; } =
         new List<FormListModel>();
@@ -43,6 +40,8 @@ public partial class FormListPage
         await base.OnInitializedAsync();
     }
 
+
+
     public Task DeleteAsync(Guid id)
     {
         var parameters = new DialogParameters<Dialog>
@@ -63,6 +62,12 @@ public partial class FormListPage
     public void NavDetail(Guid id)
     {
         navigationManager.NavigateTo($"/form/{id}");
+    }
+
+    private void NavFormDetail(
+        TableRowClickEventArgs<FormListModel> args
+    ) {
+        navigationManager.NavigateTo($"/form/{args.Item!.Id}");
     }
 
     public void NavAnswers(Guid id)
