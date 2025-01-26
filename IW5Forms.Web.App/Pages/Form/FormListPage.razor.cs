@@ -28,12 +28,16 @@ public partial class FormListPage
 
     protected override async Task OnInitializedAsync()
     {
-        if (Action == "all") {
-            Forms = await FormFacade.GetAllAsync();
-        } else if (Action == "managable") {
-            Forms = await FormFacade.GetManagableAsync();
-        } else {
-            navigationManager.NavigateTo("404");
+        switch (Action ?? "all") {
+            case "all":
+                Forms = await FormFacade.GetAllAsync();
+                break;
+            case "managable":
+                Forms = await FormFacade.GetManagableAsync();
+                break;
+            default:
+                navigationManager.NavigateTo("404");
+                break;
         }
 
         await base.OnInitializedAsync();
