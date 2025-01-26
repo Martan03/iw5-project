@@ -1,6 +1,20 @@
 ﻿@page "/"
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Home</PageTitle>
+
+@if (HasAccess == null)
+{
+    <p>Loading...</p>
+}
+else if (HasAccess == true)
+{
+    <p>Welcome, you have the required permissions!</p>
+}
+else
+{
+    <p>You do not have the required permissions.</p>
+}
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
     <MudText Typo="Typo.h3" Class="mb-2 mt-2">
@@ -25,3 +39,16 @@
             This app was built using WebAssembly and MudBlazor.
         </MudText>
 </MudContainer>
+
+@code {
+    private bool? HasAccess = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        var specificClaim = user.Claims.FirstOrDefault(c => c.Type == "role" && c.Value == "admin");
+        HasAccess = specificClaim != null;
+    }
+}
