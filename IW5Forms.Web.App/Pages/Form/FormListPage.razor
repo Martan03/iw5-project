@@ -19,13 +19,13 @@
 
     <MudChipSet T="int">
         <MudChip
-            OnClick="@(() => navigationManager.NavigateTo("/forms", true))"
+            OnClick="@(() => navigationManager.NavigateTo("/forms"))"
             Color="@((Action is null || Action == "all") ? Color.Primary : Color.Default)"
         >
             All Forms
         </MudChip>
         <MudChip
-            OnClick="@(() => navigationManager.NavigateTo("/forms/managable", true))"
+            OnClick="@(() => navigationManager.NavigateTo("/forms/managable"))"
             Color="@((Action == "managable") ? Color.Primary : Color.Default)"
         >
             Managable Forms

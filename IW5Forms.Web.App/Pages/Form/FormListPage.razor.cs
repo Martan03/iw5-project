@@ -4,6 +4,7 @@ using IW5Forms.Common.Models.Form;
 using IW5Forms.Web.BL.Facades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using MudBlazor;
 
 namespace IW5Forms.Web.App.Pages;
@@ -25,6 +26,18 @@ public partial class FormListPage
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadForms();
+        navigationManager.LocationChanged += HandleRedirect;
+        await base.OnInitializedAsync();
+    }
+
+    private async void HandleRedirect(object sender, LocationChangedEventArgs e)
+    {
+        await LoadForms();
+        StateHasChanged();
+    }
+
+    private async Task LoadForms() {
         switch (Action ?? "all") {
             case "all":
                 Forms = await FormFacade.GetAllAsync();
@@ -36,11 +49,7 @@ public partial class FormListPage
                 navigationManager.NavigateTo("404");
                 break;
         }
-
-        await base.OnInitializedAsync();
     }
-
-
 
     public Task DeleteAsync(Guid id)
     {
