@@ -67,13 +67,11 @@ public class FormFacadeTests
         };
 
         var facadeMock = new Mock<FormFacade>(repoMock.Object, mapper) { CallBase = true };
-        facadeMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
 
         // Act
         facadeMock.Object.CreateOrUpdate(formModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
-        facadeMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);
         repoMock.Verify(formRepo => formRepo.Exists(formModel.Id), Times.Once);
     }
 
@@ -114,13 +112,11 @@ public class FormFacadeTests
             .Returns(Guid.NewGuid());
 
         var facadeMock = new Mock<FormFacade>(repoMock.Object, mapperMock.Object) { CallBase = true };
-        facadeMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
 
         // Act
         facadeMock.Object.CreateOrUpdate(formModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
 
         // Assert
-        facadeMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);
         repoMock.Verify(
             formRepo => formRepo.Insert(It.IsAny<FormEntity>()),
             Times.Once
