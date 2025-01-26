@@ -7,7 +7,7 @@
 <PageTitle>Forms</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
-    @if (Action == "all") {
+    @if (Action is null || Action == "all") {
         <MudText Typo="Typo.h4" GutterBottom="true">
             Available Forms
         </MudText>

@@ -12,6 +12,7 @@ namespace IW5Forms.IdentityProvider.App
             {
                 var profileIdentityResources = new IdentityResources.Profile();
                 profileIdentityResources.UserClaims.Add("username");
+                profileIdentityResources.UserClaims.Add("role");
 
                 return
                 [

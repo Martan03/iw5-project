@@ -62,6 +62,8 @@ builder.Services.AddOidcAuthentication(options =>
     options.ProviderOptions.Authority = authority;
     options.ProviderOptions.ClientId = "formsclient";
     options.ProviderOptions.DefaultScopes.Add("iw5api");
+
+    options.UserOptions.RoleClaim = "role";
 });
 
 builder.Services.Configure<LocalDbOptions>(options => {
