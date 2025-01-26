@@ -3,17 +3,9 @@
 
 <PageTitle>Home</PageTitle>
 
-@if (HasAccess == null)
+@foreach (var claim in User.Claims)
 {
-    <p>Loading...</p>
-}
-else if (HasAccess == true)
-{
-    <p>Welcome, you have the required permissions!</p>
-}
-else
-{
-    <p>You do not have the required permissions.</p>
+    <p>@claim.Type: @claim.Value</p>
 }
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
@@ -42,13 +34,11 @@ else
 
 @code {
     private bool? HasAccess = null;
+    private System.Security.Claims.ClaimsPrincipal? User = null;
 
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        var specificClaim = user.Claims.FirstOrDefault(c => c.Type == "role" && c.Value == "admin");
-        HasAccess = specificClaim != null;
+        User = authState.User;
     }
 }
