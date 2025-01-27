@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
@@ -62,6 +63,16 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
             {
                 requestIsInException = true;
             }
+        }
+
+        try
+        {
+            AccessTokenResult at = await _provider.RequestAccessToken();
+            requestIsInException = at.Status == AccessTokenResultStatus.RequiresRedirect;
+        }
+        catch (Exception e)
+        {
+            
         }
 
         if (!requestIsInException && request.RequestUri != null && _authorizedUris.Any(uri => uri.IsBaseOf(request.RequestUri)))
