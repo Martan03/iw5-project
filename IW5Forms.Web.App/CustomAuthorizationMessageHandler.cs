@@ -22,7 +22,7 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
     private AccessToken? _lastToken;
     private AuthenticationHeaderValue? _cachedHeader;
     private Uri[]? _authorizedUris;
-    private Uri[]? _exceptionUris;
+    private string[]? _exceptionUris;
     private AccessTokenRequestOptions? _tokenOptions;
 
     /// <summary>
@@ -58,7 +58,7 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
         bool requestIsInException = false;
         foreach (var uri in _exceptionUris)
         {
-            if (request.RequestUri?.AbsoluteUri.Contains(uri.AbsoluteUri) ?? false)
+            if (request.RequestUri?.AbsoluteUri.Contains(uri) ?? false)
             {
                 requestIsInException = true;
             }
@@ -127,7 +127,7 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
             throw new ArgumentException("At least one URL must be configured.", nameof(authorizedUrls));
         }
 
-        var excUris = exceptionUrls.Select(uri => new Uri(uri, UriKind.Absolute)).ToArray();
+        var excUris = exceptionUrls.ToArray();
 
 
         _authorizedUris = uris;

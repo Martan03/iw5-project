@@ -25,14 +25,11 @@ public partial class FormListPage
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        if (authState.User.Identity?.IsAuthenticated == true)
-        {
+
             await LoadForms();
             navigationManager.LocationChanged += HandleRedirect;
             await base.OnInitializedAsync();
 
-        }
     }
 
     private async void HandleRedirect(object sender, LocationChangedEventArgs e)
