@@ -40,6 +40,7 @@ public partial class FormFillPage
     protected override async Task OnInitializedAsync()
     {
         Data = await FormFacade.GetByIdAsync(Id);
+
         LoadForm = Data.Incognito;
 
         if (!LoadForm)

@@ -26,6 +26,7 @@ builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(api
         => serviceProvider?.GetService<CustomAuthorizationMessageHandler>()
             ?.ConfigureHandler(
                 authorizedUrls: new[] { apiBaseUrl },
+                exceptionUrls: new[] { "/api/form/id/", "/api/answer/upsert" , "/api/form/getAll" },
                 scopes: new[] { "iw5api" }));
 
 builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("api"));

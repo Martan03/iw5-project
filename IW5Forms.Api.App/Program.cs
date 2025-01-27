@@ -59,7 +59,7 @@ namespace IW5Forms.Api.App
             {
                 options.AddDefaultPolicy(o =>
                     o.AllowAnyOrigin()
-                        // .AllowCredentials()
+                        //.AllowCredentials()
                         .AllowAnyHeader()
                         .AllowAnyMethod());
             });
@@ -196,7 +196,7 @@ namespace IW5Forms.Api.App
                 .WithTags("form");
 
             // get all forms
-            formEndpoints.MapGet("", (IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
+            formEndpoints.MapGet("getAll", (IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
             {
                 var userId = GetUserId(httpContextAccessor);
                 if (userId == null) return formFacade.GetAllIncognito();
@@ -215,10 +215,11 @@ namespace IW5Forms.Api.App
             }).RequireAuthorization();
 
             // get form by id
-            formEndpoints.MapGet("{id:guid}", Results<Ok<FormDetailModel>, NotFound<string>> (Guid id, IFormFacade formFacade)
+            formEndpoints.MapGet("/id/{id:guid}", Results<Ok<FormDetailModel>, NotFound<string>> (Guid id, IFormFacade formFacade)
                 => formFacade.GetById(id) is { } form
                     ? TypedResults.Ok(form)
-                    : TypedResults.NotFound("Form with id:" + id + " was not found."));
+                    : TypedResults.NotFound("Form with id:" + id + " was not found."))
+                .AllowAnonymous();
 
             // create new form - reauire login
             formEndpoints.MapPost("", (FormDetailModel form, IFormFacade formFacade, IHttpContextAccessor httpContextAccessor) =>
@@ -263,17 +264,17 @@ namespace IW5Forms.Api.App
                 .WithTags("answer");
 
             //get all answers - require admin
-            answerEndpoints.MapGet("", (IAnswerFacade answerFacade) => answerFacade.GetAll()).RequireAuthorization(ApiPolicies.FormsAdmin);
+            answerEndpoints.MapGet("getAll", (IAnswerFacade answerFacade) => answerFacade.GetAll()).RequireAuthorization(ApiPolicies.FormsAdmin);
 
             //get answer by id - require login
-            answerEndpoints.MapGet("{id:guid}", Results<Ok<AnswerListAndDetailModel>, NotFound<string>> (Guid id, IAnswerFacade answerFacade)
+            answerEndpoints.MapGet("/get/{id:guid}", Results<Ok<AnswerListAndDetailModel>, NotFound<string>> (Guid id, IAnswerFacade answerFacade)
                 => answerFacade.GetById(id) is { } answer
                     ? TypedResults.Ok(answer)
                     : TypedResults.NotFound("Answer with id:" + id + " was not found."))
                 .RequireAuthorization();
 
             //create new answer - no requirements
-            answerEndpoints.MapPost("", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade, IHttpContextAccessor httpContextAccessor) =>
+            answerEndpoints.MapPost("create", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade, IHttpContextAccessor httpContextAccessor) =>
             {
                 var userId = GetUserId(httpContextAccessor);
 
@@ -281,7 +282,7 @@ namespace IW5Forms.Api.App
             });
 
             //update answer - no requirements
-            answerEndpoints.MapPut("", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade, IHttpContextAccessor httpContextAccessor) =>
+            answerEndpoints.MapPut("update", (AnswerListAndDetailModel answer, IAnswerFacade answerFacade, IHttpContextAccessor httpContextAccessor) =>
             {
                 var userId = GetUserId(httpContextAccessor);
 
@@ -297,7 +298,7 @@ namespace IW5Forms.Api.App
             });
 
             //delete answer - no requirements
-            answerEndpoints.MapDelete("{id:guid}", (Guid id, IAnswerFacade answerFacade, IHttpContextAccessor httpContextAccessor) =>
+            answerEndpoints.MapDelete("/delete/{id:guid}", (Guid id, IAnswerFacade answerFacade, IHttpContextAccessor httpContextAccessor) =>
             {
                 var userId = GetUserId(httpContextAccessor);
 

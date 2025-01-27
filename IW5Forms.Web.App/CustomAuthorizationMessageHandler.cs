@@ -22,6 +22,7 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
     private AccessToken? _lastToken;
     private AuthenticationHeaderValue? _cachedHeader;
     private Uri[]? _authorizedUris;
+    private Uri[]? _exceptionUris;
     private AccessTokenRequestOptions? _tokenOptions;
 
     /// <summary>
@@ -54,7 +55,16 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
                 $"Call '{nameof(CustomAuthorizationMessageHandler.ConfigureHandler)}' and provide a list of endpoint urls to attach the token to.");
         }
 
-        if (request.RequestUri != null && _authorizedUris.Any(uri => uri.IsBaseOf(request.RequestUri)))
+        bool requestIsInException = false;
+        foreach (var uri in _exceptionUris)
+        {
+            if (request.RequestUri?.AbsoluteUri.Contains(uri.AbsoluteUri) ?? false)
+            {
+                requestIsInException = true;
+            }
+        }
+
+        if (!requestIsInException && request.RequestUri != null && _authorizedUris.Any(uri => uri.IsBaseOf(request.RequestUri)))
         {
             if (_lastToken == null || now >= _lastToken.Expires.AddMinutes(-5))
             {
@@ -94,6 +104,7 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
     /// <returns>This <see cref="CustomAuthorizationMessageHandler"/>.</returns>
     public CustomAuthorizationMessageHandler ConfigureHandler(
         IEnumerable<string> authorizedUrls,
+        IEnumerable<string> exceptionUrls,
         IEnumerable<string>? scopes = null,
         [StringSyntax(StringSyntaxAttribute.Uri)] string? returnUrl = null)
     {
@@ -102,7 +113,13 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
             throw new InvalidOperationException("Handler already configured.");
         }
 
+        if (_exceptionUris != null)
+        {
+            throw new InvalidOperationException("Handler already configured.");
+        }
+
         ArgumentNullException.ThrowIfNull(authorizedUrls);
+        ArgumentNullException.ThrowIfNull(exceptionUrls);
 
         var uris = authorizedUrls.Select(uri => new Uri(uri, UriKind.Absolute)).ToArray();
         if (uris.Length == 0)
@@ -110,7 +127,11 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
             throw new ArgumentException("At least one URL must be configured.", nameof(authorizedUrls));
         }
 
+        var excUris = exceptionUrls.Select(uri => new Uri(uri, UriKind.Absolute)).ToArray();
+
+
         _authorizedUris = uris;
+        _exceptionUris = excUris;
         var scopesList = scopes?.ToArray();
         if (scopesList != null || returnUrl != null)
         {

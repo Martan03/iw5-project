@@ -1287,7 +1287,7 @@ namespace IW5Forms.Web.BL
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "api/form"
-                    urlBuilder_.Append("api/form");
+                    urlBuilder_.Append("api/form/getAll");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -1599,13 +1599,15 @@ namespace IW5Forms.Web.BL
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request_.Headers.Accept.Add(
+                        System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "api/form/{id}"
-                    urlBuilder_.Append("api/form/");
-                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("api/form/id/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id,
+                        System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -1614,11 +1616,15 @@ namespace IW5Forms.Web.BL
 
                     PrepareRequest(client_, request_, url_);
 
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response_ = await client_.SendAsync(request_,
+                            System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+                        .ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
                     {
-                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        var headers_ =
+                            new System.Collections.Generic.Dictionary<string,
+                                System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
                         if (response_.Content != null && response_.Content.Headers != null)
@@ -1632,27 +1638,39 @@ namespace IW5Forms.Web.BL
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<FormDetailModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ =
+                                await ReadObjectResponseAsync<FormDetailModel>(response_, headers_, cancellationToken)
+                                    .ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new ApiException("Response was null which was not expected.", status_,
+                                    objectResponse_.Text, headers_, null);
                             }
+
                             return objectResponse_.Object;
                         }
-                        else
-                        if (status_ == 404)
+                        else if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ =
+                                await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken)
+                                    .ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new ApiException("Response was null which was not expected.", status_,
+                                    objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<string>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+
+                            throw new ApiException<string>("A server side error occurred.", status_,
+                                objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            var responseData_ = response_.Content == null
+                                ? null
+                                : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException(
+                                "The HTTP status code of the response was not expected (" + status_ + ").", status_,
+                                responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1661,6 +1679,13 @@ namespace IW5Forms.Web.BL
                             response_.Dispose();
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                if (disposeClient_)
+                    client_.Dispose();
+                return null;
             }
             finally
             {
@@ -2058,8 +2083,8 @@ namespace IW5Forms.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "api/answer"
-                    urlBuilder_.Append("api/answer");
+                    // Operation Path: "api/answer/getAll"
+                    urlBuilder_.Append("api/answer/getAll");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -2141,8 +2166,8 @@ namespace IW5Forms.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "api/answer"
-                    urlBuilder_.Append("api/answer");
+                    // Operation Path: "api/answer/create"
+                    urlBuilder_.Append("api/answer/create");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -2224,8 +2249,8 @@ namespace IW5Forms.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "api/answer"
-                    urlBuilder_.Append("api/answer");
+                    // Operation Path: "api/answer/update"
+                    urlBuilder_.Append("api/answer/update");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -2299,8 +2324,8 @@ namespace IW5Forms.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "api/answer/{id}"
-                    urlBuilder_.Append("api/answer/");
+                    // Operation Path: "api/answer/get/{id}"
+                    urlBuilder_.Append("api/answer/get/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -2388,8 +2413,8 @@ namespace IW5Forms.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "api/answer/{id}"
-                    urlBuilder_.Append("api/answer/");
+                    // Operation Path: "api/answer/delete/{id}"
+                    urlBuilder_.Append("api/answer/delete/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);

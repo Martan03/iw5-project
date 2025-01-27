@@ -74,13 +74,13 @@ public partial class FormListPage
 
     public void NavDetail(Guid id)
     {
-        navigationManager.NavigateTo($"/form/{id}");
+        navigationManager.NavigateTo($"/form/id/{id}");
     }
 
     private void NavFormDetail(
         TableRowClickEventArgs<FormListModel> args
     ) {
-        navigationManager.NavigateTo($"/form/{args.Item!.Id}");
+        navigationManager.NavigateTo($"/form/id/{args.Item!.Id}");
     }
 
     public void NavAnswers(Guid id)
