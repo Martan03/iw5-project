@@ -61,7 +61,6 @@ public class AnswerFacadeTests
         {
             Id = Guid.NewGuid(),
             Text = "Answer text",
-            ResponderId = Guid.NewGuid(),
         };
 
         // Act
@@ -82,13 +81,11 @@ public class AnswerFacadeTests
         {
             Id = Guid.NewGuid(),
             Text = "Answer text",
-            ResponderId = Guid.NewGuid(),
         };
         var answerEntity = new AnswerEntity
         {
             Id = answerModel.Id,
             Text = answerModel.Text,
-            ResponderId = answerModel.ResponderId,
             QuestionId = Guid.NewGuid(),
         };
 
@@ -124,13 +121,11 @@ public class AnswerFacadeTests
         {
             Id = Guid.NewGuid(),
             Text = "Answer text",
-            ResponderId = Guid.NewGuid(),
         };
         var answerEntity = new AnswerEntity
         {
             Id = answerModel.Id,
             Text = answerModel.Text,
-            ResponderId = answerModel.ResponderId,
             QuestionId = Guid.NewGuid(),
         };
 
