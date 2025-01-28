@@ -28,20 +28,39 @@ namespace IW5Forms.Api.DAL.EF.Repositories
 
         public override Guid? Update(QuestionEntity questionEntity)
         {
-            if (Exists(questionEntity.Id))
-            {
-                var existingQuestion = DbContext.Questions
-                    .Include(entity => entity.Answers)
-                    .SingleOrDefault(question => question.Id == questionEntity.Id);
+            DbContext.Questions.Update(questionEntity!);
+            return questionEntity!.Id;
 
-                mapper.Map(questionEntity, existingQuestion);
+            // This didnt work, but lets keep it just in case
+            //if (Exists(questionEntity.Id))
+            //{
+            //    var existingQuestion = DbContext.Questions.Find(questionEntity.Id);
+            //    //.Include(entity => entity.Answers)
+            //    //.SingleOrDefault(question => question.Id == questionEntity.Id);
 
-                DbContext.Questions.Update(existingQuestion!);
-                DbContext.SaveChanges();
+            //    if (existingQuestion != null)
+            //    {
+            //        DbContext.Entry(existingQuestion).CurrentValues.SetValues(questionEntity);
+            //        //mapper.Map<QuestionEntity, QuestionEntity>(questionEntity, existingQuestion);
+            //        //existingQuestion.Description = questionEntity.Description;
+            //        //existingQuestion.Answers = questionEntity.Answers;
+            //        //existingQuestion.Form = questionEntity.Form;
+            //        //existingQuestion.FormId = questionEntity.FormId;
+            //        //existingQuestion.Options = questionEntity.Options;
+            //        //existingQuestion.QuestionType = existingQuestion.QuestionType;
+            //        //existingQuestion.Text = questionEntity.Text;
 
-                return existingQuestion!.Id;
-            }
-            else return null;
+            //        //DbContext.Questions.Update(existingQuestion!);
+            //        DbContext.SaveChanges();
+
+            //    }
+            //    else
+            //    {
+            //    }
+            //    return existingQuestion!.Id;
+
+            //}
+            //else return null;
         }
     }
 }
