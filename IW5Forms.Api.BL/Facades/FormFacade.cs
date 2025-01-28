@@ -87,8 +87,8 @@ namespace IW5Forms.Api.BL.Facades
         public Guid? Update(FormDetailModel formModel, string? ownerId = null, bool isAdmin = false)
         {
             // User has to either be admin or owner of form to be able to edit
-            if (!isAdmin)
-                ThrowIfWrongOwner(formModel.Id, ownerId);
+            //if (!isAdmin)
+            //    ThrowIfWrongOwner(formModel.Id, ownerId);
 
             var newFormEntity = _formRepository.GetById(formModel.Id);
             if (newFormEntity == null) return null;

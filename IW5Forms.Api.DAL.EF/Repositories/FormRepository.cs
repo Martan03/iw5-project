@@ -43,7 +43,15 @@ namespace IW5Forms.Api.DAL.EF.Repositories
                     .Include(entity => entity.Questions)
                     .SingleOrDefault(form => form.Id == formEntity.Id);
 
-                mapper.Map(formEntity, existingForm);
+                existingForm.CompletedUsersId = formEntity.CompletedUsersId;
+                existingForm.BeginTime = formEntity.BeginTime;
+                existingForm.EndTime= formEntity.EndTime;
+                existingForm.Incognito= formEntity.Incognito;
+                existingForm.Name= formEntity.Name;
+                existingForm.Owner= formEntity.Owner;
+                existingForm.OwnerId= formEntity.OwnerId;
+                existingForm.Questions= formEntity.Questions;
+                existingForm.SingleTry= formEntity.SingleTry;
 
                 DbContext.Forms.Update(existingForm!);
                 DbContext.SaveChanges();

@@ -29,6 +29,14 @@
     return;
 }
 
+@if (AlreadyFilledSingleTry)
+{
+    <MudText>
+        You have already filled this form.
+    </MudText>
+    return;
+}
+
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
     <MudChipSet T="int">
         <MudChip Value="@(Data.Incognito ? "Incognito" : "Not incognito")" />

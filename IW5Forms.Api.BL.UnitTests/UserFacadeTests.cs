@@ -68,7 +68,7 @@ public class UserFacadeTests
         };
 
         // Act
-        facade.CreateOrUpdate(userModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
+        facade.CreateOrUpdate(userModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString(), true);
 
         // Assert
         repoMock.Verify(userRepo => userRepo.Exists(userModel.Id), Times.Once);
@@ -101,7 +101,7 @@ public class UserFacadeTests
         var facade = new UserFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facade.CreateOrUpdate(userModel, null);
+        facade.CreateOrUpdate(userModel, null, true);
 
         // Assert
         repoMock.Verify(userRepo => userRepo.Insert(It.IsAny<UserEntity>()), Times.Once);
@@ -138,7 +138,7 @@ public class UserFacadeTests
         userMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
 
         // Act
-        userMock.Object.CreateOrUpdate(userModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
+        userMock.Object.CreateOrUpdate(userModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString(), true);
 
         // Assert
         userMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);

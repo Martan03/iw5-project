@@ -141,4 +141,14 @@ public partial class FormEditPage
         Text = string.Empty,
         FormId = formId,
     };
+
+    private void IncognitoClick()
+    {
+        if (Data is { Incognito: false, SingleTry: true }) Data.SingleTry = false;
+    }
+
+    private void SingleTryClick()
+    {
+        if (Data is { Incognito: true, SingleTry: false }) Data.Incognito = false;
+    }
 }

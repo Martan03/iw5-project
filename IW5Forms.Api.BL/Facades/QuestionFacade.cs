@@ -95,8 +95,8 @@ namespace IW5Forms.Api.BL.Facades
 
         public Guid? Update(QuestionDetailModel questionModel, string? ownerId = null, bool isAdmin = false)
         {
-            if (!isAdmin)
-                ThrowIfWrongOwner(questionModel.Id, ownerId);
+            //if (!isAdmin)
+            //    ThrowIfWrongOwner(questionModel.Id, ownerId);
 
             var questionEntity = _questionRepository.GetById(questionModel.Id);
             if (questionEntity == null) return null;

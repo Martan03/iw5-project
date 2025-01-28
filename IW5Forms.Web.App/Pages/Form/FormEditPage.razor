@@ -55,6 +55,7 @@
             Label="Incognito"
             Color="Color.Primary"
             @bind-Value="Data.Incognito"
+            @onclick="IncognitoClick"
         />
         <MudSwitch
             Class="mb-4"
@@ -62,6 +63,7 @@
             Label="Single Try"
             Color="Color.Primary"
             @bind-Value="Data.SingleTry"
+            @onclick="SingleTryClick"
         />
 
         <div

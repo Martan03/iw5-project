@@ -70,7 +70,7 @@ public class QuestionFacadeTests
         };
 
         // Act
-        facade.CreateOrUpdate(questionModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
+        facade.CreateOrUpdate(questionModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString(), true);
 
         // Assert
         repoMock.Verify(
@@ -113,7 +113,7 @@ public class QuestionFacadeTests
         var facade = new QuestionFacade(repoMock.Object, mapperMock.Object);
 
         // Act
-        facade.CreateOrUpdate(questionModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
+        facade.CreateOrUpdate(questionModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString(), true);
 
         // Assert
         repoMock.Verify(
@@ -161,7 +161,7 @@ public class QuestionFacadeTests
         questionMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
 
         // Act
-        questionMock.Object.CreateOrUpdate(questionModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString());
+        questionMock.Object.CreateOrUpdate(questionModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString(), true);
 
         // Assert
         questionMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);

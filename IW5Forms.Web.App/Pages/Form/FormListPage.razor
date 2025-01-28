@@ -2,6 +2,7 @@
 @page "/forms/{Action}"
 @namespace IW5Forms.Web.App.Pages
 @using IW5Forms.Common.Models.Form;
+@using GEmojiSharp.Blazor;
 @inject IDialogService DialogService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -48,6 +49,7 @@
                     {
                         <MudTh>Actions</MudTh>
                     }
+                    <MudTh>Properties</MudTh>
                 </HeaderContent>
 
                 <RowTemplate Context="RowContext">
@@ -79,6 +81,21 @@
                             </MudButton>
                         </MudTd>
                     }
+                    <MudTd DataLabel=" Properties" Class="mt-2 mb-2">
+                        @if (@RowContext.SingleTry)
+                        {
+                            <MudTooltip Text="Single Try">
+                                <Emoji>:one:</Emoji>
+                            </MudTooltip>
+                        }
+                        @if (@RowContext.Incognito)
+                        {
+                            <MudTooltip Text="Incognito Mode">
+                                <Emoji>:disguised_face:</Emoji>
+                            </MudTooltip>
+                        }
+                    </MudTd>
+
                 </RowTemplate>
 
                 <FooterContent>

@@ -17,7 +17,8 @@ namespace IW5Forms.Common.Models.Form
 
         public required DateTime EndTime { get; set; }
 
-        
+        public required bool SingleTry { get; set; }
+        public required bool Incognito { get; set; }
 
     }
 }
