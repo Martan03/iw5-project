@@ -66,11 +66,6 @@ public partial class FormListPage
         return DialogService.ShowAsync<Dialog>("Delete", parameters, options);
     }
 
-    public void NavDetail(Guid id)
-    {
-        navigationManager.NavigateTo($"/form/id/{id}");
-    }
-
     private void NavFormDetail(
         TableRowClickEventArgs<FormListModel> args
     ) {

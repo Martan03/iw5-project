@@ -24,13 +24,27 @@ variables:
   azureSubscription: 'azure-connection'
 
 steps:
+# Install .NET SDK
+# - task: UseDotNet@2
+#   inputs:
+#     packageType: 'sdk'
+#     version: '8.x'
+
 # Install NuGet
 - task: NuGetToolInstaller@1
 
-# Restore Dependencies for the Solution
+# Restore Dependencies
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+
+# # Run Tests
+# - task: DotNetCoreCLI@2
+#   displayName: 'Run Unit Tests'
+#   inputs:
+#     command: 'test'
+#     arguments: '--configuration $(buildConfiguration) --no-restore'
+#     publishTestResults: true
 
 # Build and Deploy Web App
 - task: VSBuild@1
@@ -44,7 +58,7 @@ steps:
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: '$(azureSubscription)'
-    appType: 'webApp'                        
+    appType: 'webApp'
     WebAppName: '$(webAppName)'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
 
@@ -60,7 +74,7 @@ steps:
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: '$(azureSubscription)'
-    appType: 'webApp'                        
+    appType: 'webApp'
     WebAppName: '$(apiAppName)'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/Api.zip'
 
@@ -76,6 +90,6 @@ steps:
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: '$(azureSubscription)'
-    appType: 'webApp'                        
+    appType: 'webApp'
     WebAppName: '$(identityAppName)'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/Identity.zip'
