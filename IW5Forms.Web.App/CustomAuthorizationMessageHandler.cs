@@ -3,6 +3,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -72,7 +73,7 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
         }
         catch (Exception e)
         {
-            
+
         }
 
         if (!requestIsInException && request.RequestUri != null && _authorizedUris.Any(uri => uri.IsBaseOf(request.RequestUri)))
@@ -100,7 +101,23 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
             request.Headers.Authorization = _cachedHeader;
         }
 
-        return await base.SendAsync(request, cancellationToken);
+        try
+        {
+            var response = await base.SendAsync(request, cancellationToken);
+            if (!response.IsSuccessStatusCode)
+            {
+                _navigation.NavigateTo($"/error/{response.StatusCode}");
+            }
+            return response;
+        }
+        catch (HttpRequestException)
+        {
+            _navigation.NavigateTo("/error/500");
+            return new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.InternalServerError
+            };
+        }
     }
 
     /// <summary>

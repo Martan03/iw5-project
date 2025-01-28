@@ -93,11 +93,20 @@
                     OnClick="@(() => NavEditor(null))" />
         </Authorized>
         <NotAuthorized>
+            <MudText Typo="Typo.h4" GutterBottom="true">
+                Incognito Forms
+            </MudText>
+            <MudText>
+                To view all forms, please
+                <MudLink Href="authentication/login">log in.</MudLink>
+            </MudText>
+
             <MudTable T="FormListModel"
                       Items="Forms"
                       Class="mt-4"
                       Dense="true"
                       Hover="true"
+                      RowClass="cursor-pointer"
                       OnRowClick="NavFormDetail">
                 <HeaderContent>
                     <MudTh>Name</MudTh>
@@ -105,7 +114,6 @@
 
                 <RowTemplate Context="RowContext">
                     <MudTd DataLabel="Name">@RowContext.Name</MudTd>
-                    
                 </RowTemplate>
 
                 <FooterContent>

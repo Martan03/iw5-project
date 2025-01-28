@@ -42,13 +42,10 @@ public partial class FormFillPage
         Data = await FormFacade.GetByIdAsync(Id);
 
         LoadForm = Data.Incognito;
-
         if (!LoadForm)
         {
-
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var authenticated = authState.User.Identity?.IsAuthenticated ?? false;
-            LoadForm = authenticated;
+            LoadForm = authState.User.Identity?.IsAuthenticated ?? false;
         }
 
         await base.OnInitializedAsync();
