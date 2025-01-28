@@ -46,6 +46,7 @@ namespace IW5Forms.IdentityProvider.App
                     "https://localhost:5258/authentication/login-callback",
                     "https://localhost:7036/authentication/login-callback"
                 ],
+                PostLogoutRedirectUris = { "https://app-iw5-2024-team-xzatloa00-web.azurewebsites.net/" },
                 AllowedGrantTypes =
                 [
                     GrantType.ClientCredentials,
