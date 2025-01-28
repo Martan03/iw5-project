@@ -9,10 +9,8 @@
     {
         <MudGrid Justify="Justify.Center" Class="mt-3">
             <MudItem>
-                <MudProgressCircular
-                    Color="Color.Primary"
-                    Indeterminate="true"
-                />
+                <MudProgressCircular Color="Color.Primary"
+                                     Indeterminate="true" />
             </MudItem>
         </MudGrid>
         return;
@@ -25,8 +23,8 @@
 {
     <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
         <MudChipSet T="int">
-            <MudChip Value="@(Data.Incognito ? "Incognito" : "Not incognito")"/>
-            <MudChip Value="@(Data.SingleTry ? "Single Try" : "Multiple Tries")"/>
+            <MudChip Value="@(Data.Incognito ? "Incognito" : "Not incognito")" />
+            <MudChip Value="@(Data.SingleTry ? "Single Try" : "Multiple Tries")" />
         </MudChipSet>
         <MudText Typo="Typo.h4" GutterBottom="true">@Data.Name</MudText>
         <MudText>@OpenRange</MudText>
@@ -42,30 +40,27 @@
                         <MudText>@question.Description</MudText>
                         @if (question.QuestionType == QuestionTypes.TextAnswer)
                         {
-                            <MudTextField
-                                T="string"
-                                Label="Answer"
-                                Required="true"
-                                ValueChanged="@(value => Answers[question.Id] = value)"/>
+                            <MudTextField T="string"
+                                          Label="Answer"
+                                          Required="true"
+                                          ValueChanged="@(value => Answers[question.Id] = value)" />
                         }
                         else if (
-                            question.QuestionType == QuestionTypes.NumericValue
+                        question.QuestionType == QuestionTypes.NumericValue
                         )
                         {
-                            <MudNumericField
-                                T="int"
-                                Label="Answer"
-                                Variant="Variant.Text"
-                                Required="true"
-                                ValueChanged="@(value => Answers[question.Id] = value)"/>
+                            <MudNumericField T="int"
+                                             Label="Answer"
+                                             Variant="Variant.Text"
+                                             Required="true"
+                                             ValueChanged="@(value => Answers[question.Id] = value)" />
                         }
                         else
                         {
-                            <MudSelect
-                                T="string"
-                                Label="Select answer"
-                                Required="true"
-                                ValueChanged="@(value => Answers[question.Id] = value)">
+                            <MudSelect T="string"
+                                       Label="Select answer"
+                                       Required="true"
+                                       ValueChanged="@(value => Answers[question.Id] = value)">
                                 @foreach (var option in question.Options)
                                 {
                                     <MudSelectItem T="string" Value="option">
@@ -76,10 +71,9 @@
                         }
                     </MudPaper>
                 }
-                <MudButton
-                    Variant="Variant.Filled"
-                    Color="Color.Primary"
-                    OnClick="@SubmitForm">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           OnClick="@SubmitForm">
                     Submit
                 </MudButton>
             </MudForm>
@@ -88,12 +82,13 @@
         {
             <MudText>No questions found...</MudText>
         }
-
-        <MudFab
-            Color="Color.Primary"
-            StartIcon="@Icons.Material.Filled.Add"
-            Style="position: fixed; bottom: 16px; right: 16px;"
-            OnClick="NavQuestionCreate"/>
+        @if (UserCanAddQuestions)
+        {
+            <MudFab Color="Color.Primary"
+                    StartIcon="@Icons.Material.Filled.Add"
+                    Style="position: fixed; bottom: 16px; right: 16px;"
+                    OnClick="NavQuestionCreate" />
+        }
     </MudContainer>
 }
 else

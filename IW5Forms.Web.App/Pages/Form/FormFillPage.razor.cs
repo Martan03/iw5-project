@@ -36,6 +36,7 @@ public partial class FormFillPage
     public Guid Id { get; init; }
 
     public bool LoadForm = false;
+    public bool UserCanAddQuestions = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,6 +50,8 @@ public partial class FormFillPage
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var authenticated = authState.User.Identity?.IsAuthenticated ?? false;
             LoadForm = authenticated;
+            CanAddQuestions(Data.IdentityOwnerId, authState);
+
         }
 
         await base.OnInitializedAsync();
@@ -88,5 +91,17 @@ public partial class FormFillPage
             }
         }
         navigationManager.NavigateTo($"/forms");
+    }
+
+    private void CanAddQuestions(string? FormOwnerId, AuthenticationState? authenticationState)
+    {
+        //string ?userName = null;
+        //var userClaims= authenticationState?.User.Claims;
+        //    foreach (var userClaim in userClaims)
+        //    {
+        //        var val = (userClaim.Issuer == "username" ? userClaim.Value : null);
+        //    }
+
+        //UserCanAddQuestions = val == FormOwnerId;
     }
 }
