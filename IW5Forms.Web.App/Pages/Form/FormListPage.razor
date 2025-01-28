@@ -120,7 +120,14 @@
                 </RowTemplate>
 
                 <FooterContent>
-                    @if (Forms == null || !Forms.Any())
+                    @if (Forms == null)
+                    {
+                        <MudProgressCircular
+                            Color="Color.Primary"
+                            Indeterminate="true"
+                        />
+                    }
+                    else if (!Forms.Any())
                     {
                         <MudText Class="mt-3 mb-3 ml-3 mr-3">No Forms found.</MudText>
                     }
