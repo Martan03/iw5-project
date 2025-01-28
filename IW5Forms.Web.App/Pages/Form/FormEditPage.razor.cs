@@ -25,6 +25,8 @@ public partial class FormEditPage
     [Parameter]
     public Guid Id { get; init; }
 
+    public string? TimeErrorMessage { get; set; } = null;
+
     private DateTime? BeginDate
     {
         get => Data.BeginTime;
@@ -65,6 +67,10 @@ public partial class FormEditPage
 
     public async Task Save()
     {
+        CheckTimeCorrect();
+        if (TimeErrorMessage != null)
+            return;
+
         await Form.Validate();
         if (!Form.IsValid) {
             return;
@@ -150,5 +156,18 @@ public partial class FormEditPage
     private void SingleTryClick()
     {
         if (Data is { Incognito: true, SingleTry: false }) Data.Incognito = false;
+    }
+
+    private void CheckTimeCorrect()
+    {
+        if (BeginDate.Value.Date == EndDate.Value.Date && EndTime < BeginTime)
+        {
+            TimeErrorMessage = "Begin time is after end time!";
+        }
+        else if (BeginDate > EndDate)
+        {
+            TimeErrorMessage = "Begin date is after end date!";
+        }
+        else TimeErrorMessage = null;
     }
 }

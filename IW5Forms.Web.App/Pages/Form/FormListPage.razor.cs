@@ -22,6 +22,7 @@ public partial class FormListPage
 
     private ICollection<FormListModel> Forms { get; set; } = null!;
 
+
     protected override async Task OnInitializedAsync()
     {
         await LoadForms();
@@ -29,9 +30,15 @@ public partial class FormListPage
         await base.OnInitializedAsync();
     }
 
+    private void FilterFormsByActiveTime()
+    {
+       Forms =  Forms.Where(t => t.BeginTime < DateTime.Now && DateTime.Now < t.EndTime).ToArray();
+    }
+
     private async void HandleRedirect(object sender, LocationChangedEventArgs e)
     {
         await LoadForms();
+
         StateHasChanged();
     }
 
@@ -39,6 +46,8 @@ public partial class FormListPage
         switch (Action ?? "all") {
             case "all":
                 Forms = await FormFacade.GetAllAsync();
+                FilterFormsByActiveTime();
+
                 break;
             case "managable":
                 Forms = await FormFacade.GetManagableAsync();
