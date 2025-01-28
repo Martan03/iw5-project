@@ -36,6 +36,14 @@
                 </MudChip>
             </MudChipSet>
 
+
+            @if (Forms == null)
+            {
+                <MudProgressCircular
+                    Color="Color.Primary"
+                    Indeterminate="true"
+                />
+            }
             <MudTable T="FormListModel"
                       Items="Forms"
                       Class="mt-4"
@@ -53,9 +61,7 @@
                 </HeaderContent>
 
                 <RowTemplate Context="RowContext">
-                    <MudTd DataLabel="Name" Class="mt-2 mb-2">
-                        @RowContext.Name
-                    </MudTd>
+                    <MudTd DataLabel="Name">@RowContext.Name</MudTd>
                     @if (Action == "managable")
                     {
                         <MudTd>
@@ -121,6 +127,13 @@
                 <MudLink Href="authentication/login">log in.</MudLink>
             </MudText>
 
+            @if (Forms == null)
+            {
+                <MudProgressCircular
+                    Color="Color.Primary"
+                    Indeterminate="true"
+                />
+            }
             <MudTable T="FormListModel"
                       Items="Forms"
                       Class="mt-4"

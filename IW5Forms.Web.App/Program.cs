@@ -63,6 +63,7 @@ builder.Services.AddOidcAuthentication(options =>
     options.ProviderOptions.Authority = authority;
     options.ProviderOptions.ClientId = "formsclient";
     options.ProviderOptions.DefaultScopes.Add("iw5api");
+    options.ProviderOptions.PostLogoutRedirectUri = configurationSection["PostLogoutRedirectUri"];
 
     options.UserOptions.RoleClaim = "role";
 });

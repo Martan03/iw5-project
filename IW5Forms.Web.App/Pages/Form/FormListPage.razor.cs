@@ -20,16 +20,13 @@ public partial class FormListPage
     [Parameter]
     public string? Action { get; init; } = null;
 
-    private ICollection<FormListModel> Forms { get; set; } =
-        new List<FormListModel>();
+    private ICollection<FormListModel> Forms { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
-
-            await LoadForms();
-            navigationManager.LocationChanged += HandleRedirect;
-            await base.OnInitializedAsync();
-
+        await LoadForms();
+        navigationManager.LocationChanged += HandleRedirect;
+        await base.OnInitializedAsync();
     }
 
     private async void HandleRedirect(object sender, LocationChangedEventArgs e)
