@@ -48,7 +48,7 @@ public partial class SearchPage
                 isUser = false;
                 isQuestionText = false;
                 Questions = await SearchFacade.GetAllQuestionsByDescriptionAsync(searchQuery);
-                searchEntity.AddRange(Questions.Select(ques => new SearchAbleEntity() { Id = ques.Id, NameOrText = ques.Description }));
+                searchEntity.AddRange(Questions.Select(ques => new SearchAbleEntity() { Id = ques.Id, NameOrText = ques.Description ?? "" }));
                 break;
             default:
                 isUser = true;
@@ -58,6 +58,24 @@ public partial class SearchPage
                 break;
         }
         StateHasChanged();
+    }
+
+    public Task DeleteAsync(Guid id)
+    {
+        var type = isUser ? "user" : "question";
+        var parameters = new DialogParameters<Dialog>
+        {
+            { x => x.ContentText, $"Do you really want to delete this {type}?" },
+            { x => x.ButtonText, "Delete" },
+            { x => x.Color, Color.Error },
+            { x => x.OnSubmit, EventCallback.Factory.Create(
+                this, async () => await Delete(id)
+            )},
+        };
+
+        var options = new DialogOptions() { MaxWidth = MaxWidth.ExtraSmall };
+
+        return DialogService.ShowAsync<Dialog>("Delete", parameters, options);
     }
 
     public async Task DeleteEntityAsync(Guid id)

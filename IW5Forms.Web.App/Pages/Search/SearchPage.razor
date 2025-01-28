@@ -1,5 +1,6 @@
 @page "/search"
 @namespace IW5Forms.Web.App.Pages
+@inject IDialogService DialogService
 
 <PageTitle>Search</PageTitle>
 
@@ -44,7 +45,7 @@
              </MudButton>
              <MudButton Variant="Variant.Text"
                         Color="Color.Error"
-                        OnClick="@(() => Delete(context.Id))">
+                        OnClick="@(() => DeleteAsync(context.Id))">
                  Delete
              </MudButton>
          </MudTd>
