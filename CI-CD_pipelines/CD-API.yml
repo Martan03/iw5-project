@@ -32,6 +32,25 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+# Run Tests
+- task: VSBuild@1
+  displayName: 'Build Solution for Tests'
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  displayName: 'Run Tests'
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\$(buildConfiguration)\*.Test.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
 # Build and Deploy Web App
 - task: VSBuild@1
   inputs:
@@ -44,7 +63,7 @@ steps:
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: '$(azureSubscription)'
-    appType: 'webApp'                        
+    appType: 'webApp'
     WebAppName: '$(webAppName)'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
 
@@ -60,7 +79,7 @@ steps:
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: '$(azureSubscription)'
-    appType: 'webApp'                        
+    appType: 'webApp'
     WebAppName: '$(apiAppName)'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/Api.zip'
 
@@ -76,6 +95,6 @@ steps:
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: '$(azureSubscription)'
-    appType: 'webApp'                        
+    appType: 'webApp'
     WebAppName: '$(identityAppName)'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/Identity.zip'
