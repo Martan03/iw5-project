@@ -24,32 +24,27 @@ variables:
   azureSubscription: 'azure-connection'
 
 steps:
+# Install .NET SDK
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+
 # Install NuGet
 - task: NuGetToolInstaller@1
 
-# Restore Dependencies for the Solution
+# Restore Dependencies
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
 
 # Run Tests
-- task: VSBuild@1
-  displayName: 'Build Solution for Tests'
+- task: DotNetCoreCLI@2
+  displayName: 'Run Unit Tests'
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  displayName: 'Run Tests'
-  inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\$(buildConfiguration)\*.Test.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'test'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+    publishTestResults: true
 
 # Build and Deploy Web App
 - task: VSBuild@1
