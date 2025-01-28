@@ -101,24 +101,23 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
             request.Headers.Authorization = _cachedHeader;
         }
 
-        return await base.SendAsync(request, cancellationToken);
-        // try
-        // {
-        //     var response = await base.SendAsync(request, cancellationToken);
-        //     if (!response.IsSuccessStatusCode)
-        //     {
-        //         _navigation.NavigateTo($"/error/{(int)response.StatusCode}");
-        //     }
-        //     return response;
-        // }
-        // catch (HttpRequestException)
-        // {
-        //     _navigation.NavigateTo("/error/500");
-        //     return new HttpResponseMessage
-        //     {
-        //         StatusCode = HttpStatusCode.InternalServerError
-        //     };
-        // }
+        try
+        {
+            var response = await base.SendAsync(request, cancellationToken);
+            if (!response.IsSuccessStatusCode)
+            {
+                _navigation.NavigateTo($"/error/{(int)response.StatusCode}");
+            }
+            return response;
+        }
+        catch (HttpRequestException)
+        {
+            _navigation.NavigateTo("/error/500");
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError
+            };
+        }
     }
 
     /// <summary>

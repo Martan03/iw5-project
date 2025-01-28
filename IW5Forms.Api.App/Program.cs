@@ -169,7 +169,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                return userFacade.Update(user, userId);
+                return userFacade.Update(user, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
 
             // upsert user - require login
@@ -177,7 +177,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                return userFacade.CreateOrUpdate(user, userId);
+                return userFacade.CreateOrUpdate(user, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
 
             //delete user - require login
@@ -185,7 +185,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                userFacade.Delete(id, userId);
+                userFacade.Delete(id, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
 
         }
@@ -234,7 +234,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                return formFacade.Update(form, userId);
+                return formFacade.Update(form, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
 
             //upsert form - require login
@@ -242,7 +242,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                return formFacade.CreateOrUpdate(form, userId);
+                return formFacade.CreateOrUpdate(form, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
 
             //delete form - require login
@@ -250,7 +250,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                formFacade.Delete(id, userId);
+                formFacade.Delete(id, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
         }
         private static void UseAuthorization(WebApplication application)
@@ -286,7 +286,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                return answerFacade.Update(answer, userId);
+                return answerFacade.Update(answer, userId, IsAdmin(httpContextAccessor));
             });
 
             //upsert answer - no requirements
@@ -294,7 +294,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                return answerFacade.CreateOrUpdate(answer, userId);
+                return answerFacade.CreateOrUpdate(answer, userId, IsAdmin(httpContextAccessor));
             });
 
             //delete answer - no requirements
@@ -302,7 +302,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                answerFacade.Delete(id, userId);
+                answerFacade.Delete(id, userId, IsAdmin(httpContextAccessor));
             });
         }
 
@@ -333,7 +333,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                return questionFacade.Update(question, userId);
+                return questionFacade.Update(question, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
 
             //upsert question - require login
@@ -341,7 +341,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                return questionFacade.CreateOrUpdate(question, userId);
+                return questionFacade.CreateOrUpdate(question, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
 
             //delete question - require login
@@ -349,7 +349,7 @@ namespace IW5Forms.Api.App
             {
                 var userId = GetUserId(httpContextAccessor);
 
-                questionFacade.Delete(id, userId);
+                questionFacade.Delete(id, userId, IsAdmin(httpContextAccessor));
             }).RequireAuthorization();
 
         }

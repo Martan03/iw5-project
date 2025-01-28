@@ -36,9 +36,11 @@ namespace IW5Forms.Api.BL.Facades
             return _mapper.Map<AnswerListAndDetailModel>(answerEntity);
         }
 
-        public Guid CreateOrUpdate(AnswerListAndDetailModel answerModel, string? ownerId)
+        public Guid CreateOrUpdate(AnswerListAndDetailModel answerModel, string? ownerId, bool isAdmin)
         {
-            return _answerRepository.Exists(answerModel.Id) ? Update(answerModel, ownerId)!.Value : Create(answerModel, ownerId);
+            return _answerRepository.Exists(answerModel.Id) ?
+                Update(answerModel, ownerId, isAdmin)!.Value :
+                Create(answerModel, ownerId);
         }
 
         public Guid Create(AnswerListAndDetailModel answerModel, string? ownerId)
@@ -54,9 +56,11 @@ namespace IW5Forms.Api.BL.Facades
             return _answerRepository.Insert(newAnswerEntity);
         }
 
-        public Guid? Update(AnswerListAndDetailModel answerModel, string? ownerId = null)
+        public Guid? Update(AnswerListAndDetailModel answerModel, string? ownerId = null, bool isAdmin = false)
         {
-            ThrowIfWrongOwner(answerModel.Id, ownerId);
+            if (!isAdmin)
+                ThrowIfWrongOwner(answerModel.Id, ownerId);
+
             AnswerEntity? newAnswerEntity = _answerRepository.GetById(answerModel.Id);
             if (newAnswerEntity == null) return null;
             newAnswerEntity.IdentityOwnerId = answerModel.IdentityOwnerId;
@@ -65,9 +69,10 @@ namespace IW5Forms.Api.BL.Facades
             return _answerRepository.Update(newAnswerEntity);
         }
 
-        public void Delete(Guid id, string? ownerId = null)
+        public void Delete(Guid id, string? ownerId = null, bool isAdmin = false)
         {
-            ThrowIfWrongOwner(id, ownerId);
+            if (!isAdmin)
+                ThrowIfWrongOwner(id, ownerId);
             _answerRepository.Remove(id);
         }
     }

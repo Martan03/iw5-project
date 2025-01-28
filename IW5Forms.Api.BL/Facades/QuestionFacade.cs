@@ -57,10 +57,10 @@ namespace IW5Forms.Api.BL.Facades
             return _mapper.Map<QuestionDetailModel>(questionEntity);
         }
 
-        public Guid CreateOrUpdate(QuestionDetailModel questionModel, string? ownerId)
+        public Guid CreateOrUpdate(QuestionDetailModel questionModel, string? ownerId, bool isAdmin)
         {
             if (_questionRepository.Exists(questionModel.Id))
-                return Update(questionModel, ownerId)!.Value;
+                return Update(questionModel, ownerId, isAdmin)!.Value;
             return Create(questionModel, ownerId);
         }
 
@@ -93,9 +93,11 @@ namespace IW5Forms.Api.BL.Facades
             return _questionRepository.Insert(newQuestionEntity);
         }
 
-        public Guid? Update(QuestionDetailModel questionModel, string? ownerId = null)
+        public Guid? Update(QuestionDetailModel questionModel, string? ownerId = null, bool isAdmin = false)
         {
-            ThrowIfWrongOwner(questionModel.Id, ownerId);
+            if (!isAdmin)
+                ThrowIfWrongOwner(questionModel.Id, ownerId);
+
             var questionEntity = _questionRepository.GetById(questionModel.Id);
             if (questionEntity == null) return null;
             questionEntity.Description = questionModel.Description;
@@ -114,9 +116,10 @@ namespace IW5Forms.Api.BL.Facades
             return _questionRepository.Update(questionEntity);
         }
 
-        public void Delete(Guid id, string? ownerId = null)
+        public void Delete(Guid id, string? ownerId = null, bool isAdmin = false)
         {
-            ThrowIfWrongOwner(id, ownerId);
+            if (!isAdmin)
+                ThrowIfWrongOwner(id, ownerId);
             _questionRepository.Remove(id);
         }
 

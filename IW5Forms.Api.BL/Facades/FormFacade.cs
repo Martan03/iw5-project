@@ -46,9 +46,11 @@ namespace IW5Forms.Api.BL.Facades
             return _mapper.Map<FormDetailModel>(formEntity);
         }
 
-        public Guid CreateOrUpdate(FormDetailModel formModel, string? ownerId)
+        public Guid CreateOrUpdate(FormDetailModel formModel, string? ownerId, bool isAdmin)
         {
-            return _formRepository.Exists(formModel.Id) ? Update(formModel, ownerId)!.Value : Create(formModel, ownerId);
+            return _formRepository.Exists(formModel.Id) ?
+                Update(formModel, ownerId, isAdmin)!.Value :
+                Create(formModel, ownerId);
         }
 
         public Guid Create(FormDetailModel formModel, string? ownerId)
@@ -69,14 +71,25 @@ namespace IW5Forms.Api.BL.Facades
             foreach (var question in formModel.Questions)
             {
                 newFormEntity.Questions.Add(new QuestionEntity()
-                { Answers = new List<AnswerEntity>(), Form = newFormEntity, FormId = newFormEntity.Id, Id = question.Id, Text = question.Text, QuestionType = question.QuestionType, Options = new List<string>() });
+                {
+                    Answers = new List<AnswerEntity>(),
+                    Form = newFormEntity,
+                    FormId = newFormEntity.Id,
+                    Id = question.Id,
+                    Text = question.Text,
+                    QuestionType = question.QuestionType,
+                    Options = new List<string>()
+                });
             }
             return _formRepository.Insert(newFormEntity);
         }
 
-        public Guid? Update(FormDetailModel formModel, string? ownerId = null)
+        public Guid? Update(FormDetailModel formModel, string? ownerId = null, bool isAdmin = false)
         {
-            ThrowIfWrongOwner(formModel.Id, ownerId);
+            // User has to either be admin or owner of form to be able to edit
+            if (!isAdmin)
+                ThrowIfWrongOwner(formModel.Id, ownerId);
+
             var newFormEntity = _formRepository.GetById(formModel.Id);
             if (newFormEntity == null) return null;
 
@@ -105,9 +118,10 @@ namespace IW5Forms.Api.BL.Facades
             return _formRepository.Update(newFormEntity);
         }
 
-        public void Delete(Guid id, string? ownerId = null)
+        public void Delete(Guid id, string? ownerId = null, bool isAdmin = false)
         {
-            ThrowIfWrongOwner(id, ownerId);
+            if (!isAdmin)
+                ThrowIfWrongOwner(id, ownerId);
             _formRepository.Remove(id);
         }
 

@@ -36,10 +36,10 @@ namespace IW5Forms.Api.BL.Facades
             return _mapper.Map<UserDetailModel>(userEntity);
         }
 
-        public Guid CreateOrUpdate(UserDetailModel userModel, string? ownerId)
+        public Guid CreateOrUpdate(UserDetailModel userModel, string? ownerId, bool isAdmin)
         {
             return _userRepository.Exists(userModel.Id)
-                ? Update(userModel, ownerId)!.Value
+                ? Update(userModel, ownerId, isAdmin)!.Value
                 : Create(userModel, ownerId);
         }
 
@@ -50,16 +50,19 @@ namespace IW5Forms.Api.BL.Facades
             return _userRepository.Insert(userEntity);
         }
 
-        public Guid? Update(UserDetailModel userModel, string? ownerId)
+        public Guid? Update(UserDetailModel userModel, string? ownerId, bool isAdmin = false)
         {
-            ThrowIfWrongOwner(userModel.Id, ownerId);
+            if (!isAdmin)
+                ThrowIfWrongOwner(userModel.Id, ownerId);
+
             var userEntity = NewUserFromModel(userModel);
             return _userRepository.Update(userEntity);
         }
 
-        public void Delete(Guid id, string? ownerId)
+        public void Delete(Guid id, string? ownerId, bool isAdmin = false)
         {
-            ThrowIfWrongOwner(id, ownerId);
+            if (!isAdmin)
+                ThrowIfWrongOwner(id, ownerId);
             _userRepository.Remove(id);
         }
 
