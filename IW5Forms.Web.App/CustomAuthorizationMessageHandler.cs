@@ -106,7 +106,7 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
             var response = await base.SendAsync(request, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
-                _navigation.NavigateTo($"/error/{response.StatusCode}");
+                _navigation.NavigateTo($"/error/{(int)response.StatusCode}");
             }
             return response;
         }
@@ -115,7 +115,7 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler, IDisposable
             _navigation.NavigateTo("/error/500");
             return new HttpResponseMessage
             {
-                StatusCode = System.Net.HttpStatusCode.InternalServerError
+                StatusCode = HttpStatusCode.InternalServerError
             };
         }
     }

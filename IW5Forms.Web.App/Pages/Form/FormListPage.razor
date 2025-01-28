@@ -40,6 +40,7 @@
                       Class="mt-4"
                       Dense="true"
                       Hover="true"
+                      RowClass="cursor-pointer"
                       OnRowClick="NavFormDetail">
                 <HeaderContent>
                     <MudTh>Name</MudTh>
@@ -50,7 +51,9 @@
                 </HeaderContent>
 
                 <RowTemplate Context="RowContext">
-                    <MudTd DataLabel="Name">@RowContext.Name</MudTd>
+                    <MudTd DataLabel="Name" Class="mt-1 mb-1">
+                        @RowContext.Name
+                    </MudTd>
                     @if (Action == "managable")
                     {
                         <MudTd>

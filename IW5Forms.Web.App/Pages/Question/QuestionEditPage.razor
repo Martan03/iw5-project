@@ -7,6 +7,21 @@
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
     <MudText Typo="Typo.h4" GutterBottom="true">Question editor</MudText>
 
+    @{
+        if (Data is null)
+        {
+            <MudGrid Justify="Justify.Center" Class="mt-3">
+                <MudItem>
+                    <MudProgressCircular
+                        Color="Color.Primary"
+                        Indeterminate="true"
+                    />
+                </MudItem>
+            </MudGrid>
+            return;
+        }
+    }
+
     <MudForm Model="@Data" Valid="isValid" ValidationDelay="100">
         <MudTextField
             Class="mb-4"
