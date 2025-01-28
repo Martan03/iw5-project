@@ -93,13 +93,22 @@ public partial class FormFillPage
 
     private void CanAddQuestions(string? FormOwnerId, AuthenticationState? authenticationState)
     {
-        //string ?userName = null;
-        //var userClaims= authenticationState?.User.Claims;
-        //    foreach (var userClaim in userClaims)
-        //    {
-        //        var val = (userClaim.Issuer == "username" ? userClaim.Value : null);
-        //    }
+        string? username = null;
+        var userClaims = authenticationState?.User.Claims;
+        foreach (var userClaim in userClaims)
+        {
+            if (userClaim.Type == "username")
+            {
+                username = userClaim.Value;
+                break;
+            }
 
-        //UserCanAddQuestions = val == FormOwnerId;
+            if (userClaim.Type == "role" && userClaim.Value == "admin")
+            {
+                UserCanAddQuestions = true;
+                return;
+            }
+        }
+        UserCanAddQuestions = username == FormOwnerId;
     }
 }

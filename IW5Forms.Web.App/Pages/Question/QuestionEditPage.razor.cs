@@ -49,7 +49,7 @@ public partial class QuestionEditPage
     public async Task Save()
     {
         await QuestionFacade.SaveAsync(Data);
-        navigationManager.NavigateTo($"/form/{Data.FormId}");
+        navigationManager.NavigateTo($"/form/id/{Data.FormId}");
     }
 
     public static string TypeToString(QuestionTypes type) {
