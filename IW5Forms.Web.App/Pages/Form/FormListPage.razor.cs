@@ -93,6 +93,7 @@ public partial class FormListPage
     public async Task Delete(Guid id)
     {
         await FormFacade.DeleteAsync(id);
+        Forms = Forms.Where(f => f.Id != id).ToList();
         StateHasChanged();
     }
 }

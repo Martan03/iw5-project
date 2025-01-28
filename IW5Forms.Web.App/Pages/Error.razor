@@ -1,0 +1,31 @@
+@page "/error"
+@page "/error/{code}"
+
+<PageTitle>@(Code ?? "Error")</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h3" Class="mb-2 mt-2">
+            Error @(Code ?? "")
+    </MudText>
+
+    @switch (Code)
+    {
+        case "401":
+            <MudText>You do not have permission to access this page.</MudText>
+            break;
+        case "404":
+            <MudText>Page not found.</MudText>
+            break;
+        case "500":
+            <MudText>Internal server error. Please try again later.</MudText>
+            break;
+        default:
+            <MudText>An unexpected error occurred.</MudText>
+            break;
+    }
+</MudContainer>
+
+@code {
+    [Parameter]
+    public string? Code { get; init; } = null;
+}
