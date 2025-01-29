@@ -161,10 +161,10 @@ public class QuestionFacadeTests
         questionMock.Setup(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()));
 
         // Act
-        questionMock.Object.CreateOrUpdate(questionModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString(), true);
+        questionMock.Object.CreateOrUpdate(questionModel, Guid.Parse("53171385-BFFD-4A2A-4661-08DD16E533FD").ToString(), false);
 
         // Assert
-        questionMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Once);
+        questionMock.Verify(f => f.ThrowIfWrongOwner(It.IsAny<Guid>(), It.IsAny<string?>()), Times.Never);
         repoMock.Verify(
             questionRepo => questionRepo.Update(questionEntity),
             Times.Once
